@@ -1,0 +1,30 @@
+.navbar {
+    background-color: #FF5E1F;
+}
+
+#sub-navbar {
+    height: 42px;
+}
+
+#sub-navbar ul li a {
+    color: #3B1002;
+}
+
+
+#search {
+    border: none;
+}
+
+#brand-logo{ 
+    height:30px;
+}
+
+.search {
+    border-top-right-radius: 0em;
+    border-bottom-right-radius: 0em;
+}
+
+.search-btn {
+    border-top-left-radius: 0em;
+    border-bottom-left-radius: 0em;
+}

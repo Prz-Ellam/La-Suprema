@@ -1,0 +1,24 @@
+body {
+    background-color: #F0D5CC;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.is-valid {
+    outline: 1px solid #79b18f;
+}
+
+.is-invalid {
+    outline: 1px solid #de4f54;
+}
+
+#caps-lock {
+    visibility: hidden;
+}
+
+.form-control.is-valid {
+    background-image: url("../Assets/Icons/check-circle-solid.svg");
+}
+
+.form-control.is-invalid {
+    background-image: url("../Assets/Icons/exclamation-circle-solid.svg");
+}

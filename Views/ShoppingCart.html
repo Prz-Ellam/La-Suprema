@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>La suprema</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&family=Roboto:ital,wght@0,400;1,500&display=swap" rel="stylesheet">
+    
+    <!-- Boostrap -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.1/css/bootstrap.min.css" integrity="sha512-T584yQ/tdRR5QwOpfvDfVQUidzfgc2339Lc8uBDtcp/wYu80d7jwBgAxbyMh0a9YM9F8N3tdErpFI8iaGx6x5g==" crossorigin="anonymous" referrerpolicy="no-referrer">
+
+    <link rel="stylesheet" href="CSS/Navbar.css">
+    <link rel="stylesheet" href="CSS/ShoppingCart.css">
+</head>
+<body>
+
+    <header class="fixed-top">
+        <nav class="navbar navbar-expand-md navbar-dark scrolling-navbar">
+
+            <a class="navbar-brand" href="index.html"><img src="Assets/Images/brand-logo.png" id="brand-logo"></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapse">
+                <i class="fa fa-bars"></i>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbar-collapse">
+
+                <form class="form-inline my-2 my-lg-0 mx-lg-auto mx-sm-0">
+                    <input type="search" class="form-control search shadow-none" id="search" placeholder="Buscar productos">
+                    <button class="btn bg-white search-btn shadow-none" type="submit"><i class="fas fa-search text-secondary"></i></button>
+                  
+                </form>
+
+                <!-- ml-auto alinea los elementos a la derecha -->
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item mx-2">
+                        <a href="Registration.html" class="primary-nav-item nav-link text-white font-weight-bold">
+                            <i class="fa fa-sign-in mr-2"></i>Registrarse
+                        </a>
+                    </li>
+                    <li class="nav-item mx-2">
+                        <a href="Login.html" class="primary-nav-item nav-link text-white font-weight-bold">
+                            <i class="fas fa-solid fa-user mr-2"></i>Iniciar sesión
+                        </a>
+                    </li>
+                    <li class="nav-item mx-2">
+                        <a href="ShoppingCart.html" class="primary-nav-item nav-link text-white font-weight-bold">
+                            <i class="fas fa-shopping-cart mr-2"></i>Carrito
+                            <span class="text-white font-weight-bold">(0)</span>
+                        </a>
+                    </li>
+                </ul>
+
+            </div>
+        </nav>
+        <nav class="navbar navbar-expand-md bg-light shadow-sm" id="sub-navbar">
+
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#subnavbar-collapse">
+                <i class="fa fa-bars"></i>
+            </button>
+
+            <div class="collapse navbar-collapse" id="subnavbar-collapse">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link mx-2" href="index.html">
+                            Inicio
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link mx-2" href="Login.html">
+                            Contacto
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link mx-2" href="AboutUs.html">
+                            Nosotros
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link mx-2" href="BranchOffices.html">
+                            Sucursales
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+        </nav>
+    </header>
+
+    <div class="table-responsive mt-5">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col" class="border-0 bg-light">Producto</th>
+                    <th scope="col" class="border-0 bg-light">Precio</th>
+                    <th scope="col" class="border-0 bg-light">Cantidad</th>
+                    <th scope="col" class="border-0 bg-light">Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Lorem Ipsum</td>
+                    <td>Lorem Ipsum</td>
+                    <td>Lorem Ipsum</td>
+                    <td>Lorem Ipsum</td>
+                </tr>
+                <tr>
+                    <td>Lorem Ipsum</td>
+                    <td>Lorem Ipsum</td>
+                    <td>Lorem Ipsum</td>
+                    <td>Lorem Ipsum</td>
+                </tr>
+                <tr>
+                    <td>Lorem Ipsum</td>
+                    <td>Lorem Ipsum</td>
+                    <td>Lorem Ipsum</td>
+                    <td>Lorem Ipsum</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+
+    
+    <!-- jQuery -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    
+    <!-- Validate -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js" integrity="sha512-37T7leoNS06R80c8Ulq7cdCDU5MNQBwlYoy1TX/WUsLFC2eYNqtKlV0QjH7r8JpG/S0GUMZwebnVFLPd6SU5yg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    
+    <!-- Popper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+            
+    <!-- Bootstrap -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.1/js/bootstrap.min.js" integrity="sha512-UR25UO94eTnCVwjbXozyeVd6ZqpaAE9naiEUBK/A+QDbfSTQFhPGj5lOR6d8tsgbBk84Ggb5A3EkjsOgPRPcKA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+            
+    <!-- Font Awesome -->
+    <script src="https://kit.fontawesome.com/48ce36e499.js" crossorigin="anonymous"></script>
+    
+    <!-- Js -->
+    <script src="JS/ShoppingCart.js"></script>
+</body>
+</html>

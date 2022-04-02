@@ -1,0 +1,182 @@
+html, body, header {
+    scroll-behavior: smooth;
+}
+
+body {
+    background-color: #F0D5CC;
+    font-family: 'Montserrat', sans-serif;
+}
+
+@font-face {
+    font-family: bello;
+    src: url(../Assets/Fonts/Bello-Script.ttf);
+}
+  
+.brand-logo {
+    font-family: bello, sans-serif;
+    font-size: 2em;
+    font-weight: bold;
+    color: #C3603F;
+    color: #FFFFFF;
+}
+
+.navbar {
+    background-color: #FF5E1F;
+}
+
+.orange {
+    background-color: #FF5E1F;
+    border: 1px solid #FF5E1F;
+    font-size: 22px;
+}
+
+.orange:hover {
+    background-color: #c44817;
+    border: 1px solid #c44817;
+}
+
+#sub-navbar {
+    height: 42px;
+}
+
+#sub-navbar ul li a {
+    color: #3B1002;
+}
+
+
+#search {
+    border: none;
+}
+
+#brand-logo{ 
+    height:30px;
+}
+
+.product-card {
+    width: 215px;
+    height: 350px;
+    border-radius: 16px;
+    box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+
+.prueb {
+    color: #3B1002;
+}
+
+.primary-nav-item:hover {
+    cursor: pointer;
+    border-radius: 1rem;
+    background-color: #3b100240;
+    transition: background-color 200ms linear;
+}
+
+.footer {
+    background-color: #3B1002;
+}
+
+.brown {
+    color: #3B1002;
+}
+
+.btn-cart {
+    background-color: #FF5E1F;
+    border-color: #FF5E1F;
+}
+
+.price {
+    font-size: 24px;
+    color: #3B1002;
+}
+
+.car-prueba:hover {
+    box-shadow: 0 0 1.5em rgba(0,0,0,0.25)
+}
+
+.social-media {
+    font-size: 1.5em;
+}
+
+
+.nav-link i {
+    font-size: 1.2em;
+}
+
+.car-prueba img {
+    transition: 0.5s;
+}
+
+.car-prueba img:hover {
+    transform: scale(1.1);
+}
+
+#section1 {
+    width: 95%;
+}
+
+.search {
+    border-top-right-radius: 0em;
+    border-bottom-right-radius: 0em;
+}
+
+.search-btn {
+    border-top-left-radius: 0em;
+    border-bottom-left-radius: 0em;
+}
+
+.cta {
+    z-index: 100;
+}
+
+.img-wrapper {
+    position: relative;
+  }
+  
+  .img-responsive {
+    width: 100%;
+    height: auto;
+  }
+  
+  .img-overlay {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    text-align: center;
+  }
+  
+  .img-overlay:before {
+    content: ' ';
+    display: block;
+    /* adjust 'height' to position overlay content vertically */
+    height: 15%;
+  }
+
+
+
+
+.hero-title {
+    font-family: bello, sans-serif;
+    color: #3B1002;
+    font-size: 96px;
+}
+
+.hero-paragraph {
+    font-size: 3em;
+}
+
+.supremo {
+    font-weight: 800;
+    font-size: 2em;
+}
+
+.cte-container {
+    width: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.asdf {
+    border-radius: 8px;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.25);
+}

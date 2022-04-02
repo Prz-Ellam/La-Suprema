@@ -1,0 +1,104 @@
+
+body {
+    background-color: #F0D5CC;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.navbar {
+    background-color: #FF5E1F;
+}
+
+.success-icon {
+    color:rgb(121, 177, 143);
+    position: absolute;
+    visibility: hidden;
+    font-size: 18px;
+    top: 10px;
+    right: 10px;
+    z-index: 200;
+}
+
+.error-icon {
+    color:rgb(222, 79, 84);
+    position: absolute;
+    visibility: hidden;
+    font-size: 18px;
+    top: 10px;
+    right: 10px;
+    z-index: 200;
+}
+
+#show-password, #show-confirmpassword {
+    cursor: pointer;
+    position: absolute;
+    visibility: visible;
+    font-size: 18px;
+    z-index: 200;
+    top: 10px;
+    right: 30px;
+}
+
+#hide-password, #hide-confirmpassword {
+    cursor: pointer;
+    position: absolute;
+    visibility: hidden;
+    font-size: 18px;
+    z-index: 200;
+    top: 10px;
+    right: 40px;
+}
+
+#btn-login {
+    background-color: #FF5E1F;
+    border-color: #FF5E1F;
+}
+
+.input-group {
+    position: relative;
+    width: auto;
+    display: flex;
+    margin: auto;
+    align-items: center;
+    justify-content: center;
+}
+
+.form-label {
+    cursor: pointer;
+    font-size: 0.875rem;
+}
+
+.form-control {
+    border: none;
+    outline: 1px solid grey;
+    transition: outline 100ms linear;
+    z-index: 100;
+}
+
+.form-control:focus {
+    outline: 1px solid #FF5E1F;
+    transition: outline 100ms linear;
+}
+
+.is-valid {
+    outline: 1px solid #79b18f;
+}
+
+.is-invalid {
+    outline: 1px solid #de4f54;
+}
+
+.footer {
+    background-color: #3B1002;
+}
+
+#caps-lock {
+    visibility: hidden;
+}
+
+.form-control.is-valid {
+    background-image: url("../Assets/Icons/check-circle-solid.svg");
+}
+
+.form-control.is-invalid {
+    background-image: url("../Assets/Icons/exclamation-circle-solid.svg");
+}
