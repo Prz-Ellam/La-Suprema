@@ -13,10 +13,10 @@ if (isset($_POST['name']) && $_POST['email'] && isset($_POST['password']) && $_P
     $response = mysqli_query($connection, $query);
 
     if ($response) {
-        echo json_encode(array("success" => 1));
+        echo json_encode(array("success" => true));
     }
     else {
-        echo json_encode(array("success" => 0));
+        echo json_encode(array("success" => false));
     }
 
 } 

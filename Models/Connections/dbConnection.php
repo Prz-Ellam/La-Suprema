@@ -1,0 +1,33 @@
+<?php
+
+class DBConnection {
+
+    private $domain = "localhost";
+    private $name = "root";
+    private $password = "root";
+    private $database = "la_suprema";
+    protected $connection;
+
+    public function __construct() {
+
+        $connectionString = "mysql:hos=".$this->domain.";dbname=".$this->database.";charset=utf8";
+
+        try {
+            $this->connection = new PDO($connectionString, $this->name, $this->password);
+            $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        }
+        catch (Exception $ex) {
+            echo $ex->getMessage();
+        }
+
+    }
+
+    public function getConnection() {
+
+        return $connection;
+
+    }
+
+}
+
+?>
