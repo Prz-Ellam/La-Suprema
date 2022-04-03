@@ -12,7 +12,6 @@ if (isset($_POST['name']) && $_POST['email'] && isset($_POST['password']) && $_P
     $query = "INSERT INTO users(email, password, username) VALUES('$email', '$password', '$username')";
     $response = mysqli_query($connection, $query);
 
-
     if ($response) {
         echo json_encode(array("success" => 1));
     }
