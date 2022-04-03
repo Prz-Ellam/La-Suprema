@@ -43,6 +43,11 @@ body {
     color: #3B1002;
 }
 
+footer {
+    color: #391113 !important;
+    background-color: #391113 !important;
+}
+
 
 #search {
     border: none;
@@ -60,8 +65,12 @@ body {
 }
 
 
-.prueb {
-    color: #3B1002;
+.prueb, .text-brown {
+    color: #391113;
+}
+
+.text-cream {
+    color:  #F0D5CC;
 }
 
 .primary-nav-item:hover {
@@ -72,11 +81,11 @@ body {
 }
 
 .footer {
-    background-color: #3B1002;
+    background-color: #391113;
 }
 
 .brown {
-    color: #3B1002;
+    color: #391113;
 }
 
 .btn-cart {
