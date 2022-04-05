@@ -5,15 +5,17 @@ $.ajax({
     url: '../Controllers/GetProductsController.php'
 }).done(function(data) {
 
+    let sellers = data.sellers;
 
-    for (let i = 0; i < data.length; i++) {
+
+    for (let i = 0; i < sellers.length; i++) {
 
         const html = `
         <div class="item">
             <div class="text-center car-prueba p-4 m-4 rounded">
-                <a href="#"><img src="Assets/Images/${data[i].image}" class="p-3"></a>
-                <p class="font-weight-bold price mb-0">$${data[i].price}</p>
-                <p class="mb-3">${data[i].name}</p>
+                <a href="#"><img src="Assets/Images/${sellers[i].image}" class="p-3"></a>
+                <p class="font-weight-bold price mb-0">$${sellers[i].price}</p>
+                <p class="mb-3">${sellers[i].name}</p>
                 <button class="btn btn-primary shadow-none btn-cart">Agregar al carrito</button>
             </div>
         </div>
@@ -21,12 +23,28 @@ $.ajax({
 
         $('#sellers').append(html);
 
-        //$('#sellers').owlCarousel('add', html).owlCarousel('update');
-        //$('#sellers').trigger('add.owl.carousel', [$(html), 0]).trigger('refresh.owl.carousel');
-
     }
 
-    
+
+
+    let recents = data.recents;
+
+    for (let i = 0; i < sellers.length; i++) {
+
+        const html = `
+        <div class="item">
+            <div class="text-center car-prueba p-4 m-4 rounded">
+                <a href="#"><img src="Assets/Images/${recents[i].image}" class="p-3"></a>
+                <p class="font-weight-bold price mb-0">$${recents[i].price}</p>
+                <p class="mb-3">${recents[i].name}</p>
+                <button class="btn btn-primary shadow-none btn-cart">Agregar al carrito</button>
+            </div>
+        </div>
+        `;
+
+        $('#recents').append(html);
+
+    }
 
 
 

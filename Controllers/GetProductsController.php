@@ -5,13 +5,24 @@ include($_SERVER['DOCUMENT_ROOT']."/La-Suprema/Models/DAO/ProductDAO.php");
 $dao = new ProductDAO();
 $products = $dao->ReadAll();
 
-$array = [];
+$recents = [];
 foreach($products as $product) {
 
-    $array[] = $product->expose();
+    $recents[] = $product->expose();
 
 }
 
-echo json_encode($array);
+
+$products = $dao->ReadSellerProducts();
+
+$sellers = [];
+foreach($products as $product) {
+
+    $sellers[] = $product->expose();
+
+}
+
+
+echo json_encode(array("recents" => $recents, "sellers" => $sellers));
 
 ?>
