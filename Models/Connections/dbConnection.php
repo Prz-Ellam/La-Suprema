@@ -6,7 +6,7 @@ class DBConnection {
     private $name = "root";
     private $password = "root";
     private $database = "la_suprema";
-    protected $connection;
+    private $connection;
 
     public function __construct() {
 
@@ -22,9 +22,9 @@ class DBConnection {
 
     }
 
-    public function getConnection() {
+    protected function getConnection() {
 
-        return $connection;
+        return $this->connection;
 
     }
 

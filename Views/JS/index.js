@@ -1,3 +1,43 @@
+$.ajax({
+    method: "GET",
+    async: false,
+    dataType: "json",
+    url: '../Controllers/GetProductsController.php'
+}).done(function(data) {
+
+
+    for (let i = 0; i < data.length; i++) {
+
+        const html = `
+        <div class="item">
+            <div class="text-center car-prueba p-4 m-4 rounded">
+                <a href="#"><img src="Assets/Images/${data[i].image}" class="p-3"></a>
+                <p class="font-weight-bold price mb-0">$${data[i].price}</p>
+                <p class="mb-3">${data[i].name}</p>
+                <button class="btn btn-primary shadow-none btn-cart">Agregar al carrito</button>
+            </div>
+        </div>
+        `;
+
+        $('#sellers').append(html);
+
+        //$('#sellers').owlCarousel('add', html).owlCarousel('update');
+        //$('#sellers').trigger('add.owl.carousel', [$(html), 0]).trigger('refresh.owl.carousel');
+
+    }
+
+    
+
+
+
+
+
+}).fail(function(jqXHR, state) {
+    console.log("Ups...algo salio mal: " + state);
+});
+
+
+
 $(document).ready(function() {
 
     let headerHeight = $('header').height();

@@ -1,10 +1,23 @@
 $(document).ready(function() {
 
-    $('#login-form').submit(function() {
+    $('#login-form').submit(function(e) {
+
+        e.preventDefault();
 
         if($('#login-form').valid() === false) {
             return;
         }
+
+        $.ajax({
+            data: $(this).serialize(),
+            method: "POST",
+            dataType: "json",
+            url: '../Controllers/LoginController.php'
+        }).done(function(data) {
+            alert(data.success);
+        }).fail(function(jqXHR, state) {
+            alert("Ups...algo salio mal: " + state);
+        });
 
     });
 

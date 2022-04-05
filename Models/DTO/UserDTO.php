@@ -8,9 +8,9 @@ class UserDTO {
 
     public function __construct($username, $email, $password) {
 
-        $this->$username = $username;
-        $this->$email = $email;
-        $this->$password = $password;
+        $this->username = $username;
+        $this->email = $email;
+        $this->password = $password;
 
     }
 
@@ -22,7 +22,7 @@ class UserDTO {
 
     public function setUsername($username) {
 
-        $this->$username = $username;
+        $this->username = $username;
 
     }
 
@@ -34,7 +34,7 @@ class UserDTO {
 
     public function setEmail($email) {
 
-        $this->$email = $email;
+        $this->email = $email;
 
     }
 
@@ -46,7 +46,7 @@ class UserDTO {
 
     public function setPassword($password) {
 
-        $this->$password = $password;
+        $this->password = $password;
 
     }
 

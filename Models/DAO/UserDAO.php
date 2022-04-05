@@ -1,6 +1,6 @@
 <?php
 
-include("../Connections/MainConnection.php");
+include($_SERVER['DOCUMENT_ROOT']."/La-Suprema/Models/Connections/MainConnection.php");
 
 class UserDAO {
 
@@ -8,18 +8,37 @@ class UserDAO {
     private $update;
     private $delete;
     private $readAll;
+    private $login;
     private $mainConnection;
 
     public function __construct() {
 
-        $mainConnection = new MainConnection();
+        $this->mainConnection = new MainConnection();
 
-        $insert = "INSERT INTO users VALUES(?, ?, ?);";
+        $this->insert = "INSERT INTO users(username, email, password) VALUES(?, ?, ?)";
+        $this->login = "SELECT username FROM users WHERE email = ? AND password = ?";
 
 
-        echo "Hola Mundo";
-        
+    }
 
+    public function SignIn($username, $email, $password) {
+
+        $parameters = array($username, $email, $password);
+        $this->mainConnection->executeNonQuery($this->insert, $parameters);
+
+    }
+
+    public function LogIn($email, $password) {
+
+        $parameters = array($email, $password);
+        $execute = $this->mainConnection->executeReader($this->login, $parameters);
+
+        if ($row = $execute->fetch()) {
+            return $row["username"];
+        }
+        else {
+            return null;
+        }
 
 
     }
