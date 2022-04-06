@@ -3,6 +3,9 @@ $(document).ready(function() {
     let headerHeight = $('header').height();
     $('body').css('padding-top', parseFloat( headerHeight - 5));
 
+
+
+    // Validaciones en tiempo real
     $('#name').focus(function() {
         $('#name').removeClass('is-invalid').removeClass('is-valid');
         $("#name-error-label").remove();
@@ -32,7 +35,6 @@ $(document).ready(function() {
             $('#email').addClass('is-valid').removeClass('is-invalid');
         }
     });
-
 
     $('#password').focus(function() {
         $('#password').removeClass('is-invalid').removeClass('is-valid');
@@ -66,37 +68,56 @@ $(document).ready(function() {
 
 
 
+    // Reglas de validaciones
+    $.validator.addMethod('vUsername', function(value, element, parameter) {
+        return this.optional(element) || /^[a-zA-Z0-9]([._-](?![._-])|[a-zA-Z0-9]){3,18}[a-zA-Z0-9]$/.test(value);
+    }, 'invalido');
 
+    $.validator.addMethod('realEmail', function(value, element, parameter) {
+        return this.optional(element) || /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(value);
+    }, 'invalido');
+
+    $.validator.addMethod('confirmPass', function(value, element, parameter) {
+        return this.optional(element) || $('#password').val() == value;
+    }, 'invalido');
 
     $('#signup-form').validate({
         rules: {
             name: {
-                required: true
+                required: true,
+                vUsername: true
             },
             email: {
                 required: true,
-                email: true
+                email: true,
+                realEmail: true
             },
             password: {
-                required: true
+                required: true,
+                minlength: 6
             },
             confirmpassword: {
-                required: true
+                required: true,
+                confirmPass: true
             }
         },
         messages: {
             name: {
-                required: 'El nombre no puede estar vacío.'
+                required: 'El nombre de usuario no puede estar vacío.',
+                vUsername: 'El nombre de usuario no es válido'
             },
             email: {
                 required: 'El correo electrónico no puede estar vacío',
-                email: 'El correo electrónico que ingresó no es válido.'
+                email: 'El correo electrónico que ingresó no es válido.',
+                realEmail: 'El correo electrónico que ingresó no es válido.'
             },
             password: {
-                required: 'La contraseña no puede estar vacía.'
+                required: 'La contraseña no puede estar vacía.',
+                minlength: 'Por favor ingrese al menos 6 caracteres'
             },
             confirmpassword: {
-                required: 'Confirmar contraseña no puede estar vacío.'
+                required: 'Confirmar contraseña no puede estar vacío.',
+                confirmPass: 'Parece que la contraseña no coincide'
             }
         },
         errorElement: 'small',
@@ -105,6 +126,9 @@ $(document).ready(function() {
         }
     });
 
+
+
+    // Submit
     $('#signup-form').submit(function(e) {
 
         e.preventDefault();
@@ -131,6 +155,27 @@ $(document).ready(function() {
 
     });
 
+    $('#btn-facebook').on('click', function() {
+        $.ajax({
+            data: $(this).serialize(),
+            method: "POST",
+            dataType: "json",
+            url: '../config.php'
+        }).done(function(data) {
+            if (data.success) {
+                window.location.href = data.link;
+            }
+            else {
+                console.log('Error con la API de Facebook');
+            }
+        }).fail(function(jqXHR, state) {
+            alert("Ups...algo salio mal: " + state);
+        });
+    })
+
+
+
+    // Caps Lock
     document.addEventListener("keyup", function(event) {
         if (event.getModifierState("CapsLock")) {
            $('#caps-lock').css('visibility', 'visible');
@@ -138,6 +183,5 @@ $(document).ready(function() {
             $('#caps-lock').css('visibility', 'hidden');
         }
     });
-
 
 });

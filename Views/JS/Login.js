@@ -1,5 +1,7 @@
 $(document).ready(function() {
 
+    let passErrorCount = 0;
+
     $('#email').focus(function() {
         $('#email').removeClass('is-invalid').removeClass('is-valid');
         $("#email-error-label").remove();

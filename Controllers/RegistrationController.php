@@ -8,7 +8,6 @@ if (isset($_POST['name']) && isset($_POST['email']) && isset($_POST['password'])
     $password = $_POST["password"];
     $confirmPassword = $_POST["confirmpassword"];
 
-
     $dao = new UserDAO();
     $dao->SignIn($username, $email, $password);
 
