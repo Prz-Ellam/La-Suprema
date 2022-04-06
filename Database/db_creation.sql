@@ -23,11 +23,14 @@ CREATE TABLE products(
     price					DECIMAL(10, 2) NOT NULL,
     discount				DECIMAL(10, 2),
     image					VARCHAR(255) NOT NULL,
+    category_id				INT NOT NULL,
+    rate					INT NOT NULL DEFAULT 0,
     created_at				TIMESTAMP DEFAULT NOW(),
 	modified_at             TIMESTAMP,
     active					BOOLEAN DEFAULT TRUE,
     
-    PRIMARY KEY (product_id)
+    PRIMARY KEY (product_id),
+	CONSTRAINT Chk_rates CHECK (rate BETWEEN 0 AND 5)
 );
 
 DROP TABLE IF EXISTS categories;
@@ -77,15 +80,7 @@ SELECT * FROM orders;
 SELECT * FROM products;
 SELECT * FROM shoppings;
 
-INSERT INTO orders(user_id)
-VALUES(1);
 
-INSERT INTO shoppings(order_id, product_id, quantity, amount)
-VALUES(1, 4, 2, 600.00);
-INSERT INTO shoppings(order_id, product_id, quantity, amount)
-VALUES(1, 8, 1, 360.00);
-INSERT INTO shoppings(order_id, product_id, quantity, amount)
-VALUES(1, 3, 4, 1000.00);
 
 
 
@@ -146,35 +141,229 @@ CREATE TABLE cart_items(
 
 SELECT * FROM users;
 SELECT * FROM products;
+SELECT * FROM categories;
+SELECT * FROM orders;
+SELECT * FROM shoppings;
+
+
+
+INSERT INTO categories(name)
+VALUES('Tres leches');
+INSERT INTO categories(name)
+VALUES('Chocolates');
+INSERT INTO categories(name)
+VALUES('Frutas');
+INSERT INTO categories(name)
+VALUES('Nevados');
+INSERT INTO categories(name)
+VALUES('Rollos');
+
+INSERT INTO products(name, price, image, category_id)
+VALUES('Fresas con crema', 297.50, 'IMG001.jpg', 3);
+INSERT INTO products(name, price, image, category_id)
+VALUES('Tres leches combinado', 340.00, 'E001S000032.jpg', 1);
+INSERT INTO products(name, price, image, category_id)
+VALUES('Tentación de frutas', 250.50, 'E001S011649.jpg', 3);
+INSERT INTO products(name, price, image, category_id)
+VALUES('Bambino tentación de fresas', 300.00, 'E001S007866.jpg', 3);
+INSERT INTO products(name, price, image, category_id)
+VALUES('Pastel Zebra', 339.00, 'E001S000431.jpg', 2);
+INSERT INTO products(name, price, image, category_id)
+VALUES('Pastel Cubano', 305.00, 'E001S000026.jpg', 2);
+INSERT INTO products(name, price, image, category_id)
+VALUES('Pastel Combinado', 238.00, 'E001S000033.jpg', 2);
+INSERT INTO products(name, price, image, category_id)
+VALUES('Pastel Bombon', 360.00, 'E001S001626.jpg', 2);
+INSERT INTO products(name, price, image, category_id)
+VALUES('Pastel Aleman', 262.00, 'E001S014186.jpg', 2);
+INSERT INTO products(name, price, image, category_id)
+VALUES('Pastel de 3 Leches de Fresa', 368.00, 'E001S000031.jpg', 1);
+INSERT INTO products(name, price, image, category_id)
+VALUES('Pastel nevado de Oreo', 339.00, 'E001S014930.jpg', 4);
+INSERT INTO products(name, price, image, category_id)
+VALUES('Pastel nevado de Fresa', 339.00, 'E001S014507.jpg', 4);
+-- INSERT INTO products(name, price, image, category_id)
+-- VALUES('Pastel mechudo', 181.00, 'E001S000035.jpg', 5);
+
+
+INSERT INTO orders(user_id)
+VALUES(1);
+
+INSERT INTO shoppings(order_id, product_id, quantity, amount)
+VALUES(1, 3, 1, 250.00);
+INSERT INTO shoppings(order_id, product_id, quantity, amount)
+VALUES(1, 9, 1, 262.00);
+INSERT INTO shoppings(order_id, product_id, quantity, amount)
+VALUES(1, 9, 1, 262.00);
+INSERT INTO shoppings(order_id, product_id, quantity, amount)
+VALUES(1, 5, 1, 339.00);
+
+INSERT INTO orders(user_id)
+VALUES(2);
+
+INSERT INTO shoppings(order_id, product_id, quantity, amount)
+VALUES(2, 10, 1, 339.00);
+INSERT INTO shoppings(order_id, product_id, quantity, amount)
+VALUES(2, 11, 1, 339.00);
+
+
+/*
+INSERT INTO shoppings(order_id, product_id, quantity, amount)
+VALUES(1, 4, 2, 600.00);
+INSERT INTO shoppings(order_id, product_id, quantity, amount)
+VALUES(1, 8, 1, 360.00);
+INSERT INTO shoppings(order_id, product_id, quantity, amount)
+VALUES(1, 3, 4, 1000.00);
+*/
+
+SELECT products.name FROM shoppings
+JOIN orders
+ON orders.order_id = shoppings.order_id
+RIGHT JOIN products
+ON shoppings.product_id = products.product_id
+WHERE orders.user_id = 1;
 
 
 
 
-CALL sp_GetProducts();
 
-INSERT INTO products(name, price, image)
-VALUES('Fresas con crema', 297.50, 'IMG001.jpg');
 
-INSERT INTO products(name, price, image)
-VALUES('Tres leches combinado', 340.00, 'E001S000032.jpg');
 
-INSERT INTO products(name, price, image)
-VALUES('Tentación de frutas', 250.50, 'E001S011649.jpg');
+SELECT products.name, categories.name
+FROM categories
+LEFT JOIN products
+ON categories.category_id = products.category_id;
 
-INSERT INTO products(name, price, image)
-VALUES('Bambino tentación de fresas', 300.00, 'E001S007866.jpg');
+SELECT categories.name, COUNT(*)
+FROM categories
+LEFT JOIN products
+ON categories.category_id = products.category_id 
+GROUP BY categories.name;
 
-INSERT INTO products(name, price, image)
-VALUES('Pastel Zebra', 339.00, 'E001S000431.jpg');
+SELECT*FROM shoppings;
 
-INSERT INTO products(name, price, image)
-VALUES('Pastel Cubano', 305.00, 'E001S000026.jpg');
 
-INSERT INTO products(name, price, image)
-VALUES('Pastel Combinado', 238.00, 'E001S000033.jpg');
+USE `la_suprema`;
+CREATE OR REPLACE VIEW `vw_GetByUsers` AS
 
-INSERT INTO products(name, price, image)
-VALUES('Pastel Bombon', 360.00, 'E001S001626.jpg');
+SELECT COUNT(0) FROM shoppings
+INNER JOIN orders
+ON shoppings.order_id = orders.order_id AND orders.user_id = 1
+ WHERE orders.user_id = 1;
+
+
+-- Ya quedo
+SELECT categories.name, COUNT(shoppings.shopping_id) AS Total, 
+COUNT(shoppings.shopping_id) / 
+(SELECT COUNT(shoppings.shopping_id) FROM shoppings 
+INNER JOIN orders ON shoppings.order_id = orders.order_id AND orders.user_id = 1) AS Porcentaje
+FROM products
+INNER JOIN shoppings
+ON products.product_id = shoppings.product_id
+INNER JOIN orders
+ON shoppings.order_id = orders.order_id AND orders.user_id = 1
+RIGHT JOIN categories
+ON categories.category_id = products.category_id
+GROUP BY categories.name
+ORDER BY Total DESC;
+
+
+DROP VIEW IF EXISTS `BestSellersForUser`;
+CREATE VIEW `BestSellersForUser` AS
+SELECT products.name, products.price, products.image, 
+IFNULL(COUNT(shoppings.product_id) * shoppings.quantity, 0) AS Cantidad, 
+IFNULL(COUNT(shoppings.product_id) * shoppings.quantity, 0) / (SELECT COUNT(shoppings.product_id) FROM shoppings) AS Porcentaje,
+categories.name AS category FROM products
+INNER JOIN categories
+ON categories.category_id = products.category_id
+LEFT JOIN shoppings
+ON products.product_id = shoppings.product_id
+GROUP BY  products.name
+ORDER BY IFNULL(COUNT(shoppings.product_id) * shoppings.quantity, 0) DESC;
+
+
+
+DROP TEMPORARY TABLE IF EXISTS categories_percentage;
+CREATE TEMPORARY TABLE categories_percentage
+SELECT categories.name, COUNT(shoppings.shopping_id) AS Total, 
+COUNT(shoppings.shopping_id) / (SELECT COUNT(shoppings.shopping_id) 
+FROM shoppings 
+INNER JOIN orders ON shoppings.order_id = orders.order_id AND orders.user_id = 1) AS Porcentaje
+FROM products
+INNER JOIN shoppings
+ON products.product_id = shoppings.product_id
+INNER JOIN orders
+ON shoppings.order_id = orders.order_id AND orders.user_id = 1
+RIGHT JOIN categories
+ON categories.category_id = products.category_id
+GROUP BY categories.name
+ORDER BY Total DESC;
+
+select bestsellers.name, bestsellers.price, bestsellers.image, (categories_percentage.porcentaje + bestsellers.porcentaje) / 2.0 AS TotalPorcentaje from bestsellers
+JOIN categories_percentage
+ON categories_percentage.name = bestsellers.category
+ORDER BY TotalPorcentaje DESC;
+
+
+
+USE `la_suprema`;
+DROP procedure IF EXISTS `sp_GetUserRecomendations`;
+
+USE `la_suprema`;
+DROP procedure IF EXISTS `sp_GetUserRecomendations`;
+
+DELIMITER $$
+USE `la_suprema`$$
+CREATE PROCEDURE `sp_GetUserRecomendations` (IN _user_id INT)
+BEGIN
+DROP TEMPORARY TABLE IF EXISTS categories_percentage;
+CREATE TEMPORARY TABLE categories_percentage
+SELECT categories.name, COUNT(shoppings.shopping_id) AS Total, 
+COUNT(shoppings.shopping_id) / (SELECT COUNT(shoppings.shopping_id) 
+FROM shoppings 
+INNER JOIN orders ON shoppings.order_id = orders.order_id AND orders.user_id = _user_id) AS Porcentaje
+FROM products
+INNER JOIN shoppings
+ON products.product_id = shoppings.product_id
+INNER JOIN orders
+ON shoppings.order_id = orders.order_id AND orders.user_id = _user_id
+RIGHT JOIN categories
+ON categories.category_id = products.category_id
+GROUP BY categories.name
+ORDER BY Total DESC;
+
+select bestsellers.name, bestsellers.price, bestsellers.image, (categories_percentage.porcentaje + bestsellers.porcentaje) / 2.0 AS TotalPorcentaje from bestsellers
+JOIN categories_percentage
+ON categories_percentage.name = bestsellers.category
+ORDER BY TotalPorcentaje DESC;
+
+END$$
+
+DELIMITER ;
+
+
+
+
+
+
+
+
+
+SELECT COUNT(shoppings.product_id) FROM shoppings;
+
+DROP VIEW IF EXISTS `BestSellers`;
+CREATE VIEW `BestSellers` AS
+SELECT products.name, products.price, products.image, 
+IFNULL(COUNT(shoppings.product_id) * shoppings.quantity, 0) AS Cantidad, 
+IFNULL(COUNT(shoppings.product_id) * shoppings.quantity, 0) / (SELECT COUNT(shoppings.product_id) FROM shoppings) AS Porcentaje,
+categories.name AS category FROM products
+INNER JOIN categories
+ON categories.category_id = products.category_id
+LEFT JOIN shoppings
+ON products.product_id = shoppings.product_id
+GROUP BY  products.name
+ORDER BY IFNULL(COUNT(shoppings.product_id) * shoppings.quantity, 0) DESC
+LIMIT 0, 12;
 
 
 
@@ -202,7 +391,8 @@ BEGIN
 SELECT product_id, name, price, image
 FROM products
 WHERE active = TRUE
-ORDER BY created_at DESC, product_id DESC;
+ORDER BY created_at DESC, product_id DESC
+LIMIT 0, 12;
 
 END$$
 
@@ -211,7 +401,7 @@ DELIMITER ;
 
 
 
-
+/*
 
 USE `la_suprema`;
 DROP procedure IF EXISTS `sp_GetProducts`;
@@ -229,7 +419,7 @@ END$$
 
 DELIMITER ;
 
-
+*/
 
 
 
@@ -245,7 +435,8 @@ SELECT products.name, products.price, products.image, IFNULL(COUNT(shoppings.pro
 LEFT JOIN shoppings
 ON products.product_id = shoppings.product_id
 GROUP BY  products.name
-ORDER BY IFNULL(COUNT(shoppings.product_id) * shoppings.quantity, 0) DESC;
+ORDER BY IFNULL(COUNT(shoppings.product_id) * shoppings.quantity, 0) DESC
+LIMIT 0, 12;
 
 END$$
 

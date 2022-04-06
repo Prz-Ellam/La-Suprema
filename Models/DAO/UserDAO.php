@@ -16,7 +16,7 @@ class UserDAO {
         $this->mainConnection = new MainConnection();
 
         $this->insert = "INSERT INTO users(username, email, password) VALUES(?, ?, ?)";
-        $this->login = "SELECT username FROM users WHERE email = ? AND password = ?";
+        $this->login = "SELECT user_id, username FROM users WHERE email = ? AND password = ?";
 
 
     }
@@ -34,7 +34,7 @@ class UserDAO {
         $execute = $this->mainConnection->executeReader($this->login, $parameters);
 
         if ($row = $execute->fetch()) {
-            return $row["username"];
+            return [$row["user_id"], $row["username"]];
         }
         else {
             return null;

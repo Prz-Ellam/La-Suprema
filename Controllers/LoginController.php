@@ -12,7 +12,20 @@ if (isset($_POST["email"]) && isset($_POST["password"])) {
     $result = $dao->LogIn($email, $password);
 
 
-    echo json_encode(array("success" => $result));
+    if ($result != null) {
+        session_start();
+
+        $_SESSION["user_id"] = $result[0];
+        $_SESSION["username"] = $result[1];
+        
+        echo json_encode(array("success" => true));
+
+    }
+    else {
+        echo json_encode(array("success" => false));
+    }
+
+
 /*
     if ($response) {
         echo json_encode(array("success" => true));

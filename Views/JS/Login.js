@@ -14,7 +14,12 @@ $(document).ready(function() {
             dataType: "json",
             url: '../Controllers/LoginController.php'
         }).done(function(data) {
-            alert(data.success);
+            if(data.success) {
+                window.location.href = "index.html";
+            }
+            else {
+                // Poner validaciones
+            }
         }).fail(function(jqXHR, state) {
             alert("Ups...algo salio mal: " + state);
         });

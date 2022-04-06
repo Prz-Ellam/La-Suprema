@@ -2,6 +2,8 @@
 
 include($_SERVER['DOCUMENT_ROOT']."/La-Suprema/Models/DAO/ProductDAO.php");
 
+session_start();
+
 $dao = new ProductDAO();
 $products = $dao->ReadAll();
 
@@ -22,7 +24,18 @@ foreach($products as $product) {
 
 }
 
+$interest = [];
+if (isset($_SESSION["username"])) {
 
-echo json_encode(array("recents" => $recents, "sellers" => $sellers));
+    $products = $dao->ReadUserFavorites($_SESSION["user_id"]);
+
+    foreach($products as $product) {
+        $interest[] = $product->expose();
+    }
+
+} 
+
+
+echo json_encode(array("recents" => $recents, "sellers" => $sellers, "recomendations" => $interest));
 
 ?>

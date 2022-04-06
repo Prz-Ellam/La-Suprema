@@ -2,11 +2,51 @@ $.ajax({
     method: "GET",
     async: false,
     dataType: "json",
+    url: '../Controllers/VerifySession.php'
+}).done(function(data) {
+
+    if (data.success) {
+        const html = `
+        <li class="nav-item ml-2">
+            <a href="../Controllers/CloseSession.php" class="primary-nav-item nav-link text-white font-weight-bold">
+                <i class="fas fa-solid fa-user mr-2"></i>Perfil
+            </a>
+        </li> 
+        `;
+
+        $('#orange-navbar').prepend(html);
+    }
+    else {
+        const html = `
+            <li class="nav-item ml-2">
+                <a href="Registration.html" class="primary-nav-item nav-link text-white font-weight-bold">
+                    <i class="fa fa-sign-in mr-2"></i>Registrarse
+                </a>
+            </li>
+            <li class="nav-item ml-2">
+                <a href="Login.html" class="primary-nav-item nav-link text-white font-weight-bold">
+                    <i class="fas fa-solid fa-user mr-2"></i>Iniciar sesión
+                </a>
+            </li>
+        `;
+
+        $('#orange-navbar').prepend(html);
+    }
+
+}).fail(function(jqXHR, state) {
+    console.log("Ups...algo salio mal: " + state);
+});
+
+
+
+$.ajax({
+    method: "GET",
+    async: false,
+    dataType: "json",
     url: '../Controllers/GetProductsController.php'
 }).done(function(data) {
 
     let sellers = data.sellers;
-
 
     for (let i = 0; i < sellers.length; i++) {
 
@@ -26,10 +66,9 @@ $.ajax({
     }
 
 
-
     let recents = data.recents;
 
-    for (let i = 0; i < sellers.length; i++) {
+    for (let i = 0; i < recents.length; i++) {
 
         const html = `
         <div class="item">
@@ -47,7 +86,27 @@ $.ajax({
     }
 
 
+    let recomendations = data.recomendations;
+    if (recomendations.length !== 0) {
+        $('#container-recomendations').removeClass('d-none');
+    }
 
+    for (let i = 0; i < recomendations.length; i++) {
+
+        const html = `
+        <div class="item">
+            <div class="text-center car-prueba p-4 m-4 rounded">
+                <a href="#"><img src="Assets/Images/${recomendations[i].image}" class="p-3"></a>
+                <p class="font-weight-bold price mb-0">$${recomendations[i].price}</p>
+                <p class="mb-3">${recomendations[i].name}</p>
+                <button class="btn btn-primary shadow-none btn-cart">Agregar al carrito</button>
+            </div>
+        </div>
+        `;
+
+        $('#recomendations').append(html);
+
+    }
 
 
 }).fail(function(jqXHR, state) {
