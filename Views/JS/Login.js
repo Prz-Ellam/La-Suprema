@@ -1,31 +1,5 @@
 $(document).ready(function() {
 
-    $('#login-form').submit(function(e) {
-
-        e.preventDefault();
-
-        if($('#login-form').valid() === false) {
-            return;
-        }
-
-        $.ajax({
-            data: $(this).serialize(),
-            method: "POST",
-            dataType: "json",
-            url: '../Controllers/LoginController.php'
-        }).done(function(data) {
-            if(data.success) {
-                window.location.href = "index.html";
-            }
-            else {
-                // Poner validaciones
-            }
-        }).fail(function(jqXHR, state) {
-            alert("Ups...algo salio mal: " + state);
-        });
-
-    });
-
     $('#email').focus(function() {
         $('#email').removeClass('is-invalid').removeClass('is-valid');
         $("#email-error-label").remove();
@@ -104,6 +78,32 @@ $(document).ready(function() {
         errorPlacement: function(error, element) {
             error.insertAfter(element.parent()).addClass('text-danger').addClass('form-text').attr('id', element[0].id + '-error-label');
         }
+    });
+
+    $('#login-form').submit(function(e) {
+
+        e.preventDefault();
+
+        if($('#login-form').valid() === false) {
+            return;
+        }
+
+        $.ajax({
+            data: $(this).serialize(),
+            method: "POST",
+            dataType: "json",
+            url: '../Controllers/LoginController.php'
+        }).done(function(data) {
+            if(data.success) {
+                window.location.href = "index.html";
+            }
+            else {
+                error.insertAfter(element.parent()).addClass('text-danger').addClass('form-text').attr('id', element[0].id + '-error-label');
+            }
+        }).fail(function(jqXHR, state) {
+            alert("Ups...algo salio mal: " + state);
+        });
+
     });
 
     document.addEventListener("keyup", function(event) {

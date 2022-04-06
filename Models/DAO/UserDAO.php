@@ -1,6 +1,6 @@
 <?php
-
 include($_SERVER['DOCUMENT_ROOT']."/La-Suprema/Models/Connections/MainConnection.php");
+include($_SERVER['DOCUMENT_ROOT']."/La-Suprema/Models/DTO/UserDTO.php");
 
 class UserDAO {
 
@@ -23,7 +23,9 @@ class UserDAO {
 
     public function SignIn($username, $email, $password) {
 
-        $parameters = array($username, $email, $password);
+        $passwordHashed = password_hash($password, PASSWORD_DEFAULT);
+
+        $parameters = array($username, $email, $passwordHashed);
         $this->mainConnection->executeNonQuery($this->insert, $parameters);
 
     }
@@ -34,18 +36,16 @@ class UserDAO {
         $execute = $this->mainConnection->executeReader($this->login, $parameters);
 
         if ($row = $execute->fetch()) {
-            return [$row["user_id"], $row["username"]];
+            $user = new UserDTO();
+            $user->setUserID($row["user_id"]);
+            $user->setUsername($row["username"]);
+            return $user;
         }
         else {
             return null;
         }
 
-
     }
 
-
-
-
 }
-
 ?>

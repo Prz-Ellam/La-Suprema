@@ -2,21 +2,30 @@
 
 class UserDTO {
 
+    private $userID;
     private $username;
     private $email;
     private $password;
 
-    public function __construct($username, $email, $password) {
+    public function __construct() {
 
-        $this->username = $username;
-        $this->email = $email;
-        $this->password = $password;
+    }
+
+    public function getUserID() {
+
+        return $this->userID;
+
+    }
+
+    public function setUserID($userID) {
+
+        $this->userID = $userID;
 
     }
 
     public function getUsername() {
 
-        return $username;
+        return $this->username;
 
     }
 
@@ -28,7 +37,7 @@ class UserDTO {
 
     public function getEmail() {
 
-        return $email;
+        return $this->email;
 
     }
 
@@ -40,7 +49,7 @@ class UserDTO {
 
     public function getPassword() {
 
-        return $password;
+        return $this->password;
 
     }
 

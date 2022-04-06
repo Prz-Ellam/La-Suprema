@@ -1,5 +1,4 @@
-<?php 
-
+<?php
 include($_SERVER['DOCUMENT_ROOT']."/La-Suprema/Models/Connections/dbConnection.php");
 
 class MainConnection extends DBConnection {
@@ -7,7 +6,17 @@ class MainConnection extends DBConnection {
     public function executeNonQuery($query, $parameters) {
 
         $prepareStatement = $this->getConnection()->prepare($query);
-        return $prepareStatement->execute($parameters);
+
+        if (!$prepareStatement->execute($parameters)) {
+            $prepareStatement = null;
+            header("location:../../index.php?error=stmtfailed");
+            exit();
+        }
+
+        $rowCount = $prepareStatement->rowCount();
+        $prepareStatement = null;
+
+        return $rowCount;
 
     }
 
@@ -19,7 +28,5 @@ class MainConnection extends DBConnection {
         
     }
 
-
 }
-
 ?>

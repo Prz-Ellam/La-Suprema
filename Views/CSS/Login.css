@@ -1,11 +1,14 @@
-
 body {
     background-color: #F0D5CC;
     font-family: 'Montserrat', sans-serif;
 }
 
 .navbar {
-    background-color: #FF5E1F;
+    position: absolute;
+    display: inline-block;
+    width: 100%;
+    height: 30%;
+    z-index: -10;
 }
 
 .success-icon {
@@ -53,6 +56,17 @@ body {
     border-color: #FF5E1F;
 }
 
+#btn-login:hover {
+    background-color: #CA4C1B;
+    border-color: #CA4C1B;
+}
+
+#btn-login:active {
+    background-color: #bd491b;
+    border-color: #bd491b;
+}
+
+
 .input-group {
     position: relative;
     width: auto;
@@ -62,9 +76,9 @@ body {
     justify-content: center;
 }
 
+
 .form-label {
     cursor: pointer;
-    font-size: 0.875rem;
 }
 
 .form-control {
@@ -79,16 +93,35 @@ body {
     transition: outline 100ms linear;
 }
 
+.form {
+    filter: drop-shadow(1px 1px 4px rgba(0, 0, 0, 0.25));
+}
+
+.custom-checkbox .custom-control-input:checked ~ .custom-control-label::before {
+    background-color: #FF5E1F!important;
+    border: none;
+    outline: none;
+  }
+  
+  .custom-checkbox .custom-control-input:checked:focus ~ .custom-control-label::before {
+    box-shadow: none;
+  }
+  .custom-checkbox .custom-control-input:focus ~ .custom-control-label::before {
+    box-shadow: none;
+  }
+  .custom-checkbox .custom-control-input:active ~ .custom-control-label::before {
+    background-color: #fdb092; 
+  }
+
+
+
+
 .is-valid {
     outline: 1px solid #79b18f;
 }
 
 .is-invalid {
     outline: 1px solid #de4f54;
-}
-
-.footer {
-    background-color: #3B1002;
 }
 
 #caps-lock {

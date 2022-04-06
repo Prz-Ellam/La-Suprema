@@ -1,5 +1,4 @@
-<?php 
-
+<?php
 include($_SERVER['DOCUMENT_ROOT']."/La-Suprema/Models/DAO/ProductDAO.php");
 
 session_start();
@@ -37,5 +36,4 @@ if (isset($_SESSION["username"])) {
 
 
 echo json_encode(array("recents" => $recents, "sellers" => $sellers, "recomendations" => $interest));
-
 ?>

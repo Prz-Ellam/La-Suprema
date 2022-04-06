@@ -33,6 +33,41 @@ $(document).ready(function() {
         }
     });
 
+
+    $('#password').focus(function() {
+        $('#password').removeClass('is-invalid').removeClass('is-valid');
+        $("#password-error-label").remove();
+    });
+
+    $('#password').blur(function() {
+        let validator = $("#signup-form").validate();
+        if (validator.element("#password") === false) {
+            $('#password').addClass('is-invalid').removeClass('is-valid');
+        }
+        else {
+            $('#password').addClass('is-valid').removeClass('is-invalid');
+        }
+    });
+
+    $('#confirmpassword').focus(function() {
+        $('#confirmpassword').removeClass('is-invalid').removeClass('is-valid');
+        $("#confirmpassword-error-label").remove();
+    });
+
+    $('#confirmpassword').blur(function() {
+        let validator = $("#signup-form").validate();
+        if (validator.element("#confirmpassword") === false) {
+            $('#confirmpassword').addClass('is-invalid').removeClass('is-valid');
+        }
+        else {
+            $('#confirmpassword').addClass('is-valid').removeClass('is-invalid');
+        }
+    });
+
+
+
+
+
     $('#signup-form').validate({
         rules: {
             name: {
@@ -61,7 +96,7 @@ $(document).ready(function() {
                 required: 'La contraseña no puede estar vacía.'
             },
             confirmpassword: {
-                required: 'La contraseña no puede estar vacía.'
+                required: 'Confirmar contraseña no puede estar vacío.'
             }
         },
         errorElement: 'small',
@@ -95,5 +130,14 @@ $(document).ready(function() {
         });
 
     });
+
+    document.addEventListener("keyup", function(event) {
+        if (event.getModifierState("CapsLock")) {
+           $('#caps-lock').css('visibility', 'visible');
+        } else {
+            $('#caps-lock').css('visibility', 'hidden');
+        }
+    });
+
 
 });

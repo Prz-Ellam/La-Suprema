@@ -6,7 +6,7 @@ require_once($_SERVER['DOCUMENT_ROOT']."/La-Suprema/Models/DTO/ProductDTO.php");
 class ProductDAO {
 
     private $create, $update, $delete, $readAll, $sellers, $recomendations;
-    private $connection;
+    private $mainConnection;
 
     public function __construct() {
 
@@ -20,7 +20,7 @@ class ProductDAO {
 
     public function ReadAll() {
 
-        $result = $this->connection->executeReader($this->readAll, null);
+        $result = $this->mainConnection->executeReader($this->readAll, null);
 
         $products = [];
         while ($row = $result->fetch()) {
@@ -41,7 +41,7 @@ class ProductDAO {
 
     public function ReadSellerProducts() {
 
-        $result = $this->connection->executeReader($this->sellers, null);
+        $result = $this->mainConnection->executeReader($this->sellers, null);
 
         $products = [];
         while ($row = $result->fetch()) {
@@ -63,7 +63,7 @@ class ProductDAO {
     public function ReadUserFavorites($userID) {
 
         $parameters = array($userID);
-        $result = $this->connection->executeReader($this->recomendations, $parameters);
+        $result = $this->mainConnection->executeReader($this->recomendations, $parameters);
 
         $products = [];
         while ($row = $result->fetch()) {

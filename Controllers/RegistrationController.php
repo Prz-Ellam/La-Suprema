@@ -1,5 +1,4 @@
 <?php
-
 include($_SERVER['DOCUMENT_ROOT']."/La-Suprema/Models/DAO/UserDAO.php");
 
 if (isset($_POST['name']) && isset($_POST['email']) && isset($_POST['password']) && isset($_POST['confirmpassword'])) {
@@ -27,5 +26,4 @@ if (isset($_POST['name']) && isset($_POST['email']) && isset($_POST['password'])
 else {
     echo json_encode(array("success" => 0));
 }
-
 ?>

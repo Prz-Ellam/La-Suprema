@@ -1,5 +1,4 @@
 <?php
-
 class DBConnection {
 
     private $domain = "localhost";
@@ -15,6 +14,7 @@ class DBConnection {
         try {
             $this->connection = new PDO($connectionString, $this->name, $this->password);
             $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $this->connection->setAttribute(\PDO::ATTR_DEFAULT_FETCH_MODE, \PDO::FETCH_ASSOC);
         }
         catch (Exception $ex) {
             echo $ex->getMessage();
@@ -29,5 +29,4 @@ class DBConnection {
     }
 
 }
-
 ?>
