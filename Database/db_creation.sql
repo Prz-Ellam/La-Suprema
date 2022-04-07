@@ -100,10 +100,25 @@ ORDER BY Cantidad DESC;
 
 
 
+USE `la_suprema`;
+DROP procedure IF EXISTS `sp_ProductsFilter`;
 
+DELIMITER $$
+USE `la_suprema`$$
+CREATE PROCEDURE `sp_ProductsFilter` (IN _filter VARCHAR(200), IN _metaphone_filter VARCHAR(200))
+BEGIN
+SELECT products.* FROM products 
+JOIN categories
+ON categories.category_id = products.category_id
+WHERE products.name LIKE CONCAT('%', _filter, '%')
+OR products.sounds_like LIKE CONCAT('%', _metaphone_filter, '%')
+OR categories.name LIKE CONCAT('%', _filter, '%');
 
+END$$
 
+DELIMITER ;
 
+CALL sp_ProductsFilter('Paxtel');
 
 
 
@@ -208,6 +223,8 @@ INSERT INTO products(name, price, image, category_id, sounds_like)
 VALUES('Rollo de mango', 240.00, 'E001S000496.jpg', 5, 'RLTMNK');
 INSERT INTO products(name, price, image, category_id, sounds_like)
 VALUES('Tentación de mango', 389.00, 'E001S011648.jpg', 3, 'TNTSNTMNK');
+INSERT INTO products(name, price, image, category_id, sounds_like)
+VALUES('Pastel nevado de nuez', 339.00, 'E001S014478.jpg', 4, 'PSTLNFTTNS');
 -- INSERT INTO products(name, price, image, category_id)
 -- VALUES('Pastel mechudo', 181.00, 'E001S000035.jpg', 5);
 
@@ -475,8 +492,43 @@ CALL sp_GetSellersProducts();
 
 
 
+USE `la_suprema`;
+DROP procedure IF EXISTS `sp_GetCategories`;
 
+DELIMITER $$
+USE `la_suprema`$$
+CREATE PROCEDURE `sp_GetCategories` (IN _user_id INT)
+BEGIN
 
+IF (_user_id <= 0) THEN
 
+SELECT categories.name, categories.image
+FROM categories
+LEFT JOIN products
+ON categories.category_id = products.category_id
+LEFT JOIN shoppings
+ON shoppings.product_id = products.product_id
+GROUP BY categories.name
+ORDER BY  COUNT(shoppings.product_id) DESC;
 
+ELSE 
+
+SELECT categories.name, categories.image
+FROM products
+INNER JOIN shoppings
+ON products.product_id = shoppings.product_id
+INNER JOIN orders
+ON shoppings.order_id = orders.order_id AND orders.user_id = _user_id
+RIGHT JOIN categories
+ON categories.category_id = products.category_id
+GROUP BY categories.name
+ORDER BY COUNT(shoppings.shopping_id) / 
+(SELECT COUNT(shoppings.shopping_id) FROM shoppings 
+INNER JOIN orders ON shoppings.order_id = orders.order_id AND orders.user_id = _user_id) DESC;
+
+END IF;
+
+END$$
+
+DELIMITER ;
 

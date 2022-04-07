@@ -5,7 +5,7 @@ require_once($_SERVER['DOCUMENT_ROOT']."/La-Suprema/Models/DTO/ProductDTO.php");
 
 class ProductDAO {
 
-    private $create, $update, $delete, $readAll, $sellers, $recomendations, $shoppingsCount;
+    private $create, $update, $delete, $readAll, $sellers, $recomendations, $shoppingsCount, $productFilter;
     private $mainConnection;
 
     public function __construct() {
@@ -16,6 +16,7 @@ class ProductDAO {
         $this->sellers = "CALL sp_GetSellersProducts()";
         $this->recomendations = "CALL sp_GetUserRecomendations(?)";
         $this->shoppingsCount = "CALL sp_GetShoppingsCount(?)";
+        $this->productFilter = "CALL sp_ProductsFilter(?, ?)";
 
     }
 
@@ -94,6 +95,28 @@ class ProductDAO {
         else {
             return 0;
         }
+
+    }
+
+    public function searchProducts($filter) {
+
+        $parameters = array($filter, metaphone($filter));
+        $execute = $this->mainConnection->executeReader($this->productFilter, $parameters);
+
+        $products = [];
+        while ($row = $execute->fetch()) {
+
+            $element = new ProductDTO();
+
+            $element->setName($row["name"]);
+            $element->setPrice($row["price"]);
+            $element->setImage($row["image"]);
+
+
+            $products[] = $element;
+        }
+
+        return $products;
 
     }
 

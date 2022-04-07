@@ -2,12 +2,6 @@
     background-color: #FF5E1F;
 }
 
-
-
-#sub-navbar {
-    height: 42px;
-}
-
 #sub-navbar ul li a {
     color: #3B1002;
 }
@@ -17,7 +11,7 @@
 }
 
 #brand-logo{ 
-    height:30px;
+    height: 38px;
 }
 
 .search {

@@ -123,7 +123,7 @@ $.ajax({
 $(document).ready(function() {
 
     let headerHeight = $('header').height();
-    $('body').css('padding-top', parseFloat( headerHeight - 5));
+    $('body').css('padding-top', parseFloat( headerHeight - 5 ));
 
     $('.banner').owlCarousel({
         loop: true,
@@ -174,5 +174,38 @@ $(document).ready(function() {
             }
         }
     });
+
+
+    $('#search-box').submit(function(e) {
+
+        e.preventDefault();
+
+        $.ajax({
+            data: $(this).serialize(),
+            method: "GET",
+           // dataType: "json",
+            url: '../Controllers/SearchBox.php'
+        }).done(function(data) {
+        
+            alert(data);
+        
+        }).fail(function(jqXHR, state) {
+            console.log("Ups...algo salio mal: " + state);
+        });
+        
+
+    })
+
+    $('.start-shop').on('click', function() {
+
+        window.location.href = "Collections.html";
+
+    });
+
+
+
+
+
+
 
 });

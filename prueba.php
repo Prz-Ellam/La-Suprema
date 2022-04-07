@@ -18,5 +18,7 @@ echo "<p> '".metaphone("Pastel nevado de Fresa")."' </p>";
 echo "<p> '".metaphone("Rollo de queso con frutos rojos")."' </p>";
 echo "<p> '".metaphone("Rollo de mango")."' </p>";
 echo "<p> '".metaphone("Tentación de mango")."' </p>";
+echo "<p> '".metaphone("Pastel nevado de nuez")."' </p>";
+echo "<p> '".metaphone("Cubano")."' </p>";
 
 ?>
