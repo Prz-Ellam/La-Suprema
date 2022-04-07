@@ -1,3 +1,3 @@
 <?php
-//header("Location:Views/index.html");
+header("Location:Views/index.html");
 ?>

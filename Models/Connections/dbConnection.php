@@ -17,7 +17,7 @@ class DBConnection {
             $this->connection->setAttribute(\PDO::ATTR_DEFAULT_FETCH_MODE, \PDO::FETCH_ASSOC);
         }
         catch (Exception $ex) {
-            echo $ex->getMessage();
+            die($ex->getMessage());
         }
 
     }

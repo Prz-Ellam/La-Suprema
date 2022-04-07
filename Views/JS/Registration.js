@@ -1,3 +1,18 @@
+$.ajax({
+    method: "GET",
+    async: false,
+    dataType: "json",
+    url: '../Controllers/VerifySession.php'
+}).done(function(data) {
+
+    if (data.success) {
+        window.location.href = "index.html";
+    }
+
+}).fail(function(jqXHR, state) {
+    console.log("Ups...algo salio mal: " + state);
+});
+
 $(document).ready(function() {
 
     let headerHeight = $('header').height();
@@ -6,18 +21,18 @@ $(document).ready(function() {
 
 
     // Validaciones en tiempo real
-    $('#name').focus(function() {
-        $('#name').removeClass('is-invalid').removeClass('is-valid');
-        $("#name-error-label").remove();
+    $('#username').focus(function() {
+        $('#username').removeClass('is-invalid').removeClass('is-valid');
+        $("#username-error-label").remove();
     });
 
-    $('#name').blur(function() {
+    $('#username').blur(function() {
         let validator = $("#signup-form").validate();
-        if (validator.element("#name") === false) {
-            $('#name').addClass('is-invalid').removeClass('is-valid');
+        if (validator.element("#username") === false) {
+            $('#username').addClass('is-invalid').removeClass('is-valid');
         }
         else {
-            $('#name').addClass('is-valid').removeClass('is-invalid');
+            $('#username').addClass('is-valid').removeClass('is-invalid');
         }
     });
 
@@ -80,17 +95,55 @@ $(document).ready(function() {
     $.validator.addMethod('confirmPass', function(value, element, parameter) {
         return this.optional(element) || $('#password').val() == value;
     }, 'invalido');
+    
+    $.validator.addMethod('validateEmail', function(value, element, parameter) {
+
+        let result;
+        $.ajax({
+            async: false,
+            data: {"email": $("#email").val()},
+            method: "POST",
+            dataType: "json",
+            url: '../Controllers/ValidateEmail.php'
+        }).done(function(data) {
+            result = !data.result;
+        }).fail(function(jqXHR, state) {
+            alert("Ups...algo salio mal: " + state);
+        });
+
+        return this.optional(element) || result;
+    }, 'invalido');
+
+    $.validator.addMethod('validateUsername', function(value, element, parameter) {
+
+        let result;
+        $.ajax({
+            async: false,
+            data: {"username": $("#username").val()},
+            method: "POST",
+            dataType: "json",
+            url: '../Controllers/ValidateUsername.php'
+        }).done(function(data) {
+            result = !data.result;
+        }).fail(function(jqXHR, state) {
+            alert("Ups...algo salio mal: " + state);
+        });
+
+        return this.optional(element) || result;
+    }, 'invalido');
 
     $('#signup-form').validate({
         rules: {
-            name: {
+            username: {
                 required: true,
-                vUsername: true
+                vUsername: true,
+                validateUsername: true
             },
             email: {
                 required: true,
                 email: true,
-                realEmail: true
+                realEmail: true,
+                validateEmail: true
             },
             password: {
                 required: true,
@@ -102,14 +155,16 @@ $(document).ready(function() {
             }
         },
         messages: {
-            name: {
+            username: {
                 required: 'El nombre de usuario no puede estar vacío.',
-                vUsername: 'El nombre de usuario no es válido'
+                vUsername: 'El nombre de usuario no es válido',
+                validateUsername: 'El nombre de usuario que ingresaste esta siendo utilizado por otra persona'
             },
             email: {
                 required: 'El correo electrónico no puede estar vacío',
                 email: 'El correo electrónico que ingresó no es válido.',
-                realEmail: 'El correo electrónico que ingresó no es válido.'
+                realEmail: 'El correo electrónico que ingresó no es válido.',
+                validateEmail: 'El correo electrónico que ingresaste esta siendo utilizado por otra persona'
             },
             password: {
                 required: 'La contraseña no puede estar vacía.',
@@ -147,7 +202,7 @@ $(document).ready(function() {
                 window.location.href = "index.html";
             }
             else {
-                alert('No se pudo registrar');
+                console.log('No se pudo realizar el registro');
             }
         }).fail(function(jqXHR, state) {
             alert("Ups...algo salio mal: " + state);

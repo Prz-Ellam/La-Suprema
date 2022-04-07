@@ -20,10 +20,6 @@ body {
     color: #FFFFFF;
 }
 
-.navbar {
-    background-color: #FF5E1F;
-}
-
 .orange {
     background-color: #FF5E1F;
     border: 1px solid #FF5E1F;
@@ -75,8 +71,8 @@ footer {
 
 .primary-nav-item:hover {
     cursor: pointer;
-    border-radius: 1rem;
-    background-color: #3b100240;
+    border-radius: 8px;
+    background-color: rgb(59, 16, 2, 0.5);
     transition: background-color 200ms linear;
 }
 
@@ -189,3 +185,4 @@ footer {
     border-radius: 8px;
     box-shadow: 0 0 8px rgba(0, 0, 0, 0.25);
 }
+

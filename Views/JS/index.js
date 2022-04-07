@@ -8,8 +8,13 @@ $.ajax({
     if (data.success) {
         const html = `
         <li class="nav-item ml-2">
-            <a href="../Controllers/CloseSession.php" class="primary-nav-item nav-link text-white font-weight-bold">
+            <a href="Profile.html" class="primary-nav-item nav-link text-white font-weight-bold">
                 <i class="fas fa-solid fa-user mr-2"></i>Perfil
+            </a>
+        </li>
+        <li class="nav-item ml-2">
+            <a href="../Controllers/CloseSession.php" class="primary-nav-item nav-link text-white font-weight-bold">
+                <i class="fas fa-door-open mr-2"></i>Salir
             </a>
         </li> 
         `;
@@ -53,7 +58,7 @@ $.ajax({
         const html = `
         <div class="item">
             <div class="text-center car-prueba p-4 m-4 rounded">
-                <a href="#"><img src="Assets/Images/${sellers[i].image}" class="p-3"></a>
+                <a href="Product.html"><img src="Assets/Images/${sellers[i].image}" class="p-3"></a>
                 <p class="font-weight-bold price mb-0">$${sellers[i].price}</p>
                 <p class="mb-3">${sellers[i].name}</p>
                 <button class="btn btn-primary shadow-none btn-cart">Agregar al carrito</button>
@@ -73,7 +78,7 @@ $.ajax({
         const html = `
         <div class="item">
             <div class="text-center car-prueba p-4 m-4 rounded">
-                <a href="#"><img src="Assets/Images/${recents[i].image}" class="p-3"></a>
+                <a href="Product.html"><img src="Assets/Images/${recents[i].image}" class="p-3"></a>
                 <p class="font-weight-bold price mb-0">$${recents[i].price}</p>
                 <p class="mb-3">${recents[i].name}</p>
                 <button class="btn btn-primary shadow-none btn-cart">Agregar al carrito</button>

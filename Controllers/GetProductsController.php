@@ -26,10 +26,16 @@ foreach($products as $product) {
 $interest = [];
 if (isset($_SESSION["username"])) {
 
-    $products = $dao->ReadUserFavorites($_SESSION["user_id"]);
+    $shoppingsCount = $dao->getShoppingsCount($_SESSION["user_id"]);
 
-    foreach($products as $product) {
-        $interest[] = $product->expose();
+    if ($shoppingsCount > 0) {
+
+        $products = $dao->ReadUserFavorites($_SESSION["user_id"]);
+        
+        foreach($products as $product) {
+            $interest[] = $product->expose();
+        }
+        
     }
 
 } 

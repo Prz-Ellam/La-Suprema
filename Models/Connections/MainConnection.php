@@ -5,18 +5,24 @@ class MainConnection extends DBConnection {
 
     public function executeNonQuery($query, $parameters) {
 
-        $prepareStatement = $this->getConnection()->prepare($query);
+        try {
+            
+            $prepareStatement = $this->getConnection()->prepare($query);
+            $prepareStatement->execute($parameters);
 
-        if (!$prepareStatement->execute($parameters)) {
+            $rowCount = $prepareStatement->rowCount();
             $prepareStatement = null;
-            header("location:../../index.php?error=stmtfailed");
-            exit();
+
+            return $rowCount;
+
         }
+        catch (PDOException $ex) {
 
-        $rowCount = $prepareStatement->rowCount();
-        $prepareStatement = null;
+            echo $ex->getMessage();
 
-        return $rowCount;
+            return -1;
+
+        }
 
     }
 

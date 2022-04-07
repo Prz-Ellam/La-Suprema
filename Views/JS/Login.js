@@ -1,3 +1,33 @@
+$.ajax({
+    method: "GET",
+    async: false,
+    dataType: "json",
+    url: '../Controllers/VerifySession.php'
+}).done(function(data) {
+
+    if (data.success) {
+        window.location.href = "index.html";
+    }
+
+}).fail(function(jqXHR, state) {
+    console.log("Ups...algo salio mal: " + state);
+});
+
+$.ajax({
+    data: $(this).serialize(),
+    async: false,
+    method: "POST",
+    dataType: "json",
+    url: '../Controllers/GetCookies.php'
+}).done(function(data) {
+    if(data.cookies) {
+        $('#email').val(data.email);
+        $('#password').val(data.password);
+    }
+}).fail(function(jqXHR, state) {
+    console.log("Ups...algo salio mal: " + state);
+});
+
 $(document).ready(function() {
 
     let passErrorCount = 0;
@@ -57,6 +87,10 @@ $(document).ready(function() {
         $('#password').focus();
     });
 
+    $.validator.addMethod('realEmail', function(value, element, parameter) {
+        return this.optional(element) || /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(value);
+    }, 'invalido');
+
     $('#login-form').validate({
         rules: {
             email: {
@@ -103,7 +137,7 @@ $(document).ready(function() {
                 error.insertAfter(element.parent()).addClass('text-danger').addClass('form-text').attr('id', element[0].id + '-error-label');
             }
         }).fail(function(jqXHR, state) {
-            alert("Ups...algo salio mal: " + state);
+            console.log("Ups...algo salio mal: " + state);
         });
 
     });
@@ -116,22 +150,5 @@ $(document).ready(function() {
         }
     });
 
-
-    function onSignIn(googleUser) {
-        var profile = googleUser.getBasicProfile();
-        console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
-        console.log('Name: ' + profile.getName());
-        console.log('Image URL: ' + profile.getImageUrl());
-        console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
-      }
-
-
-
-
-
-
-
-
-        
 
 });
