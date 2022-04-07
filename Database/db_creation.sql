@@ -491,7 +491,6 @@ CALL sp_GetSellersProducts();
 
 
 
-
 USE `la_suprema`;
 DROP procedure IF EXISTS `sp_GetCategories`;
 

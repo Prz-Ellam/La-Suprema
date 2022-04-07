@@ -10,20 +10,20 @@ if (isset($_SESSION["username"])) {
 
     $results = $dao->getUserFavoriteCategories($_SESSION["user_id"]);
 
-    foreach($result as $results) {
+    foreach($results as $result) {
 
-        $categories[] = $result;
+        $categories[] = $result->expose();
 
     }
 
 }
 else {
 
-    $results = $dao->getCategories();
+    $results = $dao->getCategories(0);
 
-    foreach($result as $results) {
+    foreach($results as $result) {
 
-        $categories[] = $result;
+        $categories[] = $result->expose();
 
     }
 

@@ -2,6 +2,39 @@ $.ajax({
     method: "GET",
     async: false,
     dataType: "json",
+    url: '../Controllers/GetCategoriesController.php'
+}).done(function(data) {
+
+    let categories = data.categories;
+
+    for (let i = 0; i < categories.length; i++) {
+
+        const html = `
+        <div class="item">
+            <div class="text-center car-prueba p-4 m-4 rounded">
+                <a href="#"><img src="Assets/Images/${categories[i].image}" class="p-3"></a>
+                <p class="h4 brown">${categories[i].name}</p>
+            </div>
+        </div>
+        `;
+
+        $('#categories-carousel').append(html);
+        
+    }
+
+}).fail(function(jqXHR, state) {
+    console.log("Ups...algo salio mal: " + state);
+});
+
+
+
+
+
+
+$.ajax({
+    method: "GET",
+    async: false,
+    dataType: "json",
     url: '../Controllers/VerifySession.php'
 }).done(function(data) {
 
