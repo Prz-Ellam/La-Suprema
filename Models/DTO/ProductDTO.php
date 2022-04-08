@@ -43,7 +43,7 @@ class ProductDTO {
 
     public function setDiscount($discount) {
 
-        return $this->discount;
+        $this->discount = $discount;
 
     }
 

@@ -19,15 +19,12 @@ $.ajax({
         `;
 
         $('#categories-carousel').append(html);
-        
+
     }
 
 }).fail(function(jqXHR, state) {
     console.log("Ups...algo salio mal: " + state);
 });
-
-
-
 
 
 
@@ -90,10 +87,13 @@ $.ajax({
 
         const html = `
         <div class="item">
-            <div class="text-center car-prueba p-4 m-4 rounded">
-                <a href="Product.html"><img src="Assets/Images/${sellers[i].image}" class="p-3"></a>
-                <p class="font-weight-bold price mb-0">$${sellers[i].price}</p>
-                <p class="mb-3">${sellers[i].name}</p>
+            <div class="text-center car-prueba p-4 m-4 rounded">` +
+            (sellers[i].discount !== null ? `<p class="bg-danger text-white p-3 rounded-circle font-weight-bold h4"style="position: absolute; z-index:100; top:5%; left: 5%">${sellers[i].discount * 100}%</p>` : '') +
+            `<a href="Product.html"><img src="Assets/Images/${sellers[i].image}" class="p-3"></a>` +
+                (sellers[i].discount === null ? `<p class="font-weight-bold price mb-0">$${sellers[i].price}</p>`
+                : `<del class="font-weight-bold mb-0 h6 color-secondary">$${sellers[i].price}</del>
+                   <p class="font-weight-bold price mb-0">$${(sellers[i].price - sellers[i].price * sellers[i].discount).toFixed(2)}</p>`) + 
+                `<p class="mb-3">${sellers[i].name}</p>
                 <button class="btn btn-primary shadow-none btn-cart">Agregar al carrito</button>
             </div>
         </div>
@@ -110,16 +110,41 @@ $.ajax({
 
         const html = `
         <div class="item">
-            <div class="text-center car-prueba p-4 m-4 rounded">
-                <a href="Product.html"><img src="Assets/Images/${recents[i].image}" class="p-3"></a>
-                <p class="font-weight-bold price mb-0">$${recents[i].price}</p>
-                <p class="mb-3">${recents[i].name}</p>
+            <div class="text-center car-prueba p-4 m-4 rounded">` + 
+            (recents[i].discount !== null ? `<p class="bg-danger text-white p-3 rounded-circle font-weight-bold h4"style="position: absolute; z-index:100; top:5%; left: 5%">${recents[i].discount * 100}%</p>` : '') +
+            `<a href="Product.html"><img src="Assets/Images/${recents[i].image}" class="p-3"></a>` +
+                (recents[i].discount === null ? `<p class="font-weight-bold price mb-0">$${recents[i].price}</p>`
+                : `<del class="font-weight-bold mb-0 h6 color-secondary">$${recents[i].price}</del>
+                   <p class="font-weight-bold price mb-0">$${(recents[i].price - recents[i].price * recents[i].discount).toFixed(2)}</p>`) + 
+                `<p class="mb-3">${recents[i].name}</p>
                 <button class="btn btn-primary shadow-none btn-cart">Agregar al carrito</button>
             </div>
         </div>
         `;
 
         $('#recents').append(html);
+
+    }
+
+    let offers = data.offers;
+
+    for (let i = 0; i < offers.length; i++) {
+
+        const html = `
+        <div class="item">
+            <div class="text-center car-prueba p-4 m-4 rounded">` + 
+            (offers[i].discount !== null ? `<p class="bg-danger text-white p-3 rounded-circle font-weight-bold h4"style="position: absolute; z-index:100; top:5%; left: 5%">${offers[i].discount * 100}%</p>` : '') +
+            `<a href="Product.html"><img src="Assets/Images/${offers[i].image}" class="p-3"></a>` +
+                (offers[i].discount === null ? `<p class="font-weight-bold price mb-0">$${offers[i].price}</p>`
+                : `<del class="font-weight-bold mb-0 h6 color-secondary">$${offers[i].price}</del>
+                   <p class="font-weight-bold price mb-0">$${(offers[i].price - offers[i].price * offers[i].discount).toFixed(2)}</p>`) + 
+                `<p class="mb-3">${offers[i].name}</p>
+                <button class="btn btn-primary shadow-none btn-cart">Agregar al carrito</button>
+            </div>
+        </div>
+        `;
+
+        $('#offers').append(html);
 
     }
 
@@ -133,10 +158,13 @@ $.ajax({
 
         const html = `
         <div class="item">
-            <div class="text-center car-prueba p-4 m-4 rounded">
-                <a href="#"><img src="Assets/Images/${recomendations[i].image}" class="p-3"></a>
-                <p class="font-weight-bold price mb-0">$${recomendations[i].price}</p>
-                <p class="mb-3">${recomendations[i].name}</p>
+            <div class="text-center car-prueba p-4 m-4 rounded">` + 
+            (recomendations[i].discount !== null ? `<p class="bg-danger text-white p-3 rounded-circle font-weight-bold h4"style="position: absolute; z-index:100; top:5%; left: 5%">${recomendations[i].discount * 100}%</p>` : '') +
+            `<a href="Product.html"><img src="Assets/Images/${recomendations[i].image}" class="p-3"></a>` +
+                (recomendations[i].discount === null ? `<p class="font-weight-bold price mb-0">$${recomendations[i].price}</p>`
+                : `<del class="font-weight-bold mb-0 h6 color-secondary">$${recomendations[i].price}</del>
+                   <p class="font-weight-bold price mb-0">$${(recomendations[i].price - recomendations[i].price * recomendations[i].discount).toFixed(2)}</p>`) + 
+                `<p class="mb-3">${recomendations[i].name}</p>
                 <button class="btn btn-primary shadow-none btn-cart">Agregar al carrito</button>
             </div>
         </div>

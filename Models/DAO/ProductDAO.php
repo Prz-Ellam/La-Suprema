@@ -5,7 +5,8 @@ require_once($_SERVER['DOCUMENT_ROOT']."/La-Suprema/Models/DTO/ProductDTO.php");
 
 class ProductDAO {
 
-    private $create, $update, $delete, $readAll, $sellers, $recomendations, $shoppingsCount, $productFilter;
+    private $create, $update, $delete, $readAll, $sellers, $recomendations, $shoppingsCount, $productFilter,
+    $offerProducts;
     private $mainConnection;
 
     public function __construct() {
@@ -17,6 +18,7 @@ class ProductDAO {
         $this->recomendations = "CALL sp_GetUserRecomendations(?)";
         $this->shoppingsCount = "CALL sp_GetShoppingsCount(?)";
         $this->productFilter = "CALL sp_ProductsFilter(?, ?)";
+        $this->offerProducts = "CALL sp_GetOfferProducts()";
 
     }
 
@@ -31,6 +33,7 @@ class ProductDAO {
 
             $element->setName($row["name"]);
             $element->setPrice($row["price"]);
+            $element->setDiscount($row["discount"]);
             $element->setImage($row["image"]);
 
 
@@ -52,6 +55,7 @@ class ProductDAO {
 
             $element->setName($row["name"]);
             $element->setPrice($row["price"]);
+            $element->setDiscount($row["discount"]);
             $element->setImage($row["image"]);
 
 
@@ -74,6 +78,29 @@ class ProductDAO {
 
             $element->setName($row["name"]);
             $element->setPrice($row["price"]);
+            $element->setDiscount($row["discount"]);
+            $element->setImage($row["image"]);
+
+
+            $products[] = $element;
+        }
+
+        return $products;
+
+    }
+
+    public function readOfferProducts() {
+
+        $result = $this->mainConnection->executeReader($this->offerProducts, null);
+
+        $products = [];
+        while ($row = $result->fetch()) {
+
+            $element = new ProductDTO();
+
+            $element->setName($row["name"]);
+            $element->setPrice($row["price"]);
+            $element->setDiscount($row["discount"]);
             $element->setImage($row["image"]);
 
 

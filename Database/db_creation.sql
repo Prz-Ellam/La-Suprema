@@ -21,7 +21,7 @@ CREATE TABLE products(
 	product_id				INT NOT NULL AUTO_INCREMENT,
     name					VARCHAR(60) NOT NULL,
     price					DECIMAL(10, 2) NOT NULL,
-    discount				DECIMAL(10, 2),
+    discount				DECIMAL(10, 2) NOT NULL,
     image					VARCHAR(255) NOT NULL,
     category_id				INT NOT NULL,
     rate					INT NOT NULL DEFAULT 0,
@@ -316,7 +316,7 @@ SELECT * FROM BestSellersForUser;
 
 DROP VIEW IF EXISTS `BestSellersForUser`;
 CREATE VIEW `BestSellersForUser` AS
-SELECT products.name, products.price, products.image, 
+SELECT products.name, products.price, products.discount, products.image, 
 IFNULL(COUNT(shoppings.product_id) * shoppings.quantity, 0) AS Cantidad, 
 IFNULL(COUNT(shoppings.product_id) * shoppings.quantity, 0) / (SELECT COUNT(shoppings.product_id) FROM shoppings) AS Porcentaje,
 categories.name AS category FROM products
@@ -375,7 +375,8 @@ ON categories.category_id = products.category_id
 GROUP BY categories.name
 ORDER BY Total DESC;
 
-select BestSellersForUser.name, BestSellersForUser.price, BestSellersForUser.image, (categories_percentage.porcentaje + BestSellersForUser.porcentaje) / 2.0 AS TotalPorcentaje from BestSellersForUser
+select BestSellersForUser.name, BestSellersForUser.price, BestSellersForUser.discount,
+BestSellersForUser.image, (categories_percentage.porcentaje + BestSellersForUser.porcentaje) / 2.0 AS TotalPorcentaje from BestSellersForUser
 JOIN categories_percentage
 ON categories_percentage.name = BestSellersForUser.category
 ORDER BY TotalPorcentaje DESC
@@ -386,7 +387,7 @@ END$$
 DELIMITER ;
 
 
-CALL sp_GetUserRecomendations(2);
+CALL sp_GetUserRecomendations(1);
 
 
 
@@ -432,7 +433,7 @@ USE `la_suprema`$$
 CREATE PROCEDURE `sp_GetProducts` ()
 BEGIN
 
-SELECT product_id, name, price, image
+SELECT product_id, name, products.price, products.discount, products.image
 FROM products
 WHERE active = TRUE
 ORDER BY created_at DESC, product_id DESC
@@ -465,7 +466,7 @@ DELIMITER ;
 
 */
 
-
+CALL sp_GetSellersProducts();
 
 USE `la_suprema`;
 DROP procedure IF EXISTS `sp_GetSellersProducts`;
@@ -475,7 +476,8 @@ USE `la_suprema`$$
 CREATE PROCEDURE `sp_GetSellersProducts` ()
 BEGIN
 
-SELECT products.name, products.price, products.image, IFNULL(COUNT(shoppings.product_id) * shoppings.quantity, 0) AS Cantidad FROM products
+SELECT products.name, products.price, products.discount,
+products.image, IFNULL(COUNT(shoppings.product_id) * shoppings.quantity, 0) AS Cantidad FROM products
 LEFT JOIN shoppings
 ON products.product_id = shoppings.product_id
 GROUP BY  products.name
@@ -487,7 +489,33 @@ END$$
 DELIMITER ;
 
 
-CALL sp_GetSellersProducts();
+
+
+
+USE `la_suprema`;
+DROP procedure IF EXISTS `sp_GetOfferProducts`;
+
+DELIMITER $$
+USE `la_suprema`$$
+CREATE PROCEDURE `sp_GetOfferProducts` ()
+BEGIN
+SELECT name, price, discount, image
+FROM products
+WHERE discount > 0.00
+ORDER BY discount DESC
+LIMIT 12;
+END$$
+
+DELIMITER ;
+
+
+
+
+
+
+
+
+
 
 
 

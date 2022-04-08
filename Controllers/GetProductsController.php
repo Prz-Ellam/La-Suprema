@@ -23,6 +23,15 @@ foreach($products as $product) {
 
 }
 
+$products = $dao->readOfferProducts();
+
+$offers = [];
+foreach($products as $product) {
+
+    $offers[] = $product->expose();
+
+}
+
 $interest = [];
 if (isset($_SESSION["username"])) {
 
@@ -41,5 +50,6 @@ if (isset($_SESSION["username"])) {
 } 
 
 
-echo json_encode(array("recents" => $recents, "sellers" => $sellers, "recomendations" => $interest));
+echo json_encode(array("recents" => $recents, "sellers" => $sellers, 
+"recomendations" => $interest, "offers" => $offers));
 ?>
