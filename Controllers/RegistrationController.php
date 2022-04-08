@@ -1,6 +1,8 @@
 <?php
 include($_SERVER['DOCUMENT_ROOT']."/La-Suprema/Models/DAO/UserDAO.php");
 
+session_start();
+
 $username = $_POST["username"];
 $email = $_POST["email"];
 $password = $_POST["password"];
@@ -11,12 +13,15 @@ if (isset($username) && isset($email) && isset($password) && isset($confirmPassw
     $dao = new UserDAO();
     $result = $dao->SignIn($username, $email, $password);
 
-    if ($result < 0) {
+    if ($result == null) {
 
         echo json_encode(array("success" => false));
 
     }
     else {
+
+        $_SESSION["user_id"] = $result->getUserID();
+        $_SESSION["username"] = $result->getUsername();
 
         echo json_encode(array("success" => true));
 

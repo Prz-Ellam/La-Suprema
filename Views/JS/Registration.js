@@ -15,11 +15,6 @@ $.ajax({
 
 $(document).ready(function() {
 
-    let headerHeight = $('header').height();
-    $('body').css('padding-top', parseFloat( headerHeight - 5));
-
-
-
     // Validaciones en tiempo real
     $('#username').focus(function() {
         $('#username').removeClass('is-invalid').removeClass('is-valid');
@@ -185,14 +180,14 @@ $(document).ready(function() {
         messages: {
             username: {
                 required: 'El nombre de usuario no puede estar vacío.',
-                vUsername: 'El nombre de usuario no es válido',
+                vUsername: 'El nombre de usuario no es válido (Debe contener entre 5 a 20 caracteres que sean letras, números o guiones bajos',
                 validateUsername: 'El nombre de usuario que ingresaste esta siendo utilizado por otra persona'
             },
             email: {
                 required: 'El correo electrónico no puede estar vacío',
                 email: 'El correo electrónico que ingresó no es válido.',
                 realEmail: 'El correo electrónico que ingresó no es válido.',
-                validateEmail: 'El correo electrónico que ingresaste esta siendo utilizado por otra persona'
+                validateEmail: 'El correo electrónico que ingresó ya esta siendo utilizado. ¿Quieres <a href="Login.html"> iniciar sesión</a>?'
             },
             password: {
                 required: 'La contraseña no puede estar vacía.',

@@ -31,6 +31,8 @@ $.ajax({
 
 $(document).ready(function() {
 
+    let counterFails = 0;
+
     $('#email').focus(function() {
         $('#email').removeClass('is-invalid').removeClass('is-valid');
         $("#email-error-label").remove();
@@ -135,6 +137,11 @@ $(document).ready(function() {
                 window.location.href = "index.html";
             }
             else {
+                counterFails++;
+                if (counterFails > 3) {
+                    counterFails = 0;
+                    $('#exampleModal').modal('show');
+                }
                 $("#email-error-label").remove();
                 $('#email').addClass('is-invalid').removeClass('is-valid');
                 $('#email').parent().append('<small class="text-danger form-text" id="email-error-label">El correo o la contraseña que ingreso no son correctos, por favor revise sus credenciales</small>');

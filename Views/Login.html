@@ -7,6 +7,8 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+        <link rel="shortcut icon" href="Assets/Icons/Icon.svg" type="image/x-icon">
+
         <!-- Google Fonts -->
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -25,9 +27,12 @@
     </head>
     <body>
 
-        <header>
-            <nav class="navbar fixed-top"></nav>
+        <header class="text-center">
+            <a class="navbar-brand pt-3" href="index.html"><img src="Assets/Images/Brand-Logo.svg" id="brand-logo"></a>
+            <nav class="navbar fixed-top">            
+            </nav>
         </header>
+    
 
         <div class="container my-4">
 
@@ -76,9 +81,40 @@
         
                         <p class="text-center">¿Aún no tienes cuenta? <br><a href="Registration.html" class="text-decoration-none">Registrate ahora</a></p>
                         
-                        <p class="text-center mt-4"><a href="" class="text-decoration-none">¿Olvidaste tu contraseña?</a></p>
+                        <p class="text-center mt-4"><a href="" class="text-decoration-none" data-toggle="modal" data-target="#exampleModal">¿Olvidaste tu contraseña?</a></p>
 
                     </form>
+
+                    <div class="modal fade " id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                          <div class="modal-content bg-white">
+                            <div class="modal-header">
+                              <h5 class="modal-title font-weight-bold" id="exampleModalLabel">¿Olvidaste tu contraseña?</h5>
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                            </div>
+                            <div class="modal-body">
+                              <p>¡No te preocupes!</p><p>Ingresa tu correo electrónico y te mandaremos un enlace para que puedas reestablecer tu contraseña</p>
+                            
+                              <form>
+                                <div class="form-group mb-4">
+                                    <label class="form-label" for="email">Correo electrónico</label>
+                                    <div class="input-group">
+                                    <input type="email" class="form-control rounded shadow-none" name="email" id="resetEmail" 
+                                        placeholder="correo@ejemplo.com">
+                                    </div>
+                                </div>
+                              </form>
+                            
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                              <button type="button" class="btn btn-primary">Enviar</button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
 
                 </div>
 

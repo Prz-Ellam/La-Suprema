@@ -17,7 +17,7 @@ class UserDAO {
 
         $this->mainConnection = new MainConnection();
 
-        $this->insert = "INSERT INTO users(username, email, password) VALUES(?, ?, ?)";
+        $this->insert = "CALL sp_InsertUser(?, ?, ?)";
         $this->login = "SELECT user_id, username, password FROM users WHERE email = ?";
         $this->emailExists = "SELECT COUNT(*) AS Total FROM users WHERE email = ?";
         $this->usernameExists = "SELECT COUNT(*) AS Total FROM users WHERE username = ?";
@@ -29,7 +29,20 @@ class UserDAO {
         $passwordHashed = password_hash($password, PASSWORD_DEFAULT);
 
         $parameters = array($username, $email, $passwordHashed);
-        return $this->mainConnection->executeNonQuery($this->insert, $parameters);
+        $execute = $this->mainConnection->executeReader($this->insert, $parameters);
+
+        if ($row = $execute->fetch()) {
+
+            $user = new UserDTO();
+            $user->setUserID($row["user_id"]);
+            $user->setUsername($row["username"]);
+            $user->setEmail($email);
+            return $user;
+
+        }
+        else {
+            return null;
+        }
 
     }
 

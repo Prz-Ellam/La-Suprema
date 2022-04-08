@@ -7,7 +7,7 @@ CREATE TABLE users(
 	user_id					INT NOT NULL AUTO_INCREMENT,
     email					VARCHAR(255) UNIQUE NOT NULL,
     password				VARCHAR(200) NOT NULL,
-    username				VARCHAR(18) UNIQUE NOT NULL,
+    username				VARCHAR(20) UNIQUE NOT NULL,
     created_at			    TIMESTAMP DEFAULT NOW(),
     modified_at             TIMESTAMP,
     active					BOOLEAN DEFAULT TRUE,
@@ -268,6 +268,28 @@ ON orders.order_id = shoppings.order_id
 RIGHT JOIN products
 ON shoppings.product_id = products.product_id
 WHERE orders.user_id = 1;
+
+
+
+
+
+USE `la_suprema`;
+DROP procedure IF EXISTS `sp_InsertUser`;
+
+DELIMITER $$
+USE `la_suprema`$$
+CREATE PROCEDURE `sp_InsertUser` (IN _username VARCHAR(18), IN _email VARCHAR(255), IN _password VARCHAR(200))
+BEGIN
+INSERT INTO users(username, email, password) VALUES(_username, _email, _password);
+SELECT user_id, username FROM users WHERE email = _email AND password = _password;
+END$$
+
+DELIMITER ;
+
+
+
+
+
 
 
 
