@@ -23,6 +23,7 @@
     <!-- CSS -->
     <link href="CSS/Navbar.css" rel="stylesheet">
     <link href="CSS/index.css" rel="stylesheet">
+    <link href="CSS/Footer.css" rel="stylesheet">
 
 </head>
 <body>
@@ -47,15 +48,7 @@
                     </div>
                 </form>
 
-                <!-- ml-auto alinea los elementos a la derecha -->
-                <ul class="navbar-nav " id="orange-navbar">
-                    <li class="nav-item ml-2">
-                        <a href="ShoppingCart.html" class="primary-nav-item nav-link text-white font-weight-bold">
-                            <i class="fas fa-shopping-cart mr-2"></i>Carrito
-                            <!--<span class="text-white font-weight-bold">(0)</span>-->
-                        </a>
-                    </li>
-                </ul>
+                <ul class="navbar-nav " id="orange-navbar"></ul>
 
             </div>
         </nav>
@@ -138,98 +131,56 @@
     </section>
 
     <section class="my-5">
-        <div class="container-fluid bg-white asdf section1 d-none" id="container-recomendations">
-
+        <div class="container-fluid bg-white d-none carousel-card" style="width: 90%" id="container-recomendations">
                 <div class="pt-4">
                     <h2 class="text-center h1 font-weight-bold brown">Basado en tus gustos</h2>
                 </div>
-
                 <hr>
-
-                <div class="owl-carousel owl-theme sellers" id="recomendations">
-                </div>
+                <div class="owl-carousel owl-theme sellers" id="recomendations"></div>
         </div>
     </section>
 
-    <section class="m-5">
-        <div class="container-fluid bg-white asdf">
-
+    <section class="my-5">
+        <div class="container-fluid bg-white carousel-card" style="width: 90%">
                 <div class="pt-4">
                     <h2 class="text-center h1 font-weight-bold brown">Categorías</h2>
                 </div>
-
                 <hr>
-
-                <div class="owl-carousel owl-theme sellers" id="categories-carousel">
-                </div>
+                <div class="owl-carousel owl-theme sellers" id="categories-carousel"></div>
             </div>
     </section>
 
 
     <section class="my-5">
-        <div class="container-fluid bg-white asdf section1" id="">
-
+        <div class="container-fluid bg-white carousel-card" style="width: 90%" id="">
                 <div class="pt-4">
                     <h2 class="text-center h1 font-weight-bold brown">Los favoritos de nuestros clientes</h2>
                 </div>
-
                 <hr>
-
-                <div class="owl-carousel owl-theme sellers" id="sellers">
-                </div>
+                <div class="owl-carousel owl-theme sellers" id="sellers"></div>
         </div>
     </section>
 
     <section class="my-5">
-        <div class="container-fluid bg-white asdf section1">
-
+        <div class="container-fluid bg-white carousel-card" style="width: 90%">
             <div class="pt-4">
                 <h2 class="text-center h1 font-weight-bold brown">Ofertas</h2>
             </div>
-
             <hr>
-
-            <div class="owl-carousel owl-theme sellers" id="offers">  
-            </div>
-
+            <div class="owl-carousel owl-theme sellers" id="offers">  </div>
         </div>
     </section>
 
     <section class="my-5">
-        <div class="container-fluid bg-white asdf section1" id="">
-
+        <div class="container-fluid bg-white carousel-card" style="width: 90%" id="">
             <div class="pt-4">
                 <h2 class="text-center h1 font-weight-bold brown">Nuevos lanzamientos</h2>
             </div>
-
             <hr>
-
-            <div class="owl-carousel owl-theme sellers" id="recents">
-            </div>
-
+            <div class="owl-carousel owl-theme sellers" id="recents"></div>
         </div>
     </section>
 
-    <section class="my-5">
-        <div class="container bg-white">
-
-            <div class="pt-4">
-                <h2 class="text-center h1 font-weight-bold">Siguenos en Instagram
-            </div>
-
-            <div class="row">
-                <div class="col-4">
-                    <iframe class="p-3 img-fluid" style="height:540px" src="http://instagram.com/p/CbC-y70uUnK/embed" frameborder="0"></iframe>
-                </div>
-                <div class="col-4">
-                    <iframe class="p-3 img-fluid" style="height:540px" src="http://instagram.com/p/CavJY4suUpJ/embed" frameborder="0"></iframe>
-                </div>
-                <div class="col-4">
-                    <iframe class="p-3 img-fluid" style="height:540px" src="http://instagram.com/p/CWyJdujNSBh/embed" frameborder="0"></iframe>
-                </div>
-            </div>
-        </div>
-    </section>
 
     <!-- Footer -->
     <footer class="page-footer p-5">
@@ -241,25 +192,25 @@
 
                 <div class="col-md-3 col-xl-3 col-lg-3 mx-auto mb-3">
                     <ul class="list-unstyled">
-                        <li class="my-2"><img src="Assets/Images/Footer-Logo.svg" class="img-fluid"></li>
+                        <li class="my-2"><img src="Assets/Images/Footer-Logo.svg" class="img-fluid" id="logo-banner"></li>
                     </ul>
                 </div>
                 
                 <div class="col-md-3 col-xl-3 col-lg-3 mx-auto mb-3">
                     <h5 class="text-uppercase mb-4 text-cream font-weight-bold">Recursos</h5>
                     <ul class="list-unstyled">
-                        <li class="my-2"><a class="text-cream">Acerca de nosotros</a><br></li>
-                        <li class="my-2"><a class="text-cream">Contáctanos</a><br></li>
-                        <li class="my-2"><a class="text-cream">Preguntas frecuentes</a><br></li>
-                        <li class="my-2"><a class="text-cream">Sucursales</a><br></li>
+                        <li class="my-2"><a class="text-cream text-decoration-none">Acerca de nosotros</a><br></li>
+                        <li class="my-2"><a class="text-cream text-decoration-none">Contáctanos</a><br></li>
+                        <li class="my-2"><a class="text-cream text-decoration-none">Preguntas frecuentes</a><br></li>
+                        <li class="my-2"><a class="text-cream text-decoration-none">Sucursales</a><br></li>
                     </ul>
                 </div>
 
                 <div class="col-md-3 col-xl-3 col-lg-3 mx-auto mb-3">
                     <h5 class="text-uppercase mb-4 text-cream font-weight-bold">Politicas</h5>
                     <ul class="list-unstyled">
-                        <li class="my-2"><a class="text-cream">Política de reembolsos</a><br></li>
-                        <li class="my-2"><a class="text-cream">Política de privacidad</a><br></li>
+                        <li class="my-2"><a class="text-cream text-decoration-none">Política de reembolsos</a><br></li>
+                        <li class="my-2"><a class="text-cream text-decoration-none">Política de privacidad</a><br></li>
                     </ul>
                 </div>
 
@@ -267,22 +218,22 @@
                     <h5 class="text-uppercase mb-4 text-cream font-weight-bold">Contacto</h5>
                     <ul class="list-unstyled">
                         <li class="my-2">
-                            <a href="https://www.facebook.com/PasteleriaLaSuprema" target="_blank" class="text-white text-decoration-none">
+                            <a href="https://www.facebook.com/PasteleriaLaSuprema" target="_blank" class="text-cream text-decoration-none">
                                 <i class="fab fa-facebook-f text-cream mr-3 h4"></i>Facebook
                             </a>
                         </li>
                         <li class="my-2">
-                            <a href="https://www.instagram.com/pastelerialasuprema" target="_blank" class="text-white text-decoration-none">
+                            <a href="https://www.instagram.com/pastelerialasuprema" target="_blank" class="text-cream text-decoration-none">
                                 <i class="fab fa-instagram text-cream mr-3 h4" aria-hidden="true"></i>Instagram
                             </a>
                         </li>
                         <li class="my-2">
-                            <a href="tel:(81)81341434" class="text-white text-decoration-none">
+                            <a href="tel:(81)81341434" class="text-cream text-decoration-none">
                                 <i class="fa fa-phone text-cream mr-3 h4"></i>(81)-8134-1434
                             </a>
                         </li>
                         <li class="my-2">
-                            <a href="mailto:ventas@pastelerialasuprema.com.mx" class="text-white text-decoration-none">
+                            <a href="mailto:ventas@pastelerialasuprema.com.mx" class="text-cream text-decoration-none">
                                 <i class="fa fa-envelope text-cream mr-3 h4"></i>Correo electrónico
                             </a>
                         </li>

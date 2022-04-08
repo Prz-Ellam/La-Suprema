@@ -23,14 +23,13 @@ $.ajax({
     if(data.cookies) {
         $('#email').val(data.email);
         $('#password').val(data.password);
+        $('#remember').prop('checked', true);
     }
 }).fail(function(jqXHR, state) {
     console.log("Ups...algo salio mal: " + state);
 });
 
 $(document).ready(function() {
-
-    let passErrorCount = 0;
 
     $('#email').focus(function() {
         $('#email').removeClass('is-invalid').removeClass('is-valid');
@@ -95,7 +94,8 @@ $(document).ready(function() {
         rules: {
             email: {
                 required: true,
-                email: true
+                email: true,
+                realEmail: true
             },
             password: {
                 required: true,
@@ -104,7 +104,8 @@ $(document).ready(function() {
         messages: {
             email: {
                 required: 'El correo electrónico no puede estar vacío.',
-                email: 'El correo electrónico que ingresó no es válido.'
+                email: 'El correo electrónico que ingresó no es válido.',
+                realEmail:  'El correo electrónico que ingresó no es válido.'
             },
             password: {
                 required: 'La contraseña no puede estar vacía.'
@@ -134,7 +135,10 @@ $(document).ready(function() {
                 window.location.href = "index.html";
             }
             else {
-                error.insertAfter(element.parent()).addClass('text-danger').addClass('form-text').attr('id', element[0].id + '-error-label');
+                $("#email-error-label").remove();
+                $('#email').addClass('is-invalid').removeClass('is-valid');
+                $('#email').parent().append('<small class="text-danger form-text" id="email-error-label">El correo o la contraseña que ingreso no son correctos, por favor revise sus credenciales</small>');
+                $('#password').addClass('is-invalid').removeClass('is-valid');
             }
         }).fail(function(jqXHR, state) {
             console.log("Ups...algo salio mal: " + state);

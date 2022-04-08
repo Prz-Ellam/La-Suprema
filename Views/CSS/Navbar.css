@@ -23,3 +23,10 @@
     border-top-left-radius: 0em;
     border-bottom-left-radius: 0em;
 }
+
+
+.orange {
+    background-color: #FF5E1F;
+    border: 1px solid #FF5E1F;
+    font-size: 22px;
+}

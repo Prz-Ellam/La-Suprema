@@ -61,10 +61,6 @@ footer {
     color: #391113;
 }
 
-.text-cream {
-    color:  #F0D5CC;
-}
-
 .primary-nav-item:hover {
     cursor: pointer;
     border-radius: 8px;
@@ -72,9 +68,6 @@ footer {
     transition: background-color 200ms linear;
 }
 
-.footer {
-    background-color: #391113;
-}
 
 .brown {
     color: #391113;
@@ -109,10 +102,6 @@ footer {
 
 .car-prueba img:hover {
     transform: scale(1.1);
-}
-
-.section1 {
-    width: 95%;
 }
 
 .search {
@@ -173,8 +162,10 @@ footer {
     background-color: rgba(0, 0, 0, 0.4);
 }
 
-.asdf {
-    border-radius: 8px;
+
+
+.carousel-card {
+    border-radius: 4px;
     box-shadow: 0 0 8px rgba(0, 0, 0, 0.25);
 }
 
@@ -204,6 +195,22 @@ footer {
 
     #hero-title {
         font-size: 1.75em;
+    }
+
+    .carousel-card {
+        width: 100% !important;
+    }
+ 
+}
+
+@media only screen and (max-width: 992px) {
+
+    #search-box {
+        width: 100% !important;
+    }
+
+    .primary-nav-item {
+        padding-left: 1em !important;
     }
  
 }

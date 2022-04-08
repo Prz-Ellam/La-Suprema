@@ -20,12 +20,14 @@ if ($email && $password) {
 
             setcookie("email", $user->getEmail(), time() + (60 * 60));
             setcookie("password", $password, time() + (60 * 60));
+            setCookie("remember", true, time() + (60 * 60));
 
         }
         else {
 
             setcookie("email", "", time() - 3600); 
-            setcookie("password", "", time() - 3600); 
+            setcookie("password", "", time() - 3600);
+            setcookie("remember", "", time() - 3600); 
 
         }
         

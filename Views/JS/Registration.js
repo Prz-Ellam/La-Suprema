@@ -81,6 +81,34 @@ $(document).ready(function() {
         }
     });
 
+    $('#show-password').click(function() {
+        $('#password').attr('type', 'text');
+        $('#show-password').css('visibility', 'hidden');
+        $('#hide-password').css('visibility', 'visible');
+        $('#password').focus();
+    });
+
+    $('#hide-password').click(function() {
+        $('#password').attr('type', 'password');
+        $('#show-password').css('visibility', 'visible');
+        $('#hide-password').css('visibility', 'hidden');
+        $('#password').focus();
+    });
+
+    $('#show-confirmpassword').click(function() {
+        $('#confirmpassword').attr('type', 'text');
+        $('#show-confirmpassword').css('visibility', 'hidden');
+        $('#hide-confirmpassword').css('visibility', 'visible');
+        $('#confirmpassword').focus();
+    });
+
+    $('#hide-confirmpassword').click(function() {
+        $('#confirmpassword').attr('type', 'password');
+        $('#show-confirmpassword').css('visibility', 'visible');
+        $('#hide-confirmpassword').css('visibility', 'hidden');
+        $('#confirmpassword').focus();
+    });
+
 
 
     // Reglas de validaciones
