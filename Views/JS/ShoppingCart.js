@@ -24,6 +24,10 @@ $(document).ready(function() {
 
     })
 
+    $('#finish-order').on('click', function() {
+        window.location.href = "Shippings.html";
+    })
+
 
 
 
