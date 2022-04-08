@@ -3,27 +3,6 @@ body {
     font-family: 'Montserrat', sans-serif;
 }
 
-.primary-navbar {
-    background-color: #FF5E1F;
-}
-
-.sub-navbar {
-    height: 2.625rem;
-}
-
-.subnav-item {
-    color: #3B1002;
-}
-
-.footer {
-    background-color: #3B1002;
-}
-
-.primary-nav-item:hover {
-    border-radius: 1rem;
-    background-color: #3b100240;
-    transition: background-color 200ms linear;
-}
 
 .paragraph {
     font-size: 0.85em;
@@ -70,33 +49,8 @@ background: linear-gradient(0deg, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.0) 60%);
   }
 
 
-.navbar {
-    background-color: #FF5E1F;
-}
-
-#sub-navbar {
-    height: 42px;
-}
-
-#sub-navbar ul li a {
-    color: #3B1002;
-}
 
 
 #search {
     border: none;
-}
-
-#brand-logo{ 
-    height:30px;
-}
-
-.search {
-    border-top-right-radius: 0em;
-    border-bottom-right-radius: 0em;
-}
-
-.search-btn {
-    border-top-left-radius: 0em;
-    border-bottom-left-radius: 0em;
 }

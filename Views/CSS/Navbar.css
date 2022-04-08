@@ -1,3 +1,8 @@
+body {
+    background-color: #F0D5CC;
+    font-family: 'Montserrat', sans-serif;
+}
+
 .navbar {
     background-color: #FF5E1F;
 }
@@ -29,4 +34,19 @@
     background-color: #FF5E1F;
     border: 1px solid #FF5E1F;
     font-size: 22px;
+}
+
+.text-brown {
+    color: #3B1002 !important;
+}
+
+.primary-nav-item:hover {
+    cursor: pointer;
+    border-radius: 8px;
+    background-color: rgb(59, 16, 2, 0.5);
+    transition: background-color 200ms linear;
+}
+
+.nav-link i {
+    font-size: 1.2em;
 }

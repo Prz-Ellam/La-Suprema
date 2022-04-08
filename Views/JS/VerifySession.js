@@ -1,4 +1,4 @@
-
+export default function navbarSession() {
 $.ajax({
     method: "GET",
     async: false,
@@ -52,8 +52,4 @@ $.ajax({
 }).fail(function(jqXHR, state) {
     console.log("Ups...algo salio mal: " + state);
 });
-
-$(document).ready(function() {
-    let headerHeight = $('header').height();
-    $('body').css('padding-top', parseFloat( headerHeight - 5));
-});
+}

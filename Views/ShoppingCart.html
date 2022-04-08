@@ -21,78 +21,65 @@
 <body>
 
     <header class="fixed-top">
-        <nav class="navbar navbar-expand-md navbar-dark scrolling-navbar">
+        <nav class="navbar navbar-expand-lg navbar-dark scrolling-navbar">
+        
+            <a class="navbar-brand" href="index.html"><img src="Assets/Images/Brand-Logo.svg" id="brand-logo"></a>
 
-            <a class="navbar-brand" href="index.html"><img src="Assets/Images/brand-logo.png" id="brand-logo"></a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapse">
                 <i class="fa fa-bars"></i>
             </button>
 
             <div class="collapse navbar-collapse" id="navbar-collapse">
 
-                <form class="form-inline my-2 my-lg-0 mx-lg-auto mx-sm-0">
-                    <input type="search" class="form-control search shadow-none" id="search" placeholder="Buscar productos">
-                    <button class="btn bg-white search-btn shadow-none" type="submit"><i class="fas fa-search text-secondary"></i></button>
-                  
+                <form class="form-inline ml-xl-5 mr-lg-auto w-50" id="search-box">
+                    <div class="input-group w-100">
+                        <input type="search" class="form-control search shadow-none" name="search" id="search" placeholder="Buscar productos">
+                        <div class="input-group-append">
+                            <button class="btn bg-white search-btn shadow-none" type="submit" id="search-btn"><i class="fas fa-search text-secondary"></i></button>
+                        </div>
+                    </div>
                 </form>
 
-                <!-- ml-auto alinea los elementos a la derecha -->
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item mx-2">
-                        <a href="Registration.html" class="primary-nav-item nav-link text-white font-weight-bold">
-                            <i class="fa fa-sign-in mr-2"></i>Registrarse
-                        </a>
-                    </li>
-                    <li class="nav-item mx-2">
-                        <a href="Login.html" class="primary-nav-item nav-link text-white font-weight-bold">
-                            <i class="fas fa-solid fa-user mr-2"></i>Iniciar sesión
-                        </a>
-                    </li>
-                    <li class="nav-item mx-2">
-                        <a href="ShoppingCart.html" class="primary-nav-item nav-link text-white font-weight-bold">
-                            <i class="fas fa-shopping-cart mr-2"></i>Carrito
-                            <span class="text-white font-weight-bold">(0)</span>
-                        </a>
-                    </li>
-                </ul>
+                <ul class="navbar-nav " id="orange-navbar"></ul>
 
             </div>
         </nav>
-        <nav class="navbar navbar-expand-md bg-light shadow-sm" id="sub-navbar">
 
+        <nav class="navbar navbar-expand-md bg-white navbar-dark shadow-sm">
+        
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#subnavbar-collapse">
-                <i class="fa fa-bars"></i>
+                <i class="fa fa-bars text-brown"></i>
             </button>
 
             <div class="collapse navbar-collapse" id="subnavbar-collapse">
+
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item">
-                        <a class="nav-link mx-2" href="index.html">
+                        <a class="nav-link mr-4 p-1 text-brown" href="index.html">
                             Inicio
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link mx-2" href="Login.html">
+                        <a class="nav-link mr-4 p-1 text-brown" href="Contact.html">
                             Contacto
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link mx-2" href="AboutUs.html">
+                        <a class="nav-link mr-4 p-1 text-brown" href="AboutUs.html">
                             Nosotros
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link mx-2" href="BranchOffices.html">
+                        <a class="nav-link mr-4 p-1 text-brown" href="BranchOffices.html">
                             Sucursales
                         </a>
                     </li>
                 </ul>
+
             </div>
-
         </nav>
+
     </header>
-
-
 
 
 
