@@ -17,3 +17,8 @@ a.text-cream:hover {
 #logo-banner {
     width: 250px;
 }
+
+.icons {
+    width: 1em;
+    height: 1em;
+}

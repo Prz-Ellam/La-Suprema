@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html>
     <head>
+
         <title>La Suprema</title>
 
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+        <!-- Icon -->
         <link rel="shortcut icon" href="Assets/Icons/Icon.svg" type="image/x-icon">
 
         <!-- Google Fonts -->
@@ -14,38 +16,36 @@
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Montserrat&family=Roboto:ital,wght@0,400;1,500&display=swap" rel="stylesheet">
         
-        <!-- Boostrap -->
+        <!-- Bootstrap -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.1/css/bootstrap.min.css" integrity="sha512-T584yQ/tdRR5QwOpfvDfVQUidzfgc2339Lc8uBDtcp/wYu80d7jwBgAxbyMh0a9YM9F8N3tdErpFI8iaGx6x5g==" crossorigin="anonymous" referrerpolicy="no-referrer">
 
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
+    
         <!-- CSS -->
         <link href="CSS/Navbar.css" rel="stylesheet">
         <link href="CSS/Login.css" rel="stylesheet">
         <link href="CSS/Footer.css" rel="stylesheet">
-
-        <!-- Font Awesome -->
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
+    
     </head>
     <body>
 
         <header class="text-center">
             <a class="navbar-brand pt-3" href="index.html"><img src="Assets/Images/Brand-Logo.svg" id="brand-logo" style="height: 48px"></a>
-            <nav class="navbar fixed-top">            
-            </nav>
+            <nav class="navbar fixed-top"></nav>
         </header>
-    
 
-        <div class="container my-4">
-
+        <!-- Main container -->
+        <div class="container my-5">
+            <!-- Flexbox -->
             <div class="row d-flex justify-content-center">
+                <!-- Grid System -->
+                <div class="col-lg-5 col-md-8">
+                    <!-- Form Card -->
+                    <form class="form bg-white rounded p-5" id="login-form" method="POST" action="#" novalidate>
 
-                <div class="col-xl-5 col-lg-5 col-md-8">
-
-                    <form class="form bg-white rounded p-5" id="login-form" method="get" action="#" novalidate>
-
-                        <div class="mb-3">
-                            <h1 class="form-title text-center h2">Iniciar sesión</h1>
-                        </div>
-
+                        <h1 class="form-title text-center h2 mb-4">Iniciar sesión</h1>
+                        
                         <hr class="mb-4">
 
                         <div class="form-group mb-4">
@@ -68,26 +68,23 @@
                             </div>
                         </div>
 
-                        <label class="d-none" id="forgot"><a href="#" class="mt-3">¿Olvidaste tu contraseña?</a></label>
-
-                        <div class="mt-3 custom-control custom-checkbox mb-4">
+                        <div class="custom-control custom-checkbox mb-4">
                             <input type="checkbox" class="custom-control-input" name="remember" id="remember">
                             <label class="custom-control-label" for="remember">Recuérdame</label>
                         </div>
         
-                        <div class="form-group mb-4">
-                            <input type="submit" value="Iniciar sesión" class="btn btn-primary w-100 shadow-none mt-3" id="btn-login">
-                        </div>
+                        <input type="submit" value="Iniciar sesión" class="btn btn-primary mb-4 w-100 shadow-none " id="btn-login">
+                   
         
-                        <p class="text-center">¿Aún no tienes cuenta? <br><a href="Registration.html" class="text-decoration-none" style="color: #FF5E1F">Registrate ahora</a></p>
+                        <p class="text-center mb-4">¿Aún no tienes cuenta? <br><a href="Registration.html" class="text-decoration-none" style="color: #FF5E1F">Registrate ahora</a></p>
                         
-                        <hr>
+                        <hr class="mb-4">
 
-                        <p class="text-center mt-4"><a href="" style="color: #FF5E1F" class="text-decoration-none" data-toggle="modal" data-target="#exampleModal">¿Olvidaste tu contraseña?</a></p>
+                        <p class="text-center mb-0"><a href="" style="color: #FF5E1F" class="text-decoration-none" data-toggle="modal" data-target="#exampleModal">¿Olvidaste tu contraseña?</a></p>
 
                     </form>
 
-                    <div class="modal fade " id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="modal-dialog" role="document">
                           <div class="modal-content bg-white">
                             <div class="modal-header">
@@ -116,7 +113,8 @@
                             </div>
                           </div>
                         </div>
-                      </div>
+
+                    </div>
 
                 </div>
 
@@ -124,14 +122,13 @@
 
         </div>
 
-           <!-- Footer -->
+    <!-- Footer -->
     <footer class="page-footer p-5">
         <!-- Container -->
         <div class="container-fluid text-center text-md-left">
             <!-- Grid Row -->
             <div class="row text-center text-md-left">
                 <!-- Grid Column -->
-
                 <div class="col-md-3 col-xl-3 col-lg-3 mx-auto mb-3">
                     <ul class="list-unstyled">
                         <li class="my-2"><img src="Assets/Images/Footer-Logo.svg" class="img-fluid" id="logo-banner"></li>
@@ -149,7 +146,7 @@
                 </div>
 
                 <div class="col-md-3 col-xl-3 col-lg-3 mx-auto mb-3">
-                    <h5 class="text-uppercase mb-4 text-cream font-weight-bold">Politicas</h5>
+                    <h5 class="text-uppercase mb-4 text-cream font-weight-bold">Políticas</h5>
                     <ul class="list-unstyled">
                         <li class="my-2"><a href="RefundPolicy.html" class="text-cream text-decoration-none">Política de reembolsos</a><br></li>
                         <li class="my-2"><a href="PrivacyPolicy.html" class="text-cream text-decoration-none">Política de privacidad</a><br></li>
@@ -196,7 +193,7 @@
                 </div>
             </div>
 
-            <div class="container text-center img-responsive">
+            <div class="container text-center img-fluid">
                 <p class="text-cream mb-0">© 2022 Pastelería La Suprema. Todos los derechos reservados.</p>
             </div>
 

@@ -26,19 +26,19 @@
 
     <header class="text-center">
         <a class="navbar-brand pt-3" href="index.html"><img src="Assets/Images/Brand-Logo.svg" id="brand-logo"></a>
-        <nav class="navbar fixed-top">            
-        </nav>
+        <nav class="navbar fixed-top"></nav>
     </header>
 
-    <div class="container mt-4 mb-4">
-
+    <!-- Main container -->
+    <div class="container my-5">
+         <!-- Flexbox -->
         <div class="row d-flex justify-content-center">
+            <!-- Grid System -->
+            <div class="col-lg-5 col-md-8">
+                 <!-- Form Card -->
+                <form class="form bg-white rounded p-5" id="signup-form" method="POST" action="#" novalidate>
 
-            <div class="col-xl-5 col-lg-5 col-md-8">
-
-                <form class="form bg-white shadow-sm rounded px-5 py-5" method="POST" action="#" id="signup-form" novalidate>
-
-                    <div class="mb-3">
+                    <div class="mb-4">
                         <h1 class="form-title text-center h2">Regístrate</h1>
                         <p class="text-center">para encontrar tu pastel favorito</p>
                     </div>
@@ -84,10 +84,11 @@
                     </div>
 
                     <div class="form-group mb-4">
-                        <input type="submit" value="Crear una cuenta" class="btn btn-primary w-100 shadow-none mt-3" id="btn-login">
+                        <label style="visibility:hidden">A</label>
+                        <input type="submit" value="Crear una cuenta" class="btn btn-primary w-100 shadow-none" id="btn-login">
                     </div>
 
-                    <p class="text-center">¿Ya tienes cuenta? <br><a href="Login.html" style="color: #FF5E1F" class="text-decoration-none">Inicia sesión ahora</a></p>
+                    <p class="text-center mb-0">¿Ya tienes cuenta? <br><a href="Login.html" style="color: #FF5E1F" class="text-decoration-none">Inicia sesión ahora</a></p>
                 </form>
 
             </div>

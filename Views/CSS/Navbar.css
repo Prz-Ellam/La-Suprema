@@ -29,18 +29,15 @@ body {
     border-bottom-left-radius: 0em;
 }
 
-
 .orange {
     background-color: #FF5E1F;
     border: 1px solid #FF5E1F;
 }
 
-
 .orange:hover {
     background-color: #c44817;
     border: 1px solid #c44817;
 }
-
 
 .text-brown {
     color: #3B1002 !important;
