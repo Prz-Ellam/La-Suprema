@@ -7,7 +7,7 @@ $(document).ready(function() {
             text: '¡Que tenga un bonito día! ',
             icon: 'success',
             html:
-            '<h4>¡Que tenga un bonito día! <i class="fas fa-smile"></i><h4>',
+            '<h4>¡Qué tenga un bonito día! <i class="fas fa-smile"></i><h4>',
             confirmButtonText : 'Ok',
             confirmButtonClassName: 'no-border',
             confirmButtonColor: '#FF5E1F',

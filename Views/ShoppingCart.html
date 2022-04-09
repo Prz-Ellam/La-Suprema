@@ -57,7 +57,7 @@
 
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item">
-                        <a class="nav-link mr-4 p-1 text-brown" href="index.html">
+                        <a class="nav-link ml-1 mr-4 p-1 text-brown" href="index.html">
                             Inicio
                         </a>
                     </li>
@@ -87,39 +87,46 @@
 
     <div class="container-fluid">
     <div class="table-responsive mt-5">
-        <table class="table table-hover shadow-sm border">
+        <table class="table table-hover shadow-sm">
             <thead class="">
                 <tr>
-                    <th scope="col" class="border-0 bg-white font-weight-bold">Producto</th>
-                    <th scope="col" class="border-0 bg-white font-weight-bold">Precio</th>
-                    <th scope="col" class="border-0 bg-white font-weight-bold">Cantidad</th>
-                    <th scope="col" class="border-0 bg-white font-weight-bold">Total</th>
+                    <th scope="col" colspan="5" class="border-0 bg-white font-weight-bold text-center h2">Carrito de compras</th>
+                </tr>
+                <tr>
+                    <th scope="col" class="border-0 bg-white font-weight-bold h5">Producto</th>
+                    <th scope="col" class="border-0 bg-white font-weight-bold h5">Precio</th>
+                    <th scope="col" class="border-0 bg-white font-weight-bold h5">Cantidad</th>
+                    <th scope="col" class="border-0 bg-white font-weight-bold h5">Total</th>
+                    <th scope="col" class="border-0 bg-white font-weight-bold h5">Eliminar</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
                     <td class="bg-white"><img src="Assets/Images/IMG001.jpg" class="mr-3" height="100">Fresas con crema</td>
                     <td class="bg-white align-middle">$<span class="price">297.00</span></td>
-                    <td class="bg-white align-middle"><input type="number" value="1" min="1" max="100" class="quantity"></td>
+                    <td class="bg-white align-middle"><input type="number" value="1" min="1" max="100" class="form-control shadow-none w-50 quantity"></td>
                     <td class="bg-white align-middle">$<span class="total">297.00</span> M.N</td>
+                    <td class="bg-white align-middle"><a href="#"><i class="fas fa-trash text-danger h3"></i></a></td>
                 </tr>
                 <tr>
                     <td class="bg-white"><img src="Assets/Images/IMG001.jpg" class="mr-3" height="100">Fresas con crema</td>
                     <td class="bg-white align-middle">$<span class="price">297.00</span></td>
-                    <td class="bg-white align-middle"><input type="number" value="1" min="1" max="100" class="quantity"></td>
+                    <td class="bg-white align-middle"><input type="number" value="1" min="1" max="100" class="form-control shadow-none w-50 quantity"></td>
                     <td class="bg-white align-middle">$<span class="total">297.00</span> M.N</td>
+                    <td class="bg-white align-middle"><a href="#"><i class="fas fa-trash text-danger h3"></i></a></td>
                 </tr>
                 <tr>
                     <td class="bg-white"></td>
                     <td class="bg-white"></td>
-                    <td class="bg-white align-middle">3</td>
-                    <td class="bg-white align-middle">$<span id="final-price">891.00</span> M.N</td>
+                    <td class="bg-white align-middle"><span>2</span></td>
+                    <td class="bg-white align-middle">$<span id="final-price">597.00</span> M.N</td>
+                    <td class="bg-white align-middle"></td>
                 </tr>
             </tbody>
         </table>
 
         <div class="d-flex px-5">
-            <button class="mr-auto btn btn-md btn-secondary shadow-none p-3 orange h5 " id="">Seguir comprando</button>
+            <button class="mr-auto btn btn-md btn-secondary shadow-none p-3 orange h5 " id=""><i class="fa fa-angle-left"></i> Seguir comprando</button>
             <button class="ml-auto btn btn-md btn-secondary shadow-none p-3 orange h5 start-shop" id="finish-order">Finalizar pedido</button>
         </div>
     </div>
