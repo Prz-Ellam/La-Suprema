@@ -78,24 +78,6 @@ CREATE TABLE shoppings(
 
 );
 
-SELECT * FROM orders;
-SELECT * FROM products;
-SELECT * FROM shoppings;
-
-
-
-
-
--- Este query sirve para obtener la cantidad de ventas que han tenido todos los pasteles ordenados del mas
--- vendido al menos vendido
-SELECT products.name, IFNULL(COUNT(shoppings.product_id) * shoppings.quantity, 0) AS Cantidad FROM products
-LEFT JOIN shoppings
-ON products.product_id = shoppings.product_id
-GROUP BY  products.name
-ORDER BY Cantidad DESC;
-
-
-
 
 
 
@@ -118,50 +100,7 @@ END$$
 
 DELIMITER ;
 
-CALL sp_ProductsFilter('Paxtel');
 
-
-
-
-
-CREATE TABLE shopping_sessions(
-	session_id				INT NOT NULL AUTO_INCREMENT,
-    user_id					INT NOT NULL,
-    total					DECIMAL(6, 2) NOT NULL,
-    created_at          	TIMESTAMP DEFAULT NOW(),
-	modified_at             TIMESTAMP,
-    
-    PRIMARY KEY (session_id)
-);
-
-CREATE TABLE orders(
-	order_id				INT NOT NULL AUTO_INCREMENT,
-    shopping_session_id     INT NOT NULL,
-	created_at          	TIMESTAMP DEFAULT NOW(),
-    modified_at             TIMESTAMP,
-    active					BOOLEAN DEFAULT TRUE,
-    
-    PRIMARY KEY (order_id)
-);
-
-CREATE TABLE cart_items(
-	cart_item_id			INT NOT NULL AUTO_INCREMENT,
-    product_id				INT NOT NULL,
-	session_id				INT NOT NULL,
-    quantity				INT NOT NULL,
-    created_at          	TIMESTAMP DEFAULT NOW(),
-    modified_at             TIMESTAMP,
-    active					BOOLEAN DEFAULT TRUE,
-    
-    PRIMARY KEY (cart_item_id)
-);
-
-TRUNCATE TABLE users;
-SELECT * FROM users;
-SELECT * FROM products;
-SELECT * FROM categories;
-SELECT * FROM orders;
-SELECT * FROM shoppings;
 
 
 -- Saber si el cliente ha comprado algo
@@ -176,6 +115,235 @@ SELECT COUNT(*) Total FROM shoppings
 JOIN orders
 ON orders.order_id = shoppings.order_id
 WHERE orders.user_id = _user_id;
+END$$
+
+DELIMITER ;
+
+
+SELECT products.name FROM shoppings
+JOIN orders
+ON orders.order_id = shoppings.order_id
+RIGHT JOIN products
+ON shoppings.product_id = products.product_id
+WHERE orders.user_id = 1;
+
+
+
+
+
+USE `la_suprema`;
+DROP procedure IF EXISTS `sp_InsertUser`;
+
+DELIMITER $$
+USE `la_suprema`$$
+CREATE PROCEDURE `sp_InsertUser` (IN _username VARCHAR(18), IN _email VARCHAR(255), IN _password VARCHAR(200))
+BEGIN
+INSERT INTO users(username, email, password) VALUES(_username, _email, _password);
+SELECT user_id, username FROM users WHERE email = _email AND password = _password;
+END$$
+
+DELIMITER ;
+
+
+
+USE `la_suprema`;
+CREATE OR REPLACE VIEW `vw_GetByUsers` AS
+
+SELECT COUNT(0) FROM shoppings
+INNER JOIN orders
+ON shoppings.order_id = orders.order_id AND orders.user_id = 1
+ WHERE orders.user_id = 1;
+
+
+
+
+DROP VIEW IF EXISTS `BestSellersForUser`;
+CREATE VIEW `BestSellersForUser` AS
+SELECT products.name, products.price, products.discount, products.image, 
+IFNULL(COUNT(shoppings.product_id) * shoppings.quantity, 0) AS Cantidad, 
+IFNULL(COUNT(shoppings.product_id) * shoppings.quantity, 0) / (SELECT COUNT(shoppings.product_id) FROM shoppings) AS Porcentaje,
+categories.name AS category FROM products
+INNER JOIN categories
+ON categories.category_id = products.category_id
+LEFT JOIN shoppings
+ON products.product_id = shoppings.product_id
+GROUP BY  products.name
+ORDER BY IFNULL(COUNT(shoppings.product_id) * shoppings.quantity, 0) DESC;
+
+
+
+USE `la_suprema`;
+DROP procedure IF EXISTS `sp_GetUserRecomendations`;
+
+DELIMITER $$
+USE `la_suprema`$$
+CREATE PROCEDURE `sp_GetUserRecomendations` (IN _user_id INT)
+BEGIN
+DROP TEMPORARY TABLE IF EXISTS categories_percentage;
+CREATE TEMPORARY TABLE categories_percentage
+SELECT categories.name, COUNT(shoppings.shopping_id) AS Total, 
+COUNT(shoppings.shopping_id) / (SELECT COUNT(shoppings.shopping_id) 
+FROM shoppings 
+INNER JOIN orders ON shoppings.order_id = orders.order_id AND orders.user_id = _user_id) AS Porcentaje
+FROM products
+INNER JOIN shoppings
+ON products.product_id = shoppings.product_id
+INNER JOIN orders
+ON shoppings.order_id = orders.order_id AND orders.user_id = _user_id
+RIGHT JOIN categories
+ON categories.category_id = products.category_id
+GROUP BY categories.name
+ORDER BY Total DESC;
+
+select BestSellersForUser.name, BestSellersForUser.price, BestSellersForUser.discount,
+BestSellersForUser.image, (categories_percentage.porcentaje + BestSellersForUser.porcentaje) / 2.0 AS TotalPorcentaje from BestSellersForUser
+JOIN categories_percentage
+ON categories_percentage.name = BestSellersForUser.category
+ORDER BY TotalPorcentaje DESC
+LIMIT 0, 12;
+
+END$$
+
+DELIMITER ;
+
+
+
+DROP VIEW IF EXISTS `BestSellers`;
+CREATE VIEW `BestSellers` AS
+SELECT products.name, products.price, products.image, 
+IFNULL(COUNT(shoppings.product_id) * shoppings.quantity, 0) AS Cantidad, 
+IFNULL(COUNT(shoppings.product_id) * shoppings.quantity, 0) / (SELECT COUNT(shoppings.product_id) FROM shoppings) AS Porcentaje,
+categories.name AS category FROM products
+INNER JOIN categories
+ON categories.category_id = products.category_id
+LEFT JOIN shoppings
+ON products.product_id = shoppings.product_id
+GROUP BY  products.name
+ORDER BY IFNULL(COUNT(shoppings.product_id) * shoppings.quantity, 0) DESC
+LIMIT 0, 12;
+
+
+
+
+USE `la_suprema`;
+DROP procedure IF EXISTS `sp_GetProducts`;
+
+DELIMITER $$
+USE `la_suprema`$$
+CREATE PROCEDURE `sp_GetProducts` ()
+BEGIN
+
+SELECT product_id, name, products.price, products.discount, products.image
+FROM products
+WHERE active = TRUE
+ORDER BY created_at DESC, product_id DESC
+LIMIT 0, 12;
+
+END$$
+
+DELIMITER ;
+
+
+
+
+/*
+
+USE `la_suprema`;
+DROP procedure IF EXISTS `sp_GetProducts`;
+
+DELIMITER $$
+USE `la_suprema`$$
+CREATE PROCEDURE `sp_GetProducts` ()
+BEGIN
+
+SELECT name, price, image
+FROM products
+WHERE active = TRUE;
+
+END$$
+
+DELIMITER ;
+
+*/
+
+
+USE `la_suprema`;
+DROP procedure IF EXISTS `sp_GetSellersProducts`;
+
+DELIMITER $$
+USE `la_suprema`$$
+CREATE PROCEDURE `sp_GetSellersProducts` ()
+BEGIN
+
+SELECT products.name, products.price, products.discount,
+products.image, IFNULL(COUNT(shoppings.product_id) * shoppings.quantity, 0) AS Cantidad FROM products
+LEFT JOIN shoppings
+ON products.product_id = shoppings.product_id
+GROUP BY  products.name
+ORDER BY IFNULL(COUNT(shoppings.product_id) * shoppings.quantity, 0) DESC
+LIMIT 0, 12;
+
+END$$
+
+DELIMITER ;
+
+
+USE `la_suprema`;
+DROP procedure IF EXISTS `sp_GetOfferProducts`;
+
+DELIMITER $$
+USE `la_suprema`$$
+CREATE PROCEDURE `sp_GetOfferProducts` ()
+BEGIN
+SELECT name, price, discount, image
+FROM products
+WHERE discount > 0.00
+ORDER BY discount DESC
+LIMIT 12;
+END$$
+
+DELIMITER ;
+
+
+
+
+
+USE `la_suprema`;
+DROP procedure IF EXISTS `sp_GetCategories`;
+
+DELIMITER $$
+USE `la_suprema`$$
+CREATE PROCEDURE `sp_GetCategories` (IN _user_id INT)
+BEGIN
+
+IF (_user_id <= 0) THEN
+
+SELECT categories.name, categories.image
+FROM categories
+LEFT JOIN products
+ON categories.category_id = products.category_id
+LEFT JOIN shoppings
+ON shoppings.product_id = products.product_id
+GROUP BY categories.name
+ORDER BY  COUNT(shoppings.product_id) DESC;
+
+ELSE 
+
+SELECT categories.name, categories.image
+FROM products
+INNER JOIN shoppings
+ON products.product_id = shoppings.product_id
+INNER JOIN orders
+ON shoppings.order_id = orders.order_id AND orders.user_id = _user_id
+RIGHT JOIN categories
+ON categories.category_id = products.category_id
+GROUP BY categories.name
+ORDER BY COUNT(shoppings.shopping_id) / 
+(SELECT COUNT(shoppings.shopping_id) FROM shoppings 
+INNER JOIN orders ON shoppings.order_id = orders.order_id AND orders.user_id = _user_id) DESC;
+
+END IF;
+
 END$$
 
 DELIMITER ;
@@ -261,323 +429,4 @@ VALUES(1, 8, 1, 360.00);
 INSERT INTO shoppings(order_id, product_id, quantity, amount)
 VALUES(1, 3, 4, 1000.00);
 */
-
-SELECT products.name FROM shoppings
-JOIN orders
-ON orders.order_id = shoppings.order_id
-RIGHT JOIN products
-ON shoppings.product_id = products.product_id
-WHERE orders.user_id = 1;
-
-
-
-
-
-USE `la_suprema`;
-DROP procedure IF EXISTS `sp_InsertUser`;
-
-DELIMITER $$
-USE `la_suprema`$$
-CREATE PROCEDURE `sp_InsertUser` (IN _username VARCHAR(18), IN _email VARCHAR(255), IN _password VARCHAR(200))
-BEGIN
-INSERT INTO users(username, email, password) VALUES(_username, _email, _password);
-SELECT user_id, username FROM users WHERE email = _email AND password = _password;
-END$$
-
-DELIMITER ;
-
-
-
-
-
-
-
-
-
-
-
-
-SELECT products.name, categories.name
-FROM categories
-LEFT JOIN products
-ON categories.category_id = products.category_id;
-
-SELECT categories.name, COUNT(*)
-FROM categories
-LEFT JOIN products
-ON categories.category_id = products.category_id 
-GROUP BY categories.name;
-
-SELECT*FROM shoppings;
-
-
-USE `la_suprema`;
-CREATE OR REPLACE VIEW `vw_GetByUsers` AS
-
-SELECT COUNT(0) FROM shoppings
-INNER JOIN orders
-ON shoppings.order_id = orders.order_id AND orders.user_id = 1
- WHERE orders.user_id = 1;
-
-
--- Ya quedo
-SELECT categories.name, COUNT(shoppings.shopping_id) AS Total, 
-COUNT(shoppings.shopping_id) / 
-(SELECT COUNT(shoppings.shopping_id) FROM shoppings 
-INNER JOIN orders ON shoppings.order_id = orders.order_id AND orders.user_id = 2) AS Porcentaje
-FROM products
-INNER JOIN shoppings
-ON products.product_id = shoppings.product_id
-INNER JOIN orders
-ON shoppings.order_id = orders.order_id AND orders.user_id = 2
-RIGHT JOIN categories
-ON categories.category_id = products.category_id
-GROUP BY categories.name
-ORDER BY Total DESC;
-SELECT * FROM BestSellersForUser;
-
-DROP VIEW IF EXISTS `BestSellersForUser`;
-CREATE VIEW `BestSellersForUser` AS
-SELECT products.name, products.price, products.discount, products.image, 
-IFNULL(COUNT(shoppings.product_id) * shoppings.quantity, 0) AS Cantidad, 
-IFNULL(COUNT(shoppings.product_id) * shoppings.quantity, 0) / (SELECT COUNT(shoppings.product_id) FROM shoppings) AS Porcentaje,
-categories.name AS category FROM products
-INNER JOIN categories
-ON categories.category_id = products.category_id
-LEFT JOIN shoppings
-ON products.product_id = shoppings.product_id
-GROUP BY  products.name
-ORDER BY IFNULL(COUNT(shoppings.product_id) * shoppings.quantity, 0) DESC;
-
-SELECT * FROM categories_percentage;
-
-DROP TEMPORARY TABLE IF EXISTS categories_percentage;
-CREATE TEMPORARY TABLE categories_percentage
-SELECT categories.name, COUNT(shoppings.shopping_id) AS Total, 
-COUNT(shoppings.shopping_id) / (SELECT COUNT(shoppings.shopping_id) 
-FROM shoppings 
-INNER JOIN orders ON shoppings.order_id = orders.order_id AND orders.user_id = 2) AS Porcentaje
-FROM products
-INNER JOIN shoppings
-ON products.product_id = shoppings.product_id
-INNER JOIN orders
-ON shoppings.order_id = orders.order_id AND orders.user_id = 2
-RIGHT JOIN categories
-ON categories.category_id = products.category_id
-GROUP BY categories.name
-ORDER BY Total DESC;
-
-select bestsellers.name, bestsellers.price, bestsellers.image, (categories_percentage.porcentaje + bestsellers.porcentaje) / 2.0 AS TotalPorcentaje from bestsellers
-JOIN categories_percentage
-ON categories_percentage.name = bestsellers.category
-ORDER BY TotalPorcentaje DESC;
-
-
-
-USE `la_suprema`;
-DROP procedure IF EXISTS `sp_GetUserRecomendations`;
-
-DELIMITER $$
-USE `la_suprema`$$
-CREATE PROCEDURE `sp_GetUserRecomendations` (IN _user_id INT)
-BEGIN
-DROP TEMPORARY TABLE IF EXISTS categories_percentage;
-CREATE TEMPORARY TABLE categories_percentage
-SELECT categories.name, COUNT(shoppings.shopping_id) AS Total, 
-COUNT(shoppings.shopping_id) / (SELECT COUNT(shoppings.shopping_id) 
-FROM shoppings 
-INNER JOIN orders ON shoppings.order_id = orders.order_id AND orders.user_id = _user_id) AS Porcentaje
-FROM products
-INNER JOIN shoppings
-ON products.product_id = shoppings.product_id
-INNER JOIN orders
-ON shoppings.order_id = orders.order_id AND orders.user_id = _user_id
-RIGHT JOIN categories
-ON categories.category_id = products.category_id
-GROUP BY categories.name
-ORDER BY Total DESC;
-
-select BestSellersForUser.name, BestSellersForUser.price, BestSellersForUser.discount,
-BestSellersForUser.image, (categories_percentage.porcentaje + BestSellersForUser.porcentaje) / 2.0 AS TotalPorcentaje from BestSellersForUser
-JOIN categories_percentage
-ON categories_percentage.name = BestSellersForUser.category
-ORDER BY TotalPorcentaje DESC
-LIMIT 0, 12;
-
-END$$
-
-DELIMITER ;
-
-
-CALL sp_GetUserRecomendations(1);
-
-
-
-
-
-
-SELECT COUNT(shoppings.product_id) FROM shoppings;
-
-DROP VIEW IF EXISTS `BestSellers`;
-CREATE VIEW `BestSellers` AS
-SELECT products.name, products.price, products.image, 
-IFNULL(COUNT(shoppings.product_id) * shoppings.quantity, 0) AS Cantidad, 
-IFNULL(COUNT(shoppings.product_id) * shoppings.quantity, 0) / (SELECT COUNT(shoppings.product_id) FROM shoppings) AS Porcentaje,
-categories.name AS category FROM products
-INNER JOIN categories
-ON categories.category_id = products.category_id
-LEFT JOIN shoppings
-ON products.product_id = shoppings.product_id
-GROUP BY  products.name
-ORDER BY IFNULL(COUNT(shoppings.product_id) * shoppings.quantity, 0) DESC
-LIMIT 0, 12;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-USE `la_suprema`;
-DROP procedure IF EXISTS `sp_GetProducts`;
-
-DELIMITER $$
-USE `la_suprema`$$
-CREATE PROCEDURE `sp_GetProducts` ()
-BEGIN
-
-SELECT product_id, name, products.price, products.discount, products.image
-FROM products
-WHERE active = TRUE
-ORDER BY created_at DESC, product_id DESC
-LIMIT 0, 12;
-
-END$$
-
-DELIMITER ;
-
-
-
-
-/*
-
-USE `la_suprema`;
-DROP procedure IF EXISTS `sp_GetProducts`;
-
-DELIMITER $$
-USE `la_suprema`$$
-CREATE PROCEDURE `sp_GetProducts` ()
-BEGIN
-
-SELECT name, price, image
-FROM products
-WHERE active = TRUE;
-
-END$$
-
-DELIMITER ;
-
-*/
-
-CALL sp_GetSellersProducts();
-
-USE `la_suprema`;
-DROP procedure IF EXISTS `sp_GetSellersProducts`;
-
-DELIMITER $$
-USE `la_suprema`$$
-CREATE PROCEDURE `sp_GetSellersProducts` ()
-BEGIN
-
-SELECT products.name, products.price, products.discount,
-products.image, IFNULL(COUNT(shoppings.product_id) * shoppings.quantity, 0) AS Cantidad FROM products
-LEFT JOIN shoppings
-ON products.product_id = shoppings.product_id
-GROUP BY  products.name
-ORDER BY IFNULL(COUNT(shoppings.product_id) * shoppings.quantity, 0) DESC
-LIMIT 0, 12;
-
-END$$
-
-DELIMITER ;
-
-
-
-
-
-USE `la_suprema`;
-DROP procedure IF EXISTS `sp_GetOfferProducts`;
-
-DELIMITER $$
-USE `la_suprema`$$
-CREATE PROCEDURE `sp_GetOfferProducts` ()
-BEGIN
-SELECT name, price, discount, image
-FROM products
-WHERE discount > 0.00
-ORDER BY discount DESC
-LIMIT 12;
-END$$
-
-DELIMITER ;
-
-
-
-
-
-
-
-
-
-
-
-
-USE `la_suprema`;
-DROP procedure IF EXISTS `sp_GetCategories`;
-
-DELIMITER $$
-USE `la_suprema`$$
-CREATE PROCEDURE `sp_GetCategories` (IN _user_id INT)
-BEGIN
-
-IF (_user_id <= 0) THEN
-
-SELECT categories.name, categories.image
-FROM categories
-LEFT JOIN products
-ON categories.category_id = products.category_id
-LEFT JOIN shoppings
-ON shoppings.product_id = products.product_id
-GROUP BY categories.name
-ORDER BY  COUNT(shoppings.product_id) DESC;
-
-ELSE 
-
-SELECT categories.name, categories.image
-FROM products
-INNER JOIN shoppings
-ON products.product_id = shoppings.product_id
-INNER JOIN orders
-ON shoppings.order_id = orders.order_id AND orders.user_id = _user_id
-RIGHT JOIN categories
-ON categories.category_id = products.category_id
-GROUP BY categories.name
-ORDER BY COUNT(shoppings.shopping_id) / 
-(SELECT COUNT(shoppings.shopping_id) FROM shoppings 
-INNER JOIN orders ON shoppings.order_id = orders.order_id AND orders.user_id = _user_id) DESC;
-
-END IF;
-
-END$$
-
-DELIMITER ;
 

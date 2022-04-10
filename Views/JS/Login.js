@@ -38,6 +38,13 @@ $(document).ready(function() {
         $("#email-error-label").remove();
     });
 
+    /*
+       $('#email').focus(function() {
+        $(this).removeClass('is-invalid').removeClass('is-valid');
+        $("#" + $(this)[0].id + "-error-label").remove();
+    });
+    */
+
     $('#email').blur(function() {
         let validator = $("#login-form").validate();
         if (validator.element("#email") === false) {
@@ -51,6 +58,7 @@ $(document).ready(function() {
     $('#password').focus(function() {
         $('#password').removeClass('is-invalid').removeClass('is-valid');
         $("#password-error-label").remove();
+        console.log("X");
     });
 
     $('#password').blur(function() {
@@ -62,7 +70,7 @@ $(document).ready(function() {
             $('#password').addClass('is-valid').removeClass('is-invalid');
         }
     });
-
+/*
     $('#password').on('input', function() {
         if ($('#password').val() !== '') {
             $('#password').attr('type', 'password');
@@ -73,7 +81,7 @@ $(document).ready(function() {
             $('#hide-password').css('visibility', 'hidden');
         }
     });
-
+*/
     $('#show-password').click(function() {
         $('#password').attr('type', 'text');
         $('#show-password').css('visibility', 'hidden');
@@ -152,14 +160,24 @@ $(document).ready(function() {
         });
 
     });
-
+/*
+    $("#tooltip-password").tooltip({
+        container: 'body',
+        placement: "right",
+        html: true,
+        selector: '#password',
+        trigger: "Manual",
+        title: "Bloq Mayús Activado"
+    });
+*/
     document.addEventListener("keyup", function(event) {
         if (event.getModifierState("CapsLock")) {
+           //$("#tooltip-password").tooltip("show");
            $('#caps-lock').css('visibility', 'visible');
         } else {
+            //$("#tooltip-password").tooltip("hide");
             $('#caps-lock').css('visibility', 'hidden');
         }
     });
-
 
 });

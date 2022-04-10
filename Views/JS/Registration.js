@@ -166,15 +166,18 @@ $(document).ready(function() {
                 required: true,
                 email: true,
                 realEmail: true,
-                validateEmail: true
+                validateEmail: true,
+                maxlength: 254
             },
             password: {
                 required: true,
-                minlength: 6
+                minlength: 6,
+                maxlength: 199
             },
             confirmpassword: {
                 required: true,
-                confirmPass: true
+                confirmPass: true,
+                maxlength: 199
             }
         },
         messages: {
@@ -187,15 +190,18 @@ $(document).ready(function() {
                 required: 'El correo electrónico no puede estar vacío',
                 email: 'El correo electrónico que ingresó no es válido.',
                 realEmail: 'El correo electrónico que ingresó no es válido.',
-                validateEmail: 'El correo electrónico que ingresó ya esta siendo utilizado. ¿Quieres <a href="Login.html"> iniciar sesión</a>?'
+                validateEmail: 'El correo electrónico que ingresó ya esta siendo utilizado. ¿Quieres <a href="Login.html"> iniciar sesión</a>?',
+                maxlength: 'El correo electrónico es muy largo'
             },
             password: {
                 required: 'La contraseña no puede estar vacía.',
-                minlength: 'Por favor ingrese al menos 6 caracteres'
+                minlength: 'Por favor ingrese al menos 6 caracteres',
+                maxlength: 'La contraseña es muy larga'
             },
             confirmpassword: {
                 required: 'Confirmar contraseña no puede estar vacío.',
-                confirmPass: 'Parece que la contraseña no coincide'
+                confirmPass: 'Parece que la contraseña no coincide',
+                maxlength: 'La confirmación de contraseña es muy larga'
             }
         },
         errorElement: 'small',
