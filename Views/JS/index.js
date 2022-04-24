@@ -1,4 +1,3 @@
-
 $.ajax({
     method: "GET",
     async: false,
@@ -100,7 +99,7 @@ $.ajax({
         <div class="item">
             <div class="text-center car-prueba p-4 m-4 rounded">` +
             (sellers[i].discount !== null ? `<p class="text-white p-3 rounded-circle font-weight-bold h4" style="background-color: rgb(248, 76, 76); position: absolute; z-index:100; top:5%; left: 5%">${sellers[i].discount * 100}%</p>` : '') +
-            `<a href="Products.html"><img src="Assets/Images/${sellers[i].image}" class="p-3 carousel-img"></a>` +
+            `<a href="Products.html?product=${sellers[i].productId}"><img src="Assets/Images/${sellers[i].image}" class="p-3 carousel-img"></a>` +
                 (sellers[i].discount === null ? `<del class="font-weight-bold mb-0 h6 color-secondary" style="visibility: hidden">.</del>
                 <p class="font-weight-bold price mb-0">$${sellers[i].price} M.N</p>`
                 : `<del class="font-weight-bold mb-0 h6 color-secondary">$${sellers[i].price} M.N</del>
@@ -124,7 +123,7 @@ $.ajax({
         <div class="item">
             <div class="text-center car-prueba p-4 m-4 rounded">` + 
             (recents[i].discount !== null ? `<p class="text-white p-3 rounded-circle font-weight-bold h4" style="background-color: rgb(248, 76, 76);  position: absolute; z-index:100; top:5%; left: 5%">${recents[i].discount * 100}%</p>` : '') +
-            `<a href="Products.html"><img src="Assets/Images/${recents[i].image}" class="p-3 carousel-img"></a>` +
+            `<a href="Products.html?product=${recents[i].productId}"><img src="Assets/Images/${recents[i].image}" class="p-3 carousel-img"></a>` +
                 (recents[i].discount === null ? `<del class="font-weight-bold mb-0 h6 color-secondary" style="visibility: hidden">.</del>
                 <p class="font-weight-bold price mb-0">$${recents[i].price} M.N</p>`
                 : `<del class="font-weight-bold mb-0 h6 color-secondary">$${recents[i].price} M.N</del>
@@ -147,7 +146,7 @@ $.ajax({
         <div class="item">
             <div class="text-center car-prueba p-4 m-4 rounded">` + 
             (offers[i].discount !== null ? `<p class="text-white p-3 rounded-circle font-weight-bold h4" style="background-color: rgb(248, 76, 76);  position: absolute; z-index:100; top:5%; left: 5%">${offers[i].discount * 100}%</p>` : '') +
-            `<a href="Products.html"><img src="Assets/Images/${offers[i].image}" class="p-3 carousel-img"></a>` +
+            `<a href="Products.html?product=${offers[i].productId}"><img src="Assets/Images/${offers[i].image}" class="p-3 carousel-img"></a>` +
                 (offers[i].discount === null ? `<del class="font-weight-bold mb-0 h6 color-secondary" style="visibility: hidden">.</del>
                 <p class="font-weight-bold price mb-0">$${offers[i].price} M.N</p>`
                 : `<del class="font-weight-bold mb-0 h6 color-secondary">$${offers[i].price} M.N</del>
@@ -174,7 +173,7 @@ $.ajax({
         <div class="item">
             <div class="text-center car-prueba p-4 m-4 rounded">` + 
             (recomendations[i].discount !== null ? `<p class="text-white p-3 rounded-circle font-weight-bold h4" style="background-color: rgb(248, 76, 76); position: absolute; z-index:100; top:5%; left: 5%">${recomendations[i].discount * 100}%</p>` : '') +
-            `<a href="Products.html"><img src="Assets/Images/${recomendations[i].image}" class="p-3" alt="Owl-Image"></a>` +
+            `<a href="Products.html?product=${recomendations[i].productId}"><img src="Assets/Images/${recomendations[i].image}" class="p-3" alt="Owl-Image"></a>` +
                 (recomendations[i].discount === null ? `<del class="font-weight-bold mb-0 h6 color-secondary" style="visibility: hidden">.</del>
                 <p class="font-weight-bold price mb-0">$${recomendations[i].price} M.N</p>`
                 : `<del class="font-weight-bold mb-0 h6 color-secondary">$${recomendations[i].price} M.N</del>

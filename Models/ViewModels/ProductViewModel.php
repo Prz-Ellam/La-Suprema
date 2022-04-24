@@ -1,12 +1,13 @@
 <?php
 
-class ProductDTO {
+class ProductViewModel {
 
     private $productId;
-    private $name;
+    private $productName;
     private $price;
     private $discount;
     private $image;
+    private $categoryName;
 
     public function __construct() {
 
@@ -24,15 +25,15 @@ class ProductDTO {
 
     }
 
-    public function getName() {
+    public function getProductName() {
 
-        return $this->name;
+        return $this->productName;
 
     }
 
-    public function setName($name) {
+    public function setProductName($productName) {
 
-        $this->name = $name;
+        $this->productName = $productName;
 
     }
 
@@ -69,6 +70,18 @@ class ProductDTO {
     public function setImage($image) {
 
         $this->image = $image;
+
+    }
+
+    public function getCategoryName() {
+
+        return $this->categoryName;
+
+    }
+
+    public function setCategoryName($categoryName) {
+
+        $this->categoryName = $categoryName;
 
     }
 

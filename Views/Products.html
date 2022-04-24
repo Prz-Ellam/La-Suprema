@@ -106,31 +106,50 @@
                     <div class="row">
 
                         <div class="col-lg-6 p-5 align-self-center">
-                            <img src="Assets/Images/IMG001.jpg" class="img-fluid zoom">
+                            <img src="Assets/Images/IMG001.jpg" class="img-fluid zoom" id="zoom" data-zoom-image="Assets/Images/IMG001.jpg">
                         </div>
 
+                        <!--div class="col-lg-6 p-5 align-self-center">
+                            <div class="detail-view"></div>
+                        </div-->
+
                         <div class="col-lg-6 p-5">
-                            <h2 class="font-weight-bold text-brown">Fresas con crema</h2>
-                            <h3 class="text-brown"><strong>Categoría:</strong> Frutas</h3>
-                            <p class="h4 text-brown">$297.00 M.N</p>
+
+                            <h2 class="font-weight-bold text-brown" id="name">Fresas con crema</h2>
+                            <h3 class="text-brown"><strong>Categoría:</strong><span id="category">Frutas</span></h3>
+                            <p class="h4 text-brown" id="price">$297.00 M.N</p>
 
                             <hr>
 
-                            <br>
                             <p class="font-weight-bold text-brown">Descripción:</p>
                             <p class="text-brown">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
                         
                             <hr>
 
                             <div class="form-group">
-                                <label class="text-brown">Cantidad</label>
-                                <input type="number" value="1" min="1" max="100" class="quantity form-control shadow-none w-50 mb-4">
+                            <label class="text-brown">Cantidad</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <input type="button" class="btn btn-outline-secondary" value="-">
+                                </div>
+                                <input type="number" value="1" min="1" max="100" class="quantity form-control shadow-none text-center w-50">
+                                <div class="input-group-append">
+                                    <input type="button" class="btn btn-outline-secondary" value="+">
+                                </div>
+                            </div>
                             </div>
 
-                            <button class="ml-auto btn btn-md btn-secondary shadow-none p-3 orange h5 mr-3" id=""><i class="fas fa-shopping-cart mr-1"></i> Agregar al carrito</button>
-                            <!--
-                            <button class="ml-auto btn btn-md btn-secondary shadow-none p-2 orange h6 " id="">Comprar ahora</button>
--->
+                            <div class="form-group">
+                                <label class="text-brown">Cantidad</label>
+                                <input type="number" value="1" min="1" max="100" class="quantity form-control shadow-none w-50 mb-4" id="quantity">
+                            </div>
+
+                            <div class="w-100 d-md-flex" >
+                                <button class="ml-auto btn btn-md btn-secondary shadow-none p-3 orange h5 mr-3 w-100" id="">Comprar ahora</button>
+                                <button class="ml-auto btn btn-md btn-secondary shadow-none p-3 orange h5 w-100" id="add-cart"><i class="fas fa-shopping-cart mr-1"></i> Agregar al carrito</button>
+                            </div>
+                            
+
                         </div>
 
                     </div>
@@ -201,8 +220,8 @@
             </div>
     </section>
 
-      <!-- Footer -->
-      <footer class="page-footer p-5 mt-5">
+    <!-- Footer -->
+    <footer class="page-footer p-5">
         <!-- Container -->
         <div class="container-fluid text-center text-md-left">
             <!-- Grid Row -->
@@ -218,18 +237,18 @@
                 <div class="col-md-3 col-xl-3 col-lg-3 mx-auto mb-3">
                     <h5 class="text-uppercase mb-4 text-cream font-weight-bold">Recursos</h5>
                     <ul class="list-unstyled">
-                        <li class="my-2"><a class="text-cream text-decoration-none">Acerca de nosotros</a><br></li>
-                        <li class="my-2"><a class="text-cream text-decoration-none">Contáctanos</a><br></li>
-                        <li class="my-2"><a class="text-cream text-decoration-none">Preguntas frecuentes</a><br></li>
-                        <li class="my-2"><a class="text-cream text-decoration-none">Sucursales</a><br></li>
+                        <li class="my-2"><a href="AboutUs.html" class="text-cream text-decoration-none">Acerca de nosotros</a><br></li>
+                        <li class="my-2"><a href="Contact.html" class="text-cream text-decoration-none">Contáctanos</a><br></li>
+                        <li class="my-2"><a href="FAQ.html" class="text-cream text-decoration-none">Preguntas frecuentes</a><br></li>
+                        <li class="my-2"><a href="BranchOffices.html" class="text-cream text-decoration-none">Sucursales</a><br></li>
                     </ul>
                 </div>
 
                 <div class="col-md-3 col-xl-3 col-lg-3 mx-auto mb-3">
-                    <h5 class="text-uppercase mb-4 text-cream font-weight-bold">Politicas</h5>
+                    <h5 class="text-uppercase mb-4 text-cream font-weight-bold">Políticas</h5>
                     <ul class="list-unstyled">
-                        <li class="my-2"><a class="text-cream text-decoration-none">Política de reembolsos</a><br></li>
-                        <li class="my-2"><a class="text-cream text-decoration-none">Política de privacidad</a><br></li>
+                        <li class="my-2"><a href="RefundPolicy.html" class="text-cream text-decoration-none">Política de reembolsos</a><br></li>
+                        <li class="my-2"><a href="PrivacyPolicy.html" class="text-cream text-decoration-none">Política de privacidad</a><br></li>
                     </ul>
                 </div>
 
@@ -243,7 +262,7 @@
                         </li>
                         <li class="my-2">
                             <a href="https://www.instagram.com/pastelerialasuprema" target="_blank" class="text-cream text-decoration-none">
-                                <i class="fab fa-instagram text-cream mr-3 h4" aria-hidden="true"></i>Instagram
+                                <i class="fa fa-instagram text-cream mr-3 h4" aria-hidden="true"></i>Instagram
                             </a>
                         </li>
                         <li class="my-2">
@@ -289,6 +308,9 @@
     <!-- Validate -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js" integrity="sha512-37T7leoNS06R80c8Ulq7cdCDU5MNQBwlYoy1TX/WUsLFC2eYNqtKlV0QjH7r8JpG/S0GUMZwebnVFLPd6SU5yg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     
+    <!-- Elevate Zoom -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/elevatezoom/2.2.3/jquery.elevatezoom.min.js" integrity="sha512-UH428GPLVbCa8xDVooDWXytY8WASfzVv3kxCvTAFkxD2vPjouf1I3+RJ2QcSckESsb7sI+gv3yhsgw9ZhM7sDw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
     <!-- Popper JS -->
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
             

@@ -1,5 +1,6 @@
 <?php
 include($_SERVER['DOCUMENT_ROOT']."/La-Suprema/Models/DAO/UserDAO.php");
+include($_SERVER['DOCUMENT_ROOT']."/La-Suprema/Models/DAO/CartDAO.php");
 
 session_start();
 
@@ -22,6 +23,9 @@ if (isset($username) && isset($email) && isset($password) && isset($confirmPassw
 
         $_SESSION["user_id"] = $result->getUserID();
         $_SESSION["username"] = $result->getUsername();
+
+        $cartDao = new CartDAO();
+        $cartDao->createCart($result->getUserID());
 
         echo json_encode(array("success" => true));
 

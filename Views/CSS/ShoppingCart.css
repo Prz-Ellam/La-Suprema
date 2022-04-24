@@ -2,3 +2,8 @@ body {
     background-color: #F0D5CC;
     font-family: 'Montserrat', sans-serif;
 }
+
+table {
+    width: 100%;
+}
+

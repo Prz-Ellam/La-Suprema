@@ -2,11 +2,12 @@
 
 require_once($_SERVER['DOCUMENT_ROOT']."/La-Suprema/Models/Connections/MainConnection.php");
 require_once($_SERVER['DOCUMENT_ROOT']."/La-Suprema/Models/DTO/ProductDTO.php");
+require_once($_SERVER['DOCUMENT_ROOT']."/La-Suprema/Models/ViewModels/ProductViewModel.php");
 
 class ProductDAO {
 
     private $create, $update, $delete, $readAll, $sellers, $recomendations, $shoppingsCount, $productFilter,
-    $offerProducts;
+    $offerProducts, $getProduct;
     private $mainConnection;
 
     public function __construct() {
@@ -19,6 +20,7 @@ class ProductDAO {
         $this->shoppingsCount = "CALL sp_GetShoppingsCount(?)";
         $this->productFilter = "CALL sp_ProductsFilter(?, ?)";
         $this->offerProducts = "CALL sp_GetOfferProducts()";
+        $this->getProductQuery = "CALL sp_GetProduct(?)";
 
     }
 
@@ -31,6 +33,7 @@ class ProductDAO {
 
             $element = new ProductDTO();
 
+            $element->setProductId($row["product_id"]);
             $element->setName($row["name"]);
             $element->setPrice($row["price"]);
             $element->setDiscount($row["discount"]);
@@ -53,6 +56,7 @@ class ProductDAO {
 
             $element = new ProductDTO();
 
+            $element->setProductId($row["product_id"]);
             $element->setName($row["name"]);
             $element->setPrice($row["price"]);
             $element->setDiscount($row["discount"]);
@@ -76,6 +80,7 @@ class ProductDAO {
 
             $element = new ProductDTO();
 
+            $element->setProductId($row["product_id"]);
             $element->setName($row["name"]);
             $element->setPrice($row["price"]);
             $element->setDiscount($row["discount"]);
@@ -98,6 +103,7 @@ class ProductDAO {
 
             $element = new ProductDTO();
 
+            $element->setProductId($row["product_id"]);
             $element->setName($row["name"]);
             $element->setPrice($row["price"]);
             $element->setDiscount($row["discount"]);
@@ -144,6 +150,29 @@ class ProductDAO {
         }
 
         return $products;
+
+    }
+
+    public function getProduct($productId) {
+
+        $parameters = array($productId);
+        $execute = $this->mainConnection->executeReader($this->getProductQuery, $parameters);
+
+        while ($row = $execute->fetch()) {
+
+            $element = new ProductViewModel();
+
+            $element->setProductId($row["product_id"]);
+            $element->setProductName($row["product_name"]);
+            $element->setPrice($row["price"]);
+            $element->setDiscount($row["discount"]);
+            $element->setImage($row["image"]);
+            $element->setCategoryName($row["category_name"]);
+
+            return $element;
+        }
+
+        return null;
 
     }
 

@@ -52,6 +52,33 @@ $.ajax({
     console.log("Ups...algo salio mal: " + state);
 });
 
+
+
+$.ajax({
+    data: window.location.search.substring(1),
+    method: "GET",
+    async: false,
+    dataType: "json",
+    url: '../Controllers/GetProductController.php'
+}).done(function(data) {
+
+    if (data.status) {
+
+        $("#name").html(data.product.productName);
+        $("#category").html(" " + data.product.categoryName);
+        $("#price").html(data.product.price);
+        $("#zoom").attr("src", `Assets/Images/${data.product.image}`);
+
+    }
+
+}).fail(function(jqXHR, state) {
+    console.log("Ups...algo salio mal: " + state);
+});
+
+
+
+
+
 $(document).ready(function() {
 
     let headerHeight = $('header').height();
@@ -95,5 +122,35 @@ $(document).ready(function() {
         }
     });
 
+    $("#add-cart").click(function() {
+
+        let params = new URLSearchParams(document.location.search);
+
+        let dataForm = {"product" : params.get("product"), "quantity" : $("#quantity").val() };
+
+        $.ajax({
+            data: dataForm,
+            method: "POST",
+            dataType: "json",
+            url: '../Controllers/ShoppingCart.php'
+        }).done(function(data) {
+        
+            alert(data.status);
+        
+        }).fail(function(jqXHR, state) {
+            console.log("Ups...algo salio mal: " + state);
+        });
+        
+
+    });
+
+/*
+    $(".zoom").elevateZoom({
+        scrollZoom: true,
+        zoomLevel: 0.8,
+        zoomType: "inner",
+  cursor: "crosshair"
+    });
+*/
 
 })

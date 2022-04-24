@@ -183,25 +183,25 @@ $(document).ready(function() {
         messages: {
             username: {
                 required: 'El nombre de usuario no puede estar vacío.',
-                vUsername: 'El nombre de usuario no es válido (Debe contener entre 5 a 20 caracteres que sean letras, números o guiones bajos',
-                validateUsername: 'El nombre de usuario que ingresaste esta siendo utilizado por otra persona'
+                vUsername: 'El nombre de usuario no es válido (Debe contener entre 5 a 20 caracteres que sean letras, números o guiones bajos).',
+                validateUsername: 'El nombre de usuario que ingresaste está siendo utilizado por otra persona.'
             },
             email: {
-                required: 'El correo electrónico no puede estar vacío',
+                required: 'El correo electrónico no puede estar vacío.',
                 email: 'El correo electrónico que ingresó no es válido.',
                 realEmail: 'El correo electrónico que ingresó no es válido.',
-                validateEmail: 'El correo electrónico que ingresó ya esta siendo utilizado. ¿Quieres <a href="Login.html"> iniciar sesión</a>?',
-                maxlength: 'El correo electrónico es muy largo'
+                validateEmail: 'El correo electrónico que ingresó ya está siendo utilizado. ¿Quieres <a href="Login.html"> iniciar sesión</a>?.',
+                maxlength: 'El correo electrónico es muy largo.'
             },
             password: {
                 required: 'La contraseña no puede estar vacía.',
-                minlength: 'Por favor ingrese al menos 6 caracteres',
-                maxlength: 'La contraseña es muy larga'
+                minlength: 'Por favor ingrese al menos 6 caracteres.',
+                maxlength: 'La contraseña es muy larga.'
             },
             confirmpassword: {
                 required: 'Confirmar contraseña no puede estar vacío.',
-                confirmPass: 'Parece que la contraseña no coincide',
-                maxlength: 'La confirmación de contraseña es muy larga'
+                confirmPass: 'Parece que la contraseña no coincide.',
+                maxlength: 'La confirmación de contraseña es muy larga.'
             }
         },
         errorElement: 'small',
@@ -238,26 +238,6 @@ $(document).ready(function() {
         });
 
     });
-
-    $('#btn-facebook').on('click', function() {
-        $.ajax({
-            data: $(this).serialize(),
-            method: "POST",
-            dataType: "json",
-            url: '../config.php'
-        }).done(function(data) {
-            if (data.success) {
-                window.location.href = data.link;
-            }
-            else {
-                console.log('Error con la API de Facebook');
-            }
-        }).fail(function(jqXHR, state) {
-            alert("Ups...algo salio mal: " + state);
-        });
-    })
-
-
 
     // Caps Lock
     document.addEventListener("keyup", function(event) {

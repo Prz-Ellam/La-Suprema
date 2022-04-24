@@ -1,5 +1,3 @@
-
-
 $.ajax({
     method: "GET",
     async: false,
@@ -53,6 +51,54 @@ $.ajax({
 }).fail(function(jqXHR, state) {
     console.log("Ups...algo salio mal: " + state);
 });
+
+
+$.ajax({
+    method: "GET",
+    async: false,
+    dataType: "json",
+    url: '../Controllers/GetShoppingCartItems.php'
+}).done(function(data) {
+
+    if (data.status) {
+
+        let items = data.items;
+
+        for (let i = 0; i < items.length; i++) {
+
+            $("tbody").append(`
+                <tr>
+                    <td style="width: 30%;" class="bg-white"><img src="Assets/Images/${items[i].image}" class="mr-3" height="100">${items[i].productName}</td>
+                    <td class="bg-white align-middle">$<span class="price">${items[i].price}</span></td>
+                    <td class="bg-white align-middle"><input type="number" value="${items[i].quantity}" min="1" max="100" class="form-control shadow-none w-50 quantity"></td>
+                    <td class="bg-white align-middle">$<span class="total">${items[i].price * items[i].quantity}</span> M.N</td>
+                    <td class="bg-white align-middle"><a href="#"><i class="fas fa-trash text-danger h3"></i></a></td>
+                </tr>
+            `);
+
+
+        }
+
+        $("tbody").append(`
+        <tr>
+        <td class="bg-white"></td>
+        <td class="bg-white"></td>
+        <td class="bg-white align-middle"><span>2</span></td>
+        <td class="bg-white align-middle">$<span id="final-price">597.00</span> M.N</td>
+        <td class="bg-white align-middle"></td>
+        </tr>   
+        `);
+
+        
+    }
+
+}).fail(function(jqXHR, state) {
+    console.log("Ups...algo salio mal: " + state);
+});
+
+
+
+
 
 
 

@@ -9,7 +9,7 @@ CREATE TABLE users(
     password				VARCHAR(200) NOT NULL,
     username				VARCHAR(20) UNIQUE NOT NULL,
     created_at			    TIMESTAMP DEFAULT NOW(),
-    modified_at             TIMESTAMP,
+    modified_at             TIMESTAMP DEFAULT NOW(),
     active					BOOLEAN DEFAULT TRUE,
     
     PRIMARY KEY (user_id)
@@ -76,6 +76,24 @@ CREATE TABLE shoppings(
     FOREIGN KEY (order_id) REFERENCES orders(order_id),
     FOREIGN KEY (product_id) REFERENCES products(product_id)
 
+);
+
+CREATE TABLE carts(
+	cart_id					INT NOT NULL AUTO_INCREMENT,
+    user_id					INT,
+    guest_id				VARCHAR(16),
+    cart_status             BOOL NOT NULL,    
+	PRIMARY KEY (cart_id),
+    FOREIGN KEY (user_id) REFERENCES users(user_id)
+);
+
+CREATE TABLE cart_items(
+	cart_item_id			INT NOT NULL AUTO_INCREMENT,
+	cart_id					INT NOT NULL,
+    product_id				INT NOT NULL,
+    quantity				INT NOT NULL,
+	PRIMARY KEY (cart_item_id),
+    FOREIGN KEY (product_id) REFERENCES products(product_id)
 );
 
 
@@ -159,7 +177,7 @@ ON shoppings.order_id = orders.order_id AND orders.user_id = 1
 
 DROP VIEW IF EXISTS `BestSellersForUser`;
 CREATE VIEW `BestSellersForUser` AS
-SELECT products.name, products.price, products.discount, products.image, 
+SELECT products.product_id, products.name, products.price, products.discount, products.image, 
 IFNULL(COUNT(shoppings.product_id) * shoppings.quantity, 0) AS Cantidad, 
 IFNULL(COUNT(shoppings.product_id) * shoppings.quantity, 0) / (SELECT COUNT(shoppings.product_id) FROM shoppings) AS Porcentaje,
 categories.name AS category FROM products
@@ -170,7 +188,7 @@ ON products.product_id = shoppings.product_id
 GROUP BY  products.name
 ORDER BY IFNULL(COUNT(shoppings.product_id) * shoppings.quantity, 0) DESC;
 
-
+CALL sp_GetUserRecomendations(1);
 
 USE `la_suprema`;
 DROP procedure IF EXISTS `sp_GetUserRecomendations`;
@@ -195,7 +213,7 @@ ON categories.category_id = products.category_id
 GROUP BY categories.name
 ORDER BY Total DESC;
 
-select BestSellersForUser.name, BestSellersForUser.price, BestSellersForUser.discount,
+select BestSellersForUser.product_id, BestSellersForUser.name, BestSellersForUser.price, BestSellersForUser.discount,
 BestSellersForUser.image, (categories_percentage.porcentaje + BestSellersForUser.porcentaje) / 2.0 AS TotalPorcentaje from BestSellersForUser
 JOIN categories_percentage
 ON categories_percentage.name = BestSellersForUser.category
@@ -210,7 +228,7 @@ DELIMITER ;
 
 DROP VIEW IF EXISTS `BestSellers`;
 CREATE VIEW `BestSellers` AS
-SELECT products.name, products.price, products.image, 
+SELECT products.product_id, products.name, products.price, products.image, 
 IFNULL(COUNT(shoppings.product_id) * shoppings.quantity, 0) AS Cantidad, 
 IFNULL(COUNT(shoppings.product_id) * shoppings.quantity, 0) / (SELECT COUNT(shoppings.product_id) FROM shoppings) AS Porcentaje,
 categories.name AS category FROM products
@@ -275,7 +293,7 @@ USE `la_suprema`$$
 CREATE PROCEDURE `sp_GetSellersProducts` ()
 BEGIN
 
-SELECT products.name, products.price, products.discount,
+SELECT products.product_id, products.name, products.price, products.discount,
 products.image, IFNULL(COUNT(shoppings.product_id) * shoppings.quantity, 0) AS Cantidad FROM products
 LEFT JOIN shoppings
 ON products.product_id = shoppings.product_id
@@ -295,7 +313,7 @@ DELIMITER $$
 USE `la_suprema`$$
 CREATE PROCEDURE `sp_GetOfferProducts` ()
 BEGIN
-SELECT name, price, discount, image
+SELECT product_id, name, price, discount, image
 FROM products
 WHERE discount > 0.00
 ORDER BY discount DESC
@@ -393,15 +411,41 @@ INSERT INTO products(name, price, image, category_id, sounds_like)
 VALUES('Tentación de mango', 389.00, 'E001S011648.jpg', 3, 'TNTSNTMNK');
 INSERT INTO products(name, price, image, category_id, sounds_like)
 VALUES('Pastel nevado de nuez', 339.00, 'E001S014478.jpg', 4, 'PSTLNFTTNS');
--- INSERT INTO products(name, price, image, category_id)
--- VALUES('Pastel mechudo', 181.00, 'E001S000035.jpg', 5);
+INSERT INTO products(name, price, image, category_id, sounds_like)
+VALUES('Pastel mechudo', 181.00, 'E001S000035.jpg', 5, 'A');
+
+SELECT * FROM users;
+SELECT * FROM categories;
+SELECT * FROM products;
+SELECT * FROM orders;
+SELECT * FROM shoppings;
+
 
 
 INSERT INTO orders(user_id)
 VALUES(1);
 
 INSERT INTO shoppings(order_id, product_id, quantity, amount)
-VALUES(1, 3, 1, 250.00);
+VALUES(1, 11, 1, 0.00);
+INSERT INTO shoppings(order_id, product_id, quantity, amount)
+VALUES(1, 12, 1, 0.00);
+INSERT INTO shoppings(order_id, product_id, quantity, amount)
+VALUES(1, 12, 1, 0.00);
+
+
+INSERT INTO orders(user_id)
+VALUES(2);
+INSERT INTO shoppings(order_id, product_id, quantity, amount)
+VALUES(2, 15, 3, 0.00);
+INSERT INTO shoppings(order_id, product_id, quantity, amount)
+VALUES(2, 15, 2, 0.00);
+
+
+INSERT INTO shoppings(order_id, product_id, quantity, amount)
+VALUES(1, 7, 4, 0.00);
+
+
+
 INSERT INTO shoppings(order_id, product_id, quantity, amount)
 VALUES(1, 9, 1, 262.00);
 INSERT INTO shoppings(order_id, product_id, quantity, amount)
@@ -430,3 +474,90 @@ INSERT INTO shoppings(order_id, product_id, quantity, amount)
 VALUES(1, 3, 4, 1000.00);
 */
 
+
+
+DELIMITER $$
+DROP PROCEDURE IF EXISTS sp_CreateCart;
+
+CREATE PROCEDURE sp_CreateCart(
+	_user_id				INT
+)
+BEGIN
+
+	INSERT INTO carts(user_id, cart_status)
+    VALUES(_user_id, TRUE);
+
+END$$
+
+DELIMITER ;
+
+
+
+DELIMITER $$
+DROP PROCEDURE IF EXISTS sp_GetActiveCart;
+
+CREATE PROCEDURE sp_GetActiveCart(
+	_user_id				INT
+)
+BEGIN
+
+SELECT cart_id FROM carts WHERE user_id = _user_id AND cart_status = TRUE;
+
+END$$
+
+DELIMITER ;
+
+
+
+DELIMITER $$
+DROP PROCEDURE IF EXISTS sp_InsertCartItem;
+
+CREATE PROCEDURE sp_InsertCartItem(
+	_cart_id				INT,
+	_product_id				INT,
+    _quantity				INT
+)
+BEGIN
+
+	IF (EXISTS (SELECT cart_id, product_id FROM cart_items WHERE cart_id = _cart_id AND product_id = _product_id)) THEN 
+	UPDATE cart_items
+    SET
+    quantity = quantity + _quantity
+    WHERE cart_id = _cart_id AND product_id = _product_id;
+    ELSE 
+    INSERT INTO cart_items(cart_id, product_id, quantity)
+    VALUES(_cart_id, _product_id, _quantity);
+    END IF;
+
+END$$
+
+DELIMITER ;
+
+
+
+
+DELIMITER $$
+DROP PROCEDURE IF EXISTS sp_GetCartItem;
+
+CREATE PROCEDURE sp_GetCartItem(
+	_cart_id				INT
+)
+BEGIN
+
+	SELECT
+    		p.image,
+            p.name,
+            p.price,
+            SUM(ci.quantity)
+    FROM
+    		cart_items AS ci
+            JOIN carts AS c
+            ON ci.cart_id = c.cart_id
+            JOIN products AS p
+            ON ci.product_id = p.product_id
+	GROUP BY
+    		p.image, p.name, p.price;
+
+END$$
+
+DELIMITER ;

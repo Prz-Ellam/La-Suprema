@@ -152,7 +152,7 @@ $(document).ready(function() {
                 }
                 $("#email-error-label").remove();
                 $('#email').addClass('is-invalid').removeClass('is-valid');
-                $('#email').parent().append('<small class="text-danger form-text" id="email-error-label">El correo o la contraseña que ingreso no son correctos, por favor revise sus credenciales</small>');
+                $('#email').parent().append('<small class="text-danger form-text" id="email-error-label">El correo o la contraseña que ingresó no son correctos, por favor revise sus credenciales</small>');
                 $('#password').addClass('is-invalid').removeClass('is-valid');
             }
         }).fail(function(jqXHR, state) {
@@ -179,5 +179,23 @@ $(document).ready(function() {
             $('#caps-lock').css('visibility', 'hidden');
         }
     });
+
+    $("#send-mail").submit(function(e) {
+
+        e.preventDefault();
+
+        $.ajax({
+            data: $(this).serialize(),
+            method: "POST",
+            dataType: "json",
+            url: '../Controllers/SendMailController.php'
+        }).done(function(data) {
+        
+            
+        
+        }).fail(function(jqXHR, state) {
+            console.log("Ups...algo salio mal: " + state);
+        });
+    })
 
 });
