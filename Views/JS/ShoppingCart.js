@@ -69,9 +69,9 @@ $.ajax({
             $("tbody").append(`
                 <tr id="${items[i].productId}">
                     <td style="width: 30%;" class="bg-white"><img src="Assets/Images/${items[i].image}" class="mr-3" height="100">${items[i].productName}</td>
-                    <td class="bg-white align-middle">$<span class="price">${items[i].price}</span></td>
+                    <td class="bg-white align-middle">$<span class="price">${parseFloat(items[i].price) - (parseFloat(items[i].price) * parseFloat(items[i].discount))}</span></td>
                     <td class="bg-white align-middle"><input type="number" value="${items[i].quantity}" min="1" max="100" class="form-control shadow-none w-50 quantity"></td>
-                    <td class="bg-white align-middle">$<span class="total">${items[i].price * items[i].quantity}</span> M.N</td>
+                    <td class="bg-white align-middle">$<span class="total">${(parseFloat(items[i].price) - (parseFloat(items[i].price) * parseFloat(items[i].discount))) * parseFloat(items[i].quantity)}</span> M.N</td>
                     <td class="bg-white align-middle"><span class="delete-item"><i class="fas fa-trash text-danger h3"></i></span></td>
                 </tr>
             `);
@@ -79,12 +79,21 @@ $.ajax({
 
         }
 
+        let totalPrice = 0.0, quantity = 0;
+        $('.total').each(function() {
+            totalPrice += parseFloat($(this).html());
+        });
+
+        $('.quantity').each(function() {
+            quantity += parseInt($(this).val());
+        });
+
         $("tbody").append(`
         <tr>
         <td class="bg-white"></td>
         <td class="bg-white"></td>
-        <td class="bg-white align-middle"><span>2</span></td>
-        <td class="bg-white align-middle">$<span id="final-price">597.00</span> M.N</td>
+        <td class="bg-white align-middle"><span id="final-quantity">${quantity}</span></td>
+        <td class="bg-white align-middle">$<span id="final-price">${totalPrice}</span> M.N</td>
         <td class="bg-white align-middle"></td>
         </tr>   
         `);
@@ -107,34 +116,12 @@ $(document).ready(function() {
     let headerHeight = $('header').height();
     $('body').css('padding-top', parseFloat( headerHeight ));
 
-
-    $('.quantity').on('change', function() {
-
-
-        let tr = $(this).parent().parent();
-        let price = $(tr).find('td span.price');
-        let total = $(tr).find('td span.total');
-
-        total.html((parseInt($(this).val() * parseFloat(price.html()))).toFixed(2));
-
-        let totalPrice = 0.0;
-        $('.total').each(function() {
-
-            totalPrice += parseFloat($(this).html());
-
-        })
-
-
-        $('#final-price').html(totalPrice);
-
-    })
-
     $('#finish-order').on('click', function() {
         window.location.href = "Checkout.html";
     });
 
 
-    $('input[type="number"').on("input", function() {
+    $('.quantity').on("change", function() {
 
         let quantity = parseInt($('input[type="number"').val());
         if (quantity === 0 || isNaN(quantity)) {
@@ -148,13 +135,31 @@ $(document).ready(function() {
             method: "POST",
             dataType: "json",
             url: '../Controllers/UpdateShoppingCartItems.php'
-        }).done(function(data) {
+        }).done((data) => {
 
+            let tr = $(this).parent().parent();
+            let price = $(tr).find('td span.price');
+            let total = $(tr).find('td span.total');
             
+            total.html((parseInt($(this).val() * parseFloat(price.html()))).toFixed(2));
+            
+            let totalPrice = 0.0, quantity = 0;
+            $('.total').each(function() {
+                totalPrice += parseFloat($(this).html());
+            });
+
+            $('.quantity').each(function() {
+                quantity += parseInt($(this).val());
+            });
+            
+            $('#final-price').html(totalPrice);
+            $("#final-quantity").html(quantity);
         
         }).fail(function(jqXHR, state) {
             console.log("Ups...algo salio mal: " + state);
         });
+
+
 
     })
 

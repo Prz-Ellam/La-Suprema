@@ -6,6 +6,7 @@ class ShoppingCartViewModel {
     private $image;
     private $productName;
     private $price;
+    private $discount;
     private $quantity;
 
     public function __construct() {
@@ -57,6 +58,18 @@ class ShoppingCartViewModel {
     public function setPrice($price) {
 
         $this->price = $price;
+
+    }
+
+    public function getDiscount() {
+
+        return $this->discount;
+
+    }
+
+    public function setDiscount($discount) {
+
+        $this->discount = $discount;
 
     }
 

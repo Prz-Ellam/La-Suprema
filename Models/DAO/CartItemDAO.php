@@ -42,6 +42,7 @@ class CartItemDAO {
             $element->setImage($row["image"]);
             $element->setProductName($row["name"]);
             $element->setPrice($row["price"]);
+            $element->setDiscount($row["discount"]);
             $element->setQuantity($row["quantity"]);
 
 

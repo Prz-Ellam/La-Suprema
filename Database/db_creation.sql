@@ -549,6 +549,7 @@ BEGIN
     		p.image AS image,
             p.name AS name,
             p.price AS price,
+            p.discount AS discount,
             ci.quantity AS quantity
     FROM
     		cart_items AS ci
