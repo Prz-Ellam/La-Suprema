@@ -537,27 +537,69 @@ DELIMITER ;
 
 
 DELIMITER $$
-DROP PROCEDURE IF EXISTS sp_GetCartItem;
+DROP PROCEDURE IF EXISTS sp_GetCartItems;
 
-CREATE PROCEDURE sp_GetCartItem(
+CREATE PROCEDURE sp_GetCartItems(
 	_cart_id				INT
 )
 BEGIN
 
 	SELECT
-    		p.image,
-            p.name,
-            p.price,
-            SUM(ci.quantity)
+    		p.product_id AS product_id,
+    		p.image AS image,
+            p.name AS name,
+            p.price AS price,
+            ci.quantity AS quantity
     FROM
     		cart_items AS ci
             JOIN carts AS c
             ON ci.cart_id = c.cart_id
             JOIN products AS p
-            ON ci.product_id = p.product_id
-	GROUP BY
-    		p.image, p.name, p.price;
+            ON ci.product_id = p.product_id;
 
 END$$
 
 DELIMITER ;
+
+
+
+
+
+DELIMITER $$
+DROP PROCEDURE IF EXISTS sp_UpdateCartItem;
+
+CREATE PROCEDURE sp_UpdateCartItem(
+	_cart_id				INT,
+	_product_id				INT,
+    _quantity				INT
+)
+BEGIN
+
+	UPDATE cart_items
+    SET
+    quantity = _quantity
+    WHERE cart_id = _cart_id AND product_id = _product_id;
+
+END$$
+
+DELIMITER ;
+
+
+
+
+DELIMITER $$
+DROP PROCEDURE IF EXISTS sp_DeleteCartItem;
+
+CREATE PROCEDURE sp_DeleteCartItem(
+	_cart_id				INT,
+	_product_id				INT
+)
+BEGIN
+
+	DELETE FROM cart_items
+    WHERE cart_id = _cart_id AND product_id = _product_id;
+
+END$$
+
+DELIMITER ;
+

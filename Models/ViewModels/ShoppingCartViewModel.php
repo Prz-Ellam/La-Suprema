@@ -2,12 +2,25 @@
 
 class ShoppingCartViewModel {
 
+    private $productId;
     private $image;
     private $productName;
     private $price;
     private $quantity;
 
     public function __construct() {
+
+    }
+
+    public function getProductId() {
+
+        return $this->productId;
+
+    }
+
+    public function setProductId($productId) {
+
+        $this->productId = $productId;
 
     }
 

@@ -67,12 +67,12 @@ $.ajax({
         for (let i = 0; i < items.length; i++) {
 
             $("tbody").append(`
-                <tr>
+                <tr id="${items[i].productId}">
                     <td style="width: 30%;" class="bg-white"><img src="Assets/Images/${items[i].image}" class="mr-3" height="100">${items[i].productName}</td>
                     <td class="bg-white align-middle">$<span class="price">${items[i].price}</span></td>
                     <td class="bg-white align-middle"><input type="number" value="${items[i].quantity}" min="1" max="100" class="form-control shadow-none w-50 quantity"></td>
                     <td class="bg-white align-middle">$<span class="total">${items[i].price * items[i].quantity}</span> M.N</td>
-                    <td class="bg-white align-middle"><a href="#"><i class="fas fa-trash text-danger h3"></i></a></td>
+                    <td class="bg-white align-middle"><span class="delete-item"><i class="fas fa-trash text-danger h3"></i></span></td>
                 </tr>
             `);
 
@@ -131,6 +131,54 @@ $(document).ready(function() {
 
     $('#finish-order').on('click', function() {
         window.location.href = "Checkout.html";
+    });
+
+
+    $('input[type="number"').on("input", function() {
+
+        let quantity = parseInt($('input[type="number"').val());
+        if (quantity === 0 || isNaN(quantity)) {
+            return;
+        }
+
+        let dataForm = {"product-id" : $(this).parent().parent()[0].id, "quantity" : $(this).val()};
+
+        $.ajax({
+            data: dataForm,
+            method: "POST",
+            dataType: "json",
+            url: '../Controllers/UpdateShoppingCartItems.php'
+        }).done(function(data) {
+
+            
+        
+        }).fail(function(jqXHR, state) {
+            console.log("Ups...algo salio mal: " + state);
+        });
+
+    })
+
+    $(".delete-item").click(function() {
+
+        let tr = $(this).parent().parent();
+
+        let dataForm = {"product-id" : tr[0].id};
+
+        $.ajax({
+            data: dataForm,
+            method: "POST",
+            dataType: "json",
+            url: '../Controllers/DeleteShoppingCartItems.php'
+        }).done(function(data) {
+
+            $(tr).empty();
+        
+        }).fail(function(jqXHR, state) {
+            console.log("Ups...algo salio mal: " + state);
+        });
+
+
+
     })
 
 
