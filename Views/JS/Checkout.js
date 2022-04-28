@@ -52,12 +52,60 @@ $.ajax({
     console.log("Ups...algo salio mal: " + state);
 });
 
-$(document).ready(function() {
+$.ajax({
+    method: "GET",
+    async: false,
+    dataType: "json",
+    url: '../Controllers/GetShoppingCartItems.php'
+}).done(function(data) {
+
+    if (data.status) {
+
+
+        $.each(data.items, function(i, e) {
+
+            $("#shipping").append(`
+
+            <div class="d-flex justify-content-between">
+            <p>${e.productName}</p>
+            <p>${e.price}</p>
+            </div>
+            `);
+
+
+        })
+
+
+
+        
+    }
+
+}).fail(function(jqXHR, state) {
+    console.log("Ups...algo salio mal: " + state);
+});
+
+$(document).ready(function(){
 
     let headerHeight = $('header').height();
     $('body').css('padding-top', parseFloat( headerHeight - 5 ));
 
     $('#finish').on('click', function() {
+
+        $.ajax({
+            data: $("#msform").serialize(),
+            method: "POST",
+            dataType: "json",
+            url: '../Controllers/Checkout.php'
+        }).done(function(response) {
+
+            console.log(response);
+
+
+
+    
+        }).fail(function(jqXHR, state, error) {
+            console.log("Ups...algo salio mal: " + state);
+        });
 
         Swal.fire({
             title: '¡Gracias por su compra!',
@@ -72,5 +120,111 @@ $(document).ready(function() {
         });
 
     });
+    
+    var current_fs, next_fs, previous_fs; //fieldsets
+    var opacity;
+    
+    $(".next").click(function(){
+        
+        current_fs = $(this).parent();
+        next_fs = $(this).parent().next();
+        
+        //Add Class Active
+        $("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
+        
+        //show the next fieldset
+        next_fs.show();
+        //hide the current fieldset with style
+        current_fs.animate({opacity: 0}, {
+        step: function(now) {
+            // for making fielset appear animation
+            opacity = 1 - now;
+            
+            current_fs.css({
+                'display': 'none',
+                'position': 'relative'
+            });
+
+            next_fs.css({'opacity': opacity});
+        },
+        duration: 600
+    });
+
+});
+
+$(".previous").click(function(){
+    
+    current_fs = $(this).parent();
+    previous_fs = $(this).parent().prev();
+    
+    //Remove class active
+    $("#progressbar li").eq($("fieldset").index(current_fs)).removeClass("active");
+    
+    //show the previous fieldset
+    previous_fs.show();
+    
+    //hide the current fieldset with style
+    current_fs.animate({opacity: 0}, {
+        step: function(now) {
+            // for making fielset appear animation
+            opacity = 1 - now;
+            
+            current_fs.css({
+                'display': 'none',
+                'position': 'relative'
+            });
+            
+            previous_fs.css({'opacity': opacity});
+        },
+        duration: 600
+    });
+});
+
+$('.radio-group .radio').click(function(){
+    $(this).parent().find('.radio').removeClass('selected');
+    $(this).addClass('selected');
+});
+
+$(".submit").click(function(){
+    return false;
+});
+
+
+const stars = [$(".rating__star")];
+/*
+stars.map((star) => {
+
+    $(star).mousemove(function() {
+
+        i = stars.indexOf(star);
+
+        alert(i);
+    })
+        
+})
+*/
+
+$(".rating__star").click(function() {
+
+    //let position = $(this).position();
+    let starIndex = parseInt($(this)[0].id);
+
+    for (let i = starIndex; i > 0; i--) {
+        stars[0][i - 1].className = "rating__star fas fa-star";
+    }
+    for (let i = starIndex; i < 6; i++) {
+        stars[0][i].className = "rating__star far fa-star";
+    }
+
+
+});
+
+
+
+
+
+
+
+
 
 });

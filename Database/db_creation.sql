@@ -92,9 +92,11 @@ CREATE TABLE cart_items(
 	cart_id					INT NOT NULL,
     product_id				INT NOT NULL,
     quantity				INT NOT NULL,
+    amount					DECIMAL(10,2),
 	PRIMARY KEY (cart_item_id),
     FOREIGN KEY (product_id) REFERENCES products(product_id)
 );
+
 
 
 
@@ -422,6 +424,10 @@ SELECT * FROM shoppings;
 
 
 
+
+
+
+
 INSERT INTO orders(user_id)
 VALUES(1);
 
@@ -491,7 +497,7 @@ END$$
 
 DELIMITER ;
 
-
+CALL sp_GetActiveCart(4);
 
 DELIMITER $$
 DROP PROCEDURE IF EXISTS sp_GetActiveCart;
@@ -535,7 +541,6 @@ DELIMITER ;
 
 
 
-
 DELIMITER $$
 DROP PROCEDURE IF EXISTS sp_GetCartItems;
 
@@ -549,14 +554,16 @@ BEGIN
     		p.image AS image,
             p.name AS name,
             p.price AS price,
-            p.discount AS discount,
+            IFNULL(p.discount, 0) AS discount,
             ci.quantity AS quantity
     FROM
     		cart_items AS ci
             JOIN carts AS c
             ON ci.cart_id = c.cart_id
             JOIN products AS p
-            ON ci.product_id = p.product_id;
+            ON ci.product_id = p.product_id
+	WHERE 
+    		ci.cart_id = _cart_id;
 
 END$$
 
@@ -604,3 +611,59 @@ END$$
 
 DELIMITER ;
 
+
+
+
+DELIMITER $$
+DROP PROCEDURE IF EXISTS sp_CreateOrder;
+
+CREATE PROCEDURE sp_CreateOrder(
+	_user_id				INT,
+    _cart_id				INT
+)
+BEGIN
+
+	INSERT INTO orders(user_id)
+    VALUES(_user_id);
+    
+    INSERT INTO shoppings(
+    		order_id, 
+            product_id, 
+            quantity, 
+            amount)
+    SELECT 
+    		LAST_INSERT_ID(),
+            ca.product_id,
+            ca.quantity,
+            (p.price - (p.price * IFNULL(p.discount, 0))) * ca.quantity
+	FROM 
+			cart_items AS ca
+			JOIN products AS p
+			ON ca.product_id = p.product_id
+	WHERE
+    		cart_id = _cart_id;
+            
+            
+	UPDATE carts SET cart_status = FALSE WHERE cart_id = _cart_id;
+    
+    INSERT INTO carts(user_id, cart_status)
+    VALUES(_user_id, TRUE);
+
+END
+
+
+
+SELECT * FROM cart_items
+WHERE cart_id = 1;
+
+INSERT INTO orders(user_id)
+VALUES(_user_id);
+ 
+SELECT LAST_INSERT_ID();
+
+INSERT INTO shoppings(order_id, product_id, quantity, amount)
+SELECT LAST_INSERT_ID(), ca.product_id, ca.quantity, (p.price - (p.price * IFNULL(p.discount, 0))) * ca.quantity
+FROM cart_items AS ca
+JOIN products AS p
+ON ca.product_id = p.product_id
+WHERE cart_id = 1;

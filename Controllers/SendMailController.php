@@ -1,10 +1,10 @@
 <?php
-include("class.phpmailer.php");
-include("class.smtp.php");
 
 if (isset($_POST["email"])) {
 
 
+    ini_set("smtp_port","587");
+    
     $to = $_POST["email"];
     $subject = "Recuperación de contraseña";
     $message = "<html><head></head><body><h1>Holis</h1></body></html>";
