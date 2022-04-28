@@ -97,16 +97,16 @@
 
                 <div class="p-5 bg-white rounded shadow-sm">
 
-                    <div class="text-center">
+                    <div class="text-center mb-4">
                         <h1 class="text-brown">Detalles de producto</h1>
                     </div>
 
-                    <hr>
+                    <hr class="mb-4">
 
                     <div class="row">
 
                         <div class="col-lg-6 p-5 align-self-center">
-                            <img src="Assets/Images/IMG001.jpg" class="img-fluid zoom" id="zoom" data-zoom-image="Assets/Images/IMG001.jpg">
+                            <img class="img-fluid zoom" id="zoom">
                         </div>
 
                         <!--div class="col-lg-6 p-5 align-self-center">
@@ -115,18 +115,26 @@
 
                         <div class="col-lg-6 p-5">
 
-                            <h2 class="font-weight-bold text-brown" id="name">Fresas con crema</h2>
-                            <h3 class="text-brown"><strong>Categoría:</strong><span id="category">Frutas</span></h3>
-                            <p class="h4 text-brown" id="price">$297.00 M.N</p>
+                            <h2 class="font-weight-bold text-brown" id="name"></h2>
+                            <h3 class="text-brown"><strong>Categoría:</strong><span id="category"></span></h3>
+                            <p class="h4 text-brown" id="price"></p>
+
+                            <div class="rating">
+                                <i class="rating__star far fa-star" id="1"></i>
+                                <i class="rating__star far fa-star" id="2"></i>
+                                <i class="rating__star far fa-star" id="3"></i>
+                                <i class="rating__star far fa-star" id="4"></i>
+                                <i class="rating__star far fa-star" id="5"></i>
+                          </div>
 
                             <hr>
 
                             <p class="font-weight-bold text-brown">Descripción:</p>
-                            <p class="text-brown">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
+                            <p class="text-brown text-justify">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
                         
                             <hr>
 
-                            <div class="form-group">
+                            <!--div class="form-group">
                             <label class="text-brown">Cantidad</label>
                             <div class="input-group">
                                 <div class="input-group-prepend">
@@ -137,7 +145,7 @@
                                     <input type="button" class="btn btn-outline-secondary" value="+">
                                 </div>
                             </div>
-                            </div>
+                            </div-->
 
                             <div class="form-group">
                                 <label class="text-brown">Cantidad</label>
@@ -309,7 +317,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js" integrity="sha512-37T7leoNS06R80c8Ulq7cdCDU5MNQBwlYoy1TX/WUsLFC2eYNqtKlV0QjH7r8JpG/S0GUMZwebnVFLPd6SU5yg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     
     <!-- Elevate Zoom -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/elevatezoom/2.2.3/jquery.elevatezoom.min.js" integrity="sha512-UH428GPLVbCa8xDVooDWXytY8WASfzVv3kxCvTAFkxD2vPjouf1I3+RJ2QcSckESsb7sI+gv3yhsgw9ZhM7sDw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script type="text/javascript" src="https://cdn.rawgit.com/igorlino/elevatezoom-plus/1.1.6/src/jquery.ez-plus.js"></script>
 
     <!-- Popper JS -->
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>

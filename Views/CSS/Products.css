@@ -20,3 +20,8 @@
     background-size: cover;
     background-repeat: no-repeat;
 }
+
+.rating__star {
+    cursor: pointer;
+    color: #dabd18b2;
+ }

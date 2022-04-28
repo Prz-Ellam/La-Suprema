@@ -66,7 +66,11 @@ $.ajax({
 
         $("#name").html(data.product.productName);
         $("#category").html(" " + data.product.categoryName);
-        $("#price").html(data.product.price);
+
+        $("#price").html(Intl.NumberFormat("en-US", {
+            style: "currency",
+            currency: "USD",
+        }).format(parseFloat(data.product.price)) + " M.N.");
         $("#zoom").attr("src", `Assets/Images/${data.product.image}`);
 
     }
@@ -144,13 +148,40 @@ $(document).ready(function() {
 
     });
 
-/*
-    $(".zoom").elevateZoom({
-        scrollZoom: true,
-        zoomLevel: 0.8,
+    const stars = [$(".rating__star")];
+
+$(".rating__star").click(function() {
+
+    //let position = $(this).position();
+    let starIndex = parseInt($(this)[0].id);
+
+    for (let i = starIndex; i > 0; i--) {
+        stars[0][i - 1].className = "rating__star fas fa-star";
+    }
+    for (let i = starIndex; i < 6; i++) {
+        stars[0][i].className = "rating__star far fa-star";
+    }
+
+
+});
+
+
+    $(".zoom").ezPlus({
+        zoomType: 'inner',
+        cursor: 'crosshair',
+        zoomWindowFadeIn: 500,
+        zoomWindowFadeOut: 500,
+        lensFadeIn: 500,
+        lensFadeOut: 500
+    }/*{
         zoomType: "inner",
-  cursor: "crosshair"
-    });
-*/
+        zoomLevel: 2,
+        cursor: "crosshair",
+        zoomWindowFadeIn: 500,
+		zoomWindowFadeOut: 500,
+		lensFadeIn: 500,
+		lensFadeOut: 500
+    }*/);
+
 
 })

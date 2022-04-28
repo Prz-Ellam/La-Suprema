@@ -66,12 +66,19 @@ $.ajax({
 
         for (let i = 0; i < items.length; i++) {
 
+            let finalPrice = parseFloat(items[i].price) - parseFloat(items[i].price) * parseFloat(items[i].discount);
+            let total = finalPrice * parseFloat(items[i].quantity);
+
+
+
+
+
             $("tbody").append(`
                 <tr id="${items[i].productId}">
                     <td style="width: 30%;" class="bg-white"><img src="Assets/Images/${items[i].image}" class="mr-3" height="100">${items[i].productName}</td>
-                    <td class="bg-white align-middle">$<span class="price">${parseFloat(items[i].price) - (parseFloat(items[i].price) * parseFloat(items[i].discount))}</span></td>
+                    <td class="bg-white align-middle">$<span class="price">${finalPrice}</span></td>
                     <td class="bg-white align-middle"><input type="number" value="${items[i].quantity}" min="1" max="100" class="form-control shadow-none w-50 quantity"></td>
-                    <td class="bg-white align-middle">$<span class="total">${(parseFloat(items[i].price) - (parseFloat(items[i].price) * parseFloat(items[i].discount))) * parseFloat(items[i].quantity)}</span> M.N</td>
+                    <td class="bg-white align-middle">$<span class="total">${total}</span> M.N</td>
                     <td class="bg-white align-middle"><span class="delete-item"><i class="fas fa-trash text-danger h3"></i></span></td>
                 </tr>
             `);

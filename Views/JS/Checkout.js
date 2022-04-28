@@ -150,6 +150,8 @@ $(document).ready(function(){
         duration: 600
     });
 
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+    
 });
 
 $(".previous").click(function(){
@@ -178,6 +180,8 @@ $(".previous").click(function(){
         },
         duration: 600
     });
+
+    window.scrollTo({ top: 0, behavior: 'smooth' })
 });
 
 $('.radio-group .radio').click(function(){
@@ -188,43 +192,6 @@ $('.radio-group .radio').click(function(){
 $(".submit").click(function(){
     return false;
 });
-
-
-const stars = [$(".rating__star")];
-/*
-stars.map((star) => {
-
-    $(star).mousemove(function() {
-
-        i = stars.indexOf(star);
-
-        alert(i);
-    })
-        
-})
-*/
-
-$(".rating__star").click(function() {
-
-    //let position = $(this).position();
-    let starIndex = parseInt($(this)[0].id);
-
-    for (let i = starIndex; i > 0; i--) {
-        stars[0][i - 1].className = "rating__star fas fa-star";
-    }
-    for (let i = starIndex; i < 6; i++) {
-        stars[0][i].className = "rating__star far fa-star";
-    }
-
-
-});
-
-
-
-
-
-
-
 
 
 });

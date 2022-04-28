@@ -7,3 +7,10 @@ table {
     width: 100%;
 }
 
+.fa-trash {
+    cursor: pointer;
+}
+
+.fa-trash:hover {
+    color: #C82333 !important;
+}

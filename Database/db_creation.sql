@@ -114,7 +114,8 @@ JOIN categories
 ON categories.category_id = products.category_id
 WHERE products.name LIKE CONCAT('%', _filter, '%')
 OR products.sounds_like LIKE CONCAT('%', _metaphone_filter, '%')
-OR categories.name LIKE CONCAT('%', _filter, '%');
+OR categories.name LIKE CONCAT('%', _filter, '%')
+LIMIT 10;
 
 END$$
 
@@ -497,7 +498,7 @@ END$$
 
 DELIMITER ;
 
-CALL sp_GetActiveCart(4);
+
 
 DELIMITER $$
 DROP PROCEDURE IF EXISTS sp_GetActiveCart;
@@ -612,7 +613,9 @@ END$$
 DELIMITER ;
 
 
-
+SELECT*FROM orders;
+SELECT*FROM shoppings;
+SELECT*FROM carts;
 
 DELIMITER $$
 DROP PROCEDURE IF EXISTS sp_CreateOrder;
@@ -653,17 +656,27 @@ END
 
 
 
-SELECT * FROM cart_items
-WHERE cart_id = 1;
 
-INSERT INTO orders(user_id)
-VALUES(_user_id);
- 
-SELECT LAST_INSERT_ID();
+DELIMITER $$
+DROP PROCEDURE IF EXISTS sp_GetCategoryProducts;
 
-INSERT INTO shoppings(order_id, product_id, quantity, amount)
-SELECT LAST_INSERT_ID(), ca.product_id, ca.quantity, (p.price - (p.price * IFNULL(p.discount, 0))) * ca.quantity
-FROM cart_items AS ca
-JOIN products AS p
-ON ca.product_id = p.product_id
-WHERE cart_id = 1;
+CREATE PROCEDURE sp_GetCategoryProducts(
+	_category_id				INT
+)
+BEGIN
+
+	SELECT 
+    		product_id,
+            name,
+            price,
+            IFNULL(discount, 0.0),
+            image
+	FROM
+    		products
+	WHERE
+    		category_id = _category_id AND active = TRUE;
+
+END$$
+
+DELIMITER ;
+

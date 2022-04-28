@@ -44,7 +44,9 @@ $.ajax({
         </li>
         <li class="nav-item">
             <a href="ShoppingCart.html" class="primary-nav-item nav-link text-white font-weight-bold">
-                <i class="fas fa-shopping-cart mr-1"></i>Carrito
+                <i class="fas fa-shopping-cart mr-1" style="position: relative">
+                <span class="badge badge-danger w-100 rounded-circle" style="position: absolute; top: -12px; right: -8px; font-size: 14px">0</span>
+                </i>Carrito
             </a>
         </li>
         <li class="nav-item">
@@ -70,7 +72,9 @@ $.ajax({
             </li>
             <li class="nav-item">
                 <a href="ShoppingCart.html" class="primary-nav-item nav-link text-white font-weight-bold">
-                    <i class="fas fa-shopping-cart mr-1"></i>Carrito
+                <i class="fas fa-shopping-cart mr-1" style="position: relative">
+                <span class="badge badge-danger w-100 rounded-circle" style="position: absolute; top: -12px; right: -8px; font-size: 14px">0</span>
+                </i>Carrito
                 </a>
             </li>
         `;
@@ -277,7 +281,31 @@ $(document).ready(function() {
         });
         
 
-    })
+    });
+
+    $("#search").autocomplete({
+        delay: 0,
+        source: function(request, response) {
+            $.ajax({
+                data: {term : request.term},
+                method: "GET",
+                dataType: "json",
+                url: '../Controllers/SearchBox.php',
+                success: function(data) {
+                    response(data);
+                }
+            });
+        },
+        minLength: 1,
+        open: function(){
+            setTimeout(function () {
+                $('.ui-autocomplete').css('z-index', 99999999999999);
+            }, 0);
+        },
+        select: function(event, ui) {
+            alert("Selecciono: " + ui.item.label);
+        }
+    });
 
     $('.start-shop').on('click', function() {
 

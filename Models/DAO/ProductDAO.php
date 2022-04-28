@@ -7,7 +7,7 @@ require_once($_SERVER['DOCUMENT_ROOT']."/La-Suprema/Models/ViewModels/ProductVie
 class ProductDAO {
 
     private $create, $update, $delete, $readAll, $sellers, $recomendations, $shoppingsCount, $productFilter,
-    $offerProducts, $getProduct;
+    $offerProducts, $getProduct, $categoryProducts;
     private $mainConnection;
 
     public function __construct() {
@@ -21,6 +21,7 @@ class ProductDAO {
         $this->productFilter = "CALL sp_ProductsFilter(?, ?)";
         $this->offerProducts = "CALL sp_GetOfferProducts()";
         $this->getProductQuery = "CALL sp_GetProduct(?)";
+        $this->categoryProducts = "CALL sp_GetCategoryProducts(?)";
 
     }
 
@@ -173,6 +174,13 @@ class ProductDAO {
         }
 
         return null;
+
+    }
+
+    public function getCategoryProducts($categoryId) {
+
+        
+
 
     }
 
